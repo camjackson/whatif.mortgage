@@ -60,13 +60,12 @@ const Graph = ({
 
   const years = [];
   for (let yearIndex = 1; yearIndex <= loanLengthInYears; yearIndex++) {
-    const beforeFirstMonth = (yearIndex - 1) * 12;
-    const afterLastMonth = yearIndex * 12;
+    const beforeFirstMonth = (yearIndex - 1) * 12 + 1;
+    const afterLastMonth = yearIndex * 12 + 1;
     const relevantMonths = months.slice(beforeFirstMonth, afterLastMonth);
 
     years.push(LoanPeriod.sumPeriods(relevantMonths));
   }
-  console.log('YEARS', years);
 
   return (
     <table>
