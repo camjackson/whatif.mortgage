@@ -1,20 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const Label = styled.label`
-  display: block;
-`;
-
-const BlurryTextInput = ({ label, defaultValue, onChange }) => (
-  <Label>
-    {label}:{' '}
-    <input
-      type="text"
-      defaultValue={defaultValue}
-      onBlur={event => onChange(event.target.value)}
-    />
-  </Label>
-);
+import BlurryTextInput from './BlurryTextInput';
 
 const Params = ({
   loanAmount,
@@ -24,28 +9,29 @@ const Params = ({
   setLoanAmount,
   setAnnualInterestRate,
   setLoanLengthInYears,
-  setMonthlyRepayments,
 }) => (
   <section>
     <BlurryTextInput
-      label="Loan amount"
+      label="Loan amount: $"
       defaultValue={loanAmount}
-      onChange={setLoanAmount}
+      onBlur={setLoanAmount}
     />
     <BlurryTextInput
-      label="Interest rate"
+      label="Interest rate:"
+      labelAfter=" % p.a."
       defaultValue={annualInterestRate}
-      onChange={setAnnualInterestRate}
+      onBlur={setAnnualInterestRate}
     />
     <BlurryTextInput
-      label="Loan length (years)"
+      label="Loan length:"
+      labelAfter=" years"
       defaultValue={loanLengthInYears}
-      onChange={setLoanLengthInYears}
+      onBlur={setLoanLengthInYears}
     />
     <BlurryTextInput
       label="Monthly repayments"
       defaultValue={monthlyRepayments}
-      onChange={setMonthlyRepayments}
+      readOnly
     />
   </section>
 );

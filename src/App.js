@@ -1,46 +1,44 @@
 import React, { useState } from 'react';
-import Params from './Params';
-import Graph from './Graph';
+import { createGlobalStyle } from 'styled-components';
+import InitialInput from './InitialInput';
+import NormalApp from './NormalApp';
 
-const calculateRepayment = (p, r, n) => {
-  const onePlusRToTheN = Math.pow(1 + r, n);
-  const numerator = r * onePlusRToTheN;
-  const denominator = onePlusRToTheN - 1;
-
-  return p * (numerator / denominator);
-};
+const GlobalStyles = createGlobalStyle`
+  html, body, #root {
+    height: 100%
+    border: 0;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }
+`;
 
 const App = () => {
-  const [loanAmount, setLoanAmount] = useState(500000);
-  const [annualInterestRate, setAnnualInterestRate] = useState(3.6);
-  const [loanLengthInYears, setLoanLengthInYears] = useState(30);
-  const [monthlyRepayments, setMonthlyRepayments] = useState(
-    calculateRepayment(
-      loanAmount,
-      annualInterestRate / 100 / 12,
-      loanLengthInYears * 12,
-    ),
-  );
+  const [isInitialInput, setIsInitialInput] = useState(true);
+  const finishInitialInput = () => setIsInitialInput(false);
+
+  const [values, setValues] = useState({
+    loanAmount: 500000,
+    annualInterestRate: 4.99,
+    loanLengthInYears: 30,
+  });
+  const setValue = key => event => {
+    setValues({ ...values, [key]: event.target.value });
+  };
 
   return (
-    <main className="App">
-      <Params
-        loanAmount={loanAmount}
-        annualInterestRate={annualInterestRate}
-        loanLengthInYears={loanLengthInYears}
-        monthlyRepayments={monthlyRepayments}
-        setLoanAmount={setLoanAmount}
-        setAnnualInterestRate={setAnnualInterestRate}
-        setLoanLengthInYears={setLoanLengthInYears}
-        setMonthlyRepayments={setMonthlyRepayments}
-      />
-      <Graph
-        loanAmount={loanAmount}
-        annualInterestRate={annualInterestRate}
-        loanLengthInYears={loanLengthInYears}
-        monthlyRepayments={monthlyRepayments}
-      />
-    </main>
+    <>
+      <GlobalStyles />
+      {isInitialInput ? (
+        <InitialInput
+          {...values}
+          setValue={setValue}
+          finishInitialInput={finishInitialInput}
+        />
+      ) : (
+        <NormalApp {...values} setValue={setValue} />
+      )}
+    </>
   );
 };
 
