@@ -1,5 +1,3 @@
-import React from 'react';
-
 class LoanPeriod {
   constructor(startingPrincipal, periodicInterestRate, repayment) {
     this.interestPaid = (startingPrincipal * periodicInterestRate) / 100;
@@ -27,20 +25,12 @@ class LoanPeriod {
   }
 }
 
-const formatOpts = {
-  style: 'currency',
-  currency: 'USD',
-  minimumFractionDigits: 0,
-  maximumFractionDigits: 0,
-};
-const format = number => number.toLocaleString(undefined, formatOpts);
-
-const Graph = ({
+const calculateLoanPeriods = (
   loanAmount,
   annualInterestRate,
   loanLengthInYears,
   monthlyRepayments,
-}) => {
+) => {
   const monthlyInterestRate = annualInterestRate / 12;
   const numberOfMonths = loanLengthInYears * 12;
   const months = [];
@@ -67,28 +57,7 @@ const Graph = ({
     years.push(LoanPeriod.sumPeriods(relevantMonths));
   }
 
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>After year</th>
-          <th>Interest paid</th>
-          <th>Principal paid</th>
-          <th>Principal remaining</th>
-        </tr>
-      </thead>
-      <tbody>
-        {years.map((year, index) => (
-          <tr key={index}>
-            <td>{index + 1}</td>
-            <td>{format(year.interestPaid)}</td>
-            <td>{format(year.principalPaid)}</td>
-            <td>{format(year.endingPrincipal)}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+  return { months, years };
 };
 
-export default Graph;
+export default calculateLoanPeriods;

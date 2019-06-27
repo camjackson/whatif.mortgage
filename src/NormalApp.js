@@ -1,6 +1,6 @@
 import React from 'react';
 import Params from './Params';
-import Graph from './Graph';
+import RepaymentsData from './RepaymentsData';
 
 const calculateRepayment = (p, r, n) => {
   const onePlusRToTheN = Math.pow(1 + r, n);
@@ -33,7 +33,7 @@ const NormalApp = ({
         setAnnualInterestRate={setValue('loanLengthInYears')}
         setLoanLengthInYears={setValue('monthlyRepayments')}
       />
-      <Graph
+      <RepaymentsData
         loanAmount={loanAmount}
         annualInterestRate={annualInterestRate}
         loanLengthInYears={loanLengthInYears}
