@@ -1,25 +1,39 @@
 class LoanPeriod {
-  constructor(startingPrincipal, periodicInterestRate, repayment) {
-    this.interestPaid = (startingPrincipal * periodicInterestRate) / 100;
-    this.principalPaid = repayment - this.interestPaid;
-    this.endingPrincipal = startingPrincipal - this.principalPaid;
+  constructor(interestPaid, principalPaid, endingPrincipal) {
+    this.interestPaid = interestPaid;
+    this.principalPaid = principalPaid;
+    this.endingPrincipal = endingPrincipal;
+  }
+
+  static calculate(startingPrincipal, periodicInterestRate, repayment) {
+    const interestPaid = (startingPrincipal * periodicInterestRate) / 100;
+    const principalPaid = repayment - interestPaid;
+    const endingPrincipal = startingPrincipal - principalPaid;
+
+    return new LoanPeriod(interestPaid, principalPaid, endingPrincipal);
   }
 
   createNextLoanPeriod(periodicInterestRate, repayment) {
-    return new LoanPeriod(
+    return LoanPeriod.calculate(
       this.endingPrincipal,
       periodicInterestRate,
       repayment,
     );
   }
 
+  getTotal() {
+    return this.interestPaid + this.principalPaid + this.endingPrincipal;
+  }
+
   static sumPeriods(periods) {
     return periods.reduce(
-      (sum, period) => ({
-        interestPaid: sum.interestPaid + period.interestPaid,
-        principalPaid: sum.principalPaid + period.principalPaid,
-        endingPrincipal: period.endingPrincipal,
-      }),
+      (sum, period) => {
+        return new LoanPeriod(
+          sum.interestPaid + period.interestPaid,
+          sum.principalPaid + period.principalPaid,
+          period.endingPrincipal,
+        );
+      },
       { interestPaid: 0, principalPaid: 0 },
     );
   }
@@ -36,7 +50,7 @@ const calculateLoanPeriods = (
   const months = [];
 
   // Month 0 is just the starting state
-  months.push(new LoanPeriod(loanAmount, 0, 0));
+  months.push(LoanPeriod.calculate(loanAmount, 0, 0));
 
   // Month 1 tells us how much we owe after the first month's payment
   for (let i = 1; i <= numberOfMonths; i++) {
