@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import RepaymentsTable from './RepaymentsTable';
-import RepaymentsGraph from './RepaymentsGraph';
+import RepaymentsGraph from './graph/RepaymentsGraph';
 import calculateLoanPeriods from './calculateLoanPeriods';
 
 const Section = styled.section`
