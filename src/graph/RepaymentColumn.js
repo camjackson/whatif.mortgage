@@ -31,7 +31,14 @@ const InterestPaidRect = styled.rect`
   fill: green;
 `;
 
-const RepaymentColumn = ({ graphMaxValue, yearData, x, width }) => {
+const RepaymentColumn = ({
+  graphMaxValue,
+  yearData,
+  x,
+  width,
+  onMouseEnter,
+  onMouseLeave,
+}) => {
   const endingPrincipalHeight =
     (yearData.endingPrincipal / graphMaxValue) * 100;
   const endingPrincipalY = 100 - endingPrincipalHeight;
@@ -42,25 +49,29 @@ const RepaymentColumn = ({ graphMaxValue, yearData, x, width }) => {
   const interestPaidHeight = (yearData.interestPaid / graphMaxValue) * 100;
   const interestPaidY = principalPaidY - interestPaidHeight;
 
+  const commonProps = {
+    x,
+    width,
+    onMouseEnter,
+    onMouseLeave,
+  };
+
   return (
     <>
       <EndingPrincipalRect
-        x={x}
+        {...commonProps}
         y={`${endingPrincipalY}%`}
         height={`${endingPrincipalHeight}%`}
-        width={width}
       />
       <PrincipalPaidRect
-        x={x}
+        {...commonProps}
         y={`${principalPaidY}%`}
         height={`${principalPaidHeight}%`}
-        width={width}
       />
       <InterestPaidRect
-        x={x}
+        {...commonProps}
         y={`${interestPaidY}%`}
         height={`${interestPaidHeight}%`}
-        width={width}
       />
     </>
   );

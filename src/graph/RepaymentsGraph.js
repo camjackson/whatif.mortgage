@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RepaymentColumn from './RepaymentColumn';
+import HoverBox from './HoverBox';
 
 const graphWidthPx = 1000;
 const graphHeightPx = 500;
 
 const RepaymentsGraph = ({ years, loanAmount }) => {
+  const [hoveredYear, setHoveredYear] = useState(null);
+  const noHover = () => setHoveredYear(null);
+
   // In the early years, the graph numbers go higher than the initial principal
   const graphMaxValue = years[0].getTotal();
   const columnWidth = 100 / years.length;
@@ -19,8 +23,18 @@ const RepaymentsGraph = ({ years, loanAmount }) => {
           yearData={yearData}
           width={`${columnWidth}%`}
           x={`${index * columnWidth}%`}
+          onMouseEnter={() => setHoveredYear(index)}
+          onMouseLeave={noHover}
         />
       ))}
+      {hoveredYear !== null && (
+        <HoverBox
+          yearData={years[hoveredYear]}
+          yearNumber={hoveredYear + 1}
+          graphWidthPx={graphWidthPx}
+          graphHeightPx={graphHeightPx}
+        />
+      )}
     </svg>
   );
 };
@@ -34,3 +48,5 @@ export default RepaymentsGraph;
 // - Better colours
 // - Outlines?
 // - Hover box with exact numbers
+// - Click on column to lock the hover
+// - Hover box follows the mouse

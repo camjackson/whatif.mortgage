@@ -1,13 +1,5 @@
 import React from 'react';
-
-const formatOpts = {
-  style: 'currency',
-  currency: 'USD',
-  minimumFractionDigits: 0,
-  maximumFractionDigits: 0,
-};
-
-const format = number => number.toLocaleString(undefined, formatOpts);
+import formatCurrency from './formatCurrency';
 
 const RepaymentsTable = ({ years }) => (
   <table>
@@ -23,9 +15,9 @@ const RepaymentsTable = ({ years }) => (
       {years.map((year, index) => (
         <tr key={index}>
           <td>{index + 1}</td>
-          <td>{format(year.interestPaid)}</td>
-          <td>{format(year.principalPaid)}</td>
-          <td>{format(year.endingPrincipal)}</td>
+          <td>{formatCurrency(year.interestPaid)}</td>
+          <td>{formatCurrency(year.principalPaid)}</td>
+          <td>{formatCurrency(year.endingPrincipal)}</td>
         </tr>
       ))}
     </tbody>
