@@ -1,1 +1,3 @@
-## What if I...?
+## whatif.mortgage?
+
+Mortgage scenario calculator and comparer.

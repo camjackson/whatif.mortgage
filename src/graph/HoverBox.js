@@ -13,7 +13,7 @@ const Box = styled.rect`
 
 const textMargin = 10;
 const textHeight = 16;
-const lineHeight = 20; // Idk why this needs to be so large
+const lineHeight = 20;
 const Text = styled.text`
   dominant-baseline: hanging;
   font-size: ${textHeight}px;
@@ -26,8 +26,8 @@ const HoverBox = ({
   yearData,
   yearNumber,
 }) => {
-  const boxX = mouseCoords.x + 20;
-  const boxY = mouseCoords.y - 20;
+  const boxX = mouseCoords.x + mouseOffset;
+  const boxY = mouseCoords.y - mouseOffset;
   const textX = boxX + textMargin;
   const textY = boxY + textMargin;
 
