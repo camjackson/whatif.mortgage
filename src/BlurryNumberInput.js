@@ -3,25 +3,32 @@ import styled from 'styled-components';
 
 const Label = styled.label`
   display: block;
+  font-size: 30px;
 `;
 
-const BlurryTextInput = ({
+const Input = styled.input`
+  font-size: inherit;
+`;
+
+const BlurryNumberInput = ({
   label,
   labelAfter,
   defaultValue,
+  value,
   onBlur,
   readOnly,
 }) => (
   <Label>
     {label}
-    <input
-      type="text"
+    <Input
+      type="number"
       defaultValue={defaultValue}
-      onBlur={readOnly ? null : event => onBlur(event.target.value)}
+      value={value}
+      onBlur={readOnly ? null : onBlur}
       readOnly={readOnly}
     />
     {labelAfter}
   </Label>
 );
 
-export default BlurryTextInput;
+export default BlurryNumberInput;

@@ -1,5 +1,5 @@
 import React from 'react';
-import BlurryTextInput from './BlurryTextInput';
+import BlurryNumberInput from './BlurryNumberInput';
 
 const Params = ({
   loanAmount,
@@ -11,26 +11,26 @@ const Params = ({
   setLoanLengthInYears,
 }) => (
   <section>
-    <BlurryTextInput
+    <BlurryNumberInput
       label="Loan amount: $"
       defaultValue={loanAmount}
       onBlur={setLoanAmount}
     />
-    <BlurryTextInput
+    <BlurryNumberInput
       label="Interest rate:"
       labelAfter=" % p.a."
       defaultValue={annualInterestRate}
       onBlur={setAnnualInterestRate}
     />
-    <BlurryTextInput
+    <BlurryNumberInput
       label="Loan length:"
       labelAfter=" years"
       defaultValue={loanLengthInYears}
       onBlur={setLoanLengthInYears}
     />
-    <BlurryTextInput
+    <BlurryNumberInput
       label="Monthly repayments"
-      defaultValue={monthlyRepayments}
+      value={monthlyRepayments}
       readOnly
     />
   </section>

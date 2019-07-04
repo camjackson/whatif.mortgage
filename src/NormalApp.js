@@ -29,9 +29,9 @@ const NormalApp = ({
         annualInterestRate={annualInterestRate}
         loanLengthInYears={loanLengthInYears}
         monthlyRepayments={monthlyRepayments}
-        setLoanAmount={setValue('annualInterestRate')}
-        setAnnualInterestRate={setValue('loanLengthInYears')}
-        setLoanLengthInYears={setValue('monthlyRepayments')}
+        setLoanAmount={setValue('loanAmount')}
+        setAnnualInterestRate={setValue('annualInterestRate')}
+        setLoanLengthInYears={setValue('loanLengthInYears')}
       />
       <RepaymentsData
         loanAmount={loanAmount}

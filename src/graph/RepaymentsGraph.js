@@ -37,7 +37,7 @@ const RepaymentsGraph = ({ years, loanAmount }) => {
           onMouseEnter={() => setHoveredYear(index)}
         />
       ))}
-      {hoveredYear !== null && (
+      {hoveredYear !== null && hoveredYear < years.length && (
         <HoverBox
           mouseCoords={mouseCoords}
           yearData={years[hoveredYear]}
@@ -51,13 +51,3 @@ const RepaymentsGraph = ({ years, loanAmount }) => {
 };
 
 export default RepaymentsGraph;
-
-// Graph todo:
-// - Legend
-// - Axis labels and values
-// - Horizontal line showing starting principal
-// - Better colours
-// - Outlines?
-// - Hover box with exact numbers
-// - Click on column to lock the hover
-// - Hover box follows the mouse
