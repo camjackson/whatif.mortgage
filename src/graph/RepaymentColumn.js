@@ -37,7 +37,6 @@ const RepaymentColumn = ({
   x,
   width,
   onMouseEnter,
-  onMouseLeave,
 }) => {
   const endingPrincipalHeight =
     (yearData.endingPrincipal / graphMaxValue) * 100;
@@ -53,7 +52,6 @@ const RepaymentColumn = ({
     x,
     width,
     onMouseEnter,
-    onMouseLeave,
   };
 
   return (

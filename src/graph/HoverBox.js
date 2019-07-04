@@ -4,7 +4,7 @@ import formatCurrency from '../formatCurrency';
 
 const boxWidth = 250;
 const boxHeight = 95;
-const margin = 20;
+const mouseOffset = 20;
 
 const Box = styled.rect`
   fill: white;
@@ -19,9 +19,15 @@ const Text = styled.text`
   font-size: ${textHeight}px;
 `;
 
-const HoverBox = ({ graphWidthPx, graphHeightPx, yearData, yearNumber }) => {
-  const boxX = graphWidthPx - boxWidth - margin;
-  const boxY = margin;
+const HoverBox = ({
+  mouseCoords,
+  graphWidthPx,
+  graphHeightPx,
+  yearData,
+  yearNumber,
+}) => {
+  const boxX = mouseCoords.x + 20;
+  const boxY = mouseCoords.y - 20;
   const textX = boxX + textMargin;
   const textY = boxY + textMargin;
 
