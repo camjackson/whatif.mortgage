@@ -17,6 +17,9 @@ const BlurryNumberInput = ({
   value,
   onBlur,
   readOnly,
+  min,
+  max,
+  step,
 }) => (
   <Label>
     {label}
@@ -26,6 +29,9 @@ const BlurryNumberInput = ({
       value={value}
       onBlur={readOnly ? null : onBlur}
       readOnly={readOnly}
+      min={min}
+      max={max}
+      step={step}
     />
     {labelAfter}
   </Label>

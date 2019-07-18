@@ -13,3 +13,4 @@ Mortgage scenario calculator and comparer.
 - Click on column to lock the hover
 - Hover box follows the mouse
 - Total interest over the life of the loan
+- Don't use blurry stuff and just fix up those inputs in general
