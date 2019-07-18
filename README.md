@@ -6,11 +6,12 @@ Mortgage scenario calculator and comparer.
 
 - Legend
 - Axis labels and values
+- Grid lines
 - Horizontal line showing starting principal
 - Better colours
 - Outlines?
-- Hover box with exact numbers
 - Click on column to lock the hover
+- Highlight selected column
 - Hover box follows the mouse
-- Total interest over the life of the loan
 - Don't use blurry stuff and just fix up those inputs in general
+- Typescript

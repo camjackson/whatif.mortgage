@@ -2,10 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import RepaymentsTable from './RepaymentsTable';
 import RepaymentsGraph from './graph/RepaymentsGraph';
+import RepaymentsStats from './RepaymentsStats';
 import calculateLoanPeriods from './calculateLoanPeriods';
 
 const Section = styled.section`
   display: flex;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const RepaymentsData = ({
@@ -14,7 +20,7 @@ const RepaymentsData = ({
   loanLengthInYears,
   monthlyRepayments,
 }) => {
-  const { years } = calculateLoanPeriods(
+  const { years, stats } = calculateLoanPeriods(
     loanAmount,
     annualInterestRate,
     loanLengthInYears,
@@ -23,7 +29,10 @@ const RepaymentsData = ({
   return (
     <Section>
       <RepaymentsTable years={years} />
-      <RepaymentsGraph years={years} loanAmount={loanAmount} />
+      <Column>
+        <RepaymentsGraph years={years} loanAmount={loanAmount} />
+        <RepaymentsStats stats={stats} />
+      </Column>
     </Section>
   );
 };
