@@ -1,9 +1,9 @@
 class LoanPeriod {
-  constructor(interestPaid, principalPaid, endingPrincipal) {
-    this.interestPaid = interestPaid;
-    this.principalPaid = principalPaid;
-    this.endingPrincipal = endingPrincipal;
-  }
+  constructor(
+    public interestPaid: number,
+    public principalPaid: number,
+    public endingPrincipal: number,
+  ) {}
 
   static calculate(startingPrincipal, periodicInterestRate, repayment) {
     const interestPaid = (startingPrincipal * periodicInterestRate) / 100;
@@ -47,7 +47,7 @@ const calculateLoanPeriods = (
 ) => {
   const monthlyInterestRate = annualInterestRate / 12;
   const numberOfMonths = loanLengthInYears * 12;
-  const months = [];
+  const months: LoanPeriod[] = [];
   const stats = {
     totalInterestPaid: 0,
     totalAmountPaid: 0,
@@ -67,7 +67,7 @@ const calculateLoanPeriods = (
     stats.totalAmountPaid += month.interestPaid + month.principalPaid;
   }
 
-  const years = [];
+  const years: LoanPeriod[] = [];
   for (let yearIndex = 1; yearIndex <= loanLengthInYears; yearIndex++) {
     const beforeFirstMonth = (yearIndex - 1) * 12 + 1;
     const afterLastMonth = yearIndex * 12 + 1;

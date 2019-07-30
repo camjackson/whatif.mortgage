@@ -15,7 +15,7 @@ const GlobalStyles = createGlobalStyle`
 
 const cachedInitialValues = (() => {
   try {
-    const parsed = JSON.parse(localStorage.getItem('values'));
+    const parsed = JSON.parse(localStorage.getItem('values') || '');
     if (
       parsed.loanAmount &&
       parsed.annualInterestRate &&

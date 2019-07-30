@@ -10,16 +10,17 @@ const Input = styled.input`
   font-size: inherit;
 `;
 
+// TODO: Cleanup
 const BlurryNumberInput = ({
   label,
-  labelAfter,
-  defaultValue,
-  value,
-  onBlur,
-  readOnly,
-  min,
-  max,
-  step,
+  labelAfter = undefined,
+  defaultValue = undefined,
+  value = undefined,
+  onBlur = undefined,
+  readOnly = false,
+  min = undefined,
+  max = undefined,
+  step = undefined,
 }) => (
   <Label>
     {label}

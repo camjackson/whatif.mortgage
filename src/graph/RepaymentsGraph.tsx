@@ -7,15 +7,16 @@ const graphHeightPx = 500;
 
 const RepaymentsGraph = ({ years, loanAmount }) => {
   const [hoveredYear, setHoveredYear] = useState(null);
-  const [mouseCoords, setMouseCoords] = useState({ x: null, y: null });
-  const svgRef = useRef(null);
+  const [mouseCoords, setMouseCoords] = useState({ x: -1, y: -1 });
+  const svgRef = useRef<SVGSVGElement>(null);
 
   // In the early years, the graph numbers go higher than the initial principal
   const graphMaxValue = years[0].getTotal();
   const columnWidth = 100 / years.length;
 
   const trackMouseCoords = e => {
-    const { x: svgX, y: svgY } = svgRef.current.getBoundingClientRect();
+    const svg = (svgRef as any).current;
+    const { x: svgX, y: svgY } = svg.getBoundingClientRect();
     setMouseCoords({ x: e.clientX - svgX, y: e.clientY - svgY });
   };
 
