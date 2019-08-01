@@ -43,8 +43,6 @@ const RepaymentsGraph = ({ years, loanAmount }) => {
           mouseCoords={mouseCoords}
           yearData={years[hoveredYear]}
           yearNumber={hoveredYear + 1}
-          graphWidthPx={graphWidthPx}
-          graphHeightPx={graphHeightPx}
         />
       )}
     </svg>

@@ -1,4 +1,4 @@
-class LoanPeriod {
+export class LoanPeriod {
   constructor(
     public interestPaid: number,
     public principalPaid: number,
