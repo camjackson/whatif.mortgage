@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { FunctionComponent as FC } from 'react';
 import styled from 'styled-components';
+import { LoanPeriod } from '../calculateLoanPeriods';
 
 // -----
 // |   |
@@ -31,7 +32,15 @@ const InterestPaidRect = styled.rect`
   fill: green;
 `;
 
-const RepaymentColumn = ({
+type Props = {
+  graphMaxValue: number;
+  yearData: LoanPeriod;
+  x: string; // Percentage
+  width: string; // Percentage
+  onMouseEnter: (e) => any;
+};
+
+const RepaymentColumn: FC<Props> = ({
   graphMaxValue,
   yearData,
   x,
