@@ -1,5 +1,8 @@
-import '@testing-library/react/cleanup-after-each';
-import '@testing-library/jest-dom/extend-expect';
-import { render } from '@testing-library/react';
+import 'jest-enzyme';
+import { configure, shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-global.render = render;
+configure({ adapter: new Adapter() });
+
+global.shallow = shallow;
+global.mount = mount;
