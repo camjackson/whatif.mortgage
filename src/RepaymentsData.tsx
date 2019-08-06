@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import RepaymentsTable from './RepaymentsTable';
 import RepaymentsGraph from './graph/RepaymentsGraph';
 import RepaymentsStats from './RepaymentsStats';
-import calculateLoanPeriods from './calculateLoanPeriods';
+import calculateLoanPeriods from './math/calculateLoanPeriods';
 
 const Section = styled.section`
   display: flex;

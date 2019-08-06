@@ -1,7 +1,7 @@
 import React, { FunctionComponent as FC } from 'react';
 import styled from 'styled-components';
 import formatCurrency from '../formatCurrency';
-import { LoanPeriod } from '../calculateLoanPeriods';
+import LoanPeriod from '../math/LoanPeriod';
 
 const boxWidth = 250;
 const boxHeight = 95;

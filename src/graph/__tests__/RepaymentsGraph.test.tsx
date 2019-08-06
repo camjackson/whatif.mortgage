@@ -3,7 +3,7 @@ import { act } from 'react-dom/test-utils';
 import RepaymentsGraph from '../RepaymentsGraph';
 import RepaymentColumn from '../RepaymentColumn';
 import HoverBox from '../HoverBox';
-import { LoanPeriod } from '../../calculateLoanPeriods';
+import LoanPeriod from '../../math/LoanPeriod';
 
 describe('RepaymentsGraph', () => {
   const years: LoanPeriod[] = [

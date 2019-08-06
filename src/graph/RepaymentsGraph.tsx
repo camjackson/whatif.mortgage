@@ -1,7 +1,7 @@
 import React, { useState, useRef, FunctionComponent as FC } from 'react';
 import RepaymentColumn from './RepaymentColumn';
 import HoverBox from './HoverBox';
-import { LoanPeriod } from '../calculateLoanPeriods';
+import LoanPeriod from '../math/LoanPeriod';
 
 const graphWidthPx = 1000;
 const graphHeightPx = 500;

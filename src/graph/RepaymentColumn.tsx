@@ -1,6 +1,6 @@
 import React, { FunctionComponent as FC } from 'react';
 import styled from 'styled-components';
-import { LoanPeriod } from '../calculateLoanPeriods';
+import LoanPeriod from '../math/LoanPeriod';
 
 // -----
 // |   |
