@@ -1,11 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, FunctionComponent as FC } from 'react';
 import RepaymentColumn from './RepaymentColumn';
 import HoverBox from './HoverBox';
+import { LoanPeriod } from '../calculateLoanPeriods';
 
 const graphWidthPx = 1000;
 const graphHeightPx = 500;
 
-const RepaymentsGraph = ({ years, loanAmount }) => {
+type Props = {
+  years: LoanPeriod[];
+  loanAmount: number;
+};
+
+const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
   const [hoveredYear, setHoveredYear] = useState(null);
   const [mouseCoords, setMouseCoords] = useState({ x: -1, y: -1 });
   const svgRef = useRef<SVGSVGElement>(null);
