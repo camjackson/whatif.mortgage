@@ -5,7 +5,12 @@ export default class LoanPeriod {
     public endingPrincipal: number,
   ) {}
 
-  static calculate(startingPrincipal, periodicInterestRate, repayment) {
+  // TODO: Make this private
+  static calculate(
+    startingPrincipal: number,
+    periodicInterestRate: number,
+    repayment: number,
+  ): LoanPeriod {
     const interestPaid = (startingPrincipal * periodicInterestRate) / 100;
     const principalPaid = repayment - interestPaid;
     const endingPrincipal = startingPrincipal - principalPaid;
@@ -13,28 +18,21 @@ export default class LoanPeriod {
     return new LoanPeriod(interestPaid, principalPaid, endingPrincipal);
   }
 
-  createNextLoanPeriod(periodicInterestRate, repayment) {
-    return LoanPeriod.calculate(
-      this.endingPrincipal,
-      periodicInterestRate,
-      repayment,
-    );
+  createNextLoanPeriod(periodicInterestRate: number, repayment: number): LoanPeriod {
+    return LoanPeriod.calculate(this.endingPrincipal, periodicInterestRate, repayment);
   }
 
-  getTotal() {
+  getTotal(): number {
     return this.interestPaid + this.principalPaid + this.endingPrincipal;
   }
 
-  static sumPeriods(periods) {
-    return periods.reduce(
-      (sum, period) => {
-        return new LoanPeriod(
-          sum.interestPaid + period.interestPaid,
-          sum.principalPaid + period.principalPaid,
-          period.endingPrincipal,
-        );
-      },
-      { interestPaid: 0, principalPaid: 0 },
-    );
+  static sumPeriods(periods: LoanPeriod[]): LoanPeriod {
+    return periods.reduce((sum, period) => {
+      return new LoanPeriod(
+        sum.interestPaid + period.interestPaid,
+        sum.principalPaid + period.principalPaid,
+        period.endingPrincipal,
+      );
+    }, new LoanPeriod(0, 0, 0));
   }
 }
