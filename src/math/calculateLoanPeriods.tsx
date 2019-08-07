@@ -1,11 +1,22 @@
 import LoanPeriod from './LoanPeriod';
 
+type SummaryStats = {
+  totalInterestPaid: number;
+  totalAmountPaid: number;
+};
+
+type FullStats = {
+  months: LoanPeriod[];
+  years: LoanPeriod[];
+  stats: SummaryStats;
+};
+
 const calculateLoanPeriods = (
-  loanAmount,
-  annualInterestRate,
-  loanLengthInYears,
-  monthlyRepayments,
-) => {
+  loanAmount: number,
+  annualInterestRate: number,
+  loanLengthInYears: number,
+  monthlyRepayments: number,
+): FullStats => {
   const monthlyInterestRate = annualInterestRate / 12;
   const numberOfMonths = loanLengthInYears * 12;
   const months: LoanPeriod[] = [];
@@ -14,15 +25,12 @@ const calculateLoanPeriods = (
     totalAmountPaid: 0,
   };
 
-  // Month 0 is just the starting state
-  months.push(LoanPeriod.calculate(loanAmount, 0, 0));
+  // Month 0 is just the initial state
+  months.push(new LoanPeriod(0, 0, loanAmount));
 
   // Month 1 tells us how much we owe after the first month's payment
   for (let i = 1; i <= numberOfMonths; i++) {
-    const month = months[i - 1].createNextLoanPeriod(
-      monthlyInterestRate,
-      monthlyRepayments,
-    );
+    const month = months[i - 1].createNextLoanPeriod(monthlyInterestRate, monthlyRepayments);
     months.push(month);
     stats.totalInterestPaid += month.interestPaid;
     stats.totalAmountPaid += month.interestPaid + month.principalPaid;

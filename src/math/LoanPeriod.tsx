@@ -5,8 +5,7 @@ export default class LoanPeriod {
     public endingPrincipal: number,
   ) {}
 
-  // TODO: Make this private
-  static calculate(
+  private static calculate(
     startingPrincipal: number,
     periodicInterestRate: number,
     repayment: number,

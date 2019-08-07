@@ -5,14 +5,6 @@ describe('LoanPeriod', () => {
   const interestRate = 4.5;
   const repayment = 120;
 
-  it('can calculate a period based on mortgage information', () => {
-    const period = LoanPeriod.calculate(startingPrincipal, interestRate, repayment);
-
-    expect(period.interestPaid).toEqual(45);
-    expect(period.principalPaid).toEqual(75);
-    expect(period.endingPrincipal).toEqual(925);
-  });
-
   it('can construct the next period from the previous period', () => {
     const periodZero = new LoanPeriod(0, 0, 1000);
 
