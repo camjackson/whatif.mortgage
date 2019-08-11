@@ -1,6 +1,6 @@
 import LoanPeriod from './LoanPeriod';
 
-type SummaryStats = {
+export type SummaryStats = {
   totalInterestPaid: number;
   totalAmountPaid: number;
 };
@@ -30,7 +30,10 @@ const calculateLoanPeriods = (
 
   // Month 1 tells us how much we owe after the first month's payment
   for (let i = 1; i <= numberOfMonths; i++) {
-    const month = months[i - 1].createNextLoanPeriod(monthlyInterestRate, monthlyRepayments);
+    const month = months[i - 1].createNextLoanPeriod(
+      monthlyInterestRate,
+      monthlyRepayments,
+    );
     months.push(month);
     stats.totalInterestPaid += month.interestPaid;
     stats.totalAmountPaid += month.interestPaid + month.principalPaid;

@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { FunctionComponent as FC } from 'react';
 import formatCurrency from './formatCurrency';
+import LoanPeriod from './math/LoanPeriod';
 
-const RepaymentsTable = ({ years }) => (
+type Props = {
+  years: LoanPeriod[];
+};
+
+const RepaymentsTable: FC<Props> = ({ years }) => (
   <table>
     <thead>
       <tr>

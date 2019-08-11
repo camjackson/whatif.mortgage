@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { FunctionComponent as FC } from 'react';
 import formatCurrency from './formatCurrency';
+import { SummaryStats } from './math/calculateLoanPeriods';
 
-const RepaymentsStats = ({ stats }) => (
+type Props = {
+  stats: SummaryStats;
+};
+
+const RepaymentsStats: FC<Props> = ({ stats }) => (
   <div>
     <ol>
       <li>Total interest paid: {formatCurrency(stats.totalInterestPaid)}</li>
