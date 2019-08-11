@@ -5,6 +5,7 @@ const formatOpts = {
   maximumFractionDigits: 0,
 };
 
-const formatCurrency = number => number.toLocaleString(undefined, formatOpts);
+const formatCurrency = (number: number): string =>
+  number.toLocaleString(undefined, formatOpts);
 
 export default formatCurrency;

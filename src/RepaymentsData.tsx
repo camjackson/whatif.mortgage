@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent as FC } from 'react';
 import styled from 'styled-components';
 import RepaymentsTable from './RepaymentsTable';
 import RepaymentsGraph from './graph/RepaymentsGraph';
@@ -14,7 +14,14 @@ const Column = styled.div`
   flex-direction: column;
 `;
 
-const RepaymentsData = ({
+type Props = {
+  loanAmount: number;
+  annualInterestRate: number;
+  loanLengthInYears: number;
+  monthlyRepayments: number;
+};
+
+const RepaymentsData: FC<Props> = ({
   loanAmount,
   annualInterestRate,
   loanLengthInYears,

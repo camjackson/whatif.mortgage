@@ -10,7 +10,7 @@ const Params = ({
   setAnnualInterestRate,
   setLoanLengthInYears,
 }) => (
-  <section>
+  <form>
     <BlurryNumberInput
       label="Loan amount: $"
       defaultValue={loanAmount}
@@ -42,6 +42,6 @@ const Params = ({
       value={monthlyRepayments}
       readOnly
     />
-  </section>
+  </form>
 );
 export default Params;
