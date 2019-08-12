@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from '../App';
 
 const change = value => ['change', { target: { value } }];
+const blur = value => ['blur', { target: { value } }];
 
 const parsePercentage = percentageString => {
   expect(percentageString.slice(-1)).toEqual('%');
@@ -34,7 +35,7 @@ it('works', () => {
   expect(app.find('table')).toIncludeText(tableText.join(''));
 
   //... and the graph, ...
-  const rects = app.find('svg').find('rect');
+  let rects = app.find('svg').find('rect');
   const principalRemainingRect = rects.at(1);
   const principalPaidRect = rects.at(2);
   const interestPaidRect = rects.at(3);
@@ -66,7 +67,28 @@ it('works', () => {
       parsePercentage(principalRemainingRect.prop('height')),
   ).toBeCloseTo(100);
 
-  //... and the summary stats.
+  //... and the summary stats...
   expect(app).toIncludeText('Total interest paid: USD 56');
   expect(app).toIncludeText('Total amount paid: USD 1,056');
+
+  // ... but no HoverBox yet.
+  expect(app.find('HoverBox')).not.toExist();
+
+  // Now if we change from 3 years to 5, ...
+  normalInputs.at(2).simulate(...blur(5));
+
+  // ... then the summary stats get updated.
+  expect(app).toIncludeText('Total interest paid: USD 94');
+  expect(app).toIncludeText('Total amount paid: USD 1,094');
+
+  // Now if we hover over the second column of the graph, ...
+  rects = app.find('rect');
+  rects.at(2 * 3).simulate('mouseEnter'); // 3 for each column
+
+  // ... then it shows the HoverBox with the year 2 stats.
+  const hoverBox = app.find('HoverBox');
+  expect(hoverBox).toIncludeText('Year 2:');
+  expect(hoverBox).toIncludeText('Interest paid: USD 26');
+  expect(hoverBox).toIncludeText('Principal paid: USD 193');
+  expect(hoverBox).toIncludeText('Principal remaining: USD 621');
 });
