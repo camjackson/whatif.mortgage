@@ -2,13 +2,13 @@ import React, { FunctionComponent as FC } from 'react';
 import styled from 'styled-components';
 import LoanPeriod from '../math/LoanPeriod';
 
-// -----
+// ----- interestPaidY
 // |   |
 // |   | interestPaidHeight
 // |   |
-// |---| interestPaidY
+// |---| prinpalPaidY
 // |   |
-// |   | interestPaidHeight
+// |   | principalPaidHeight
 // |   |
 // |---| endingPrincipalY
 // |   |
@@ -34,6 +34,7 @@ const InterestPaidRect = styled.rect`
 
 type Props = {
   graphMaxValue: number;
+  graphBodyHeightPc: number;
   yearData: LoanPeriod;
   x: string; // Percentage
   width: string; // Percentage
@@ -42,19 +43,22 @@ type Props = {
 
 const RepaymentColumn: FC<Props> = ({
   graphMaxValue,
+  graphBodyHeightPc,
   yearData,
   x,
   width,
   onMouseEnter,
 }) => {
   const endingPrincipalHeight =
-    (yearData.endingPrincipal / graphMaxValue) * 100;
-  const endingPrincipalY = 100 - endingPrincipalHeight;
+    (yearData.endingPrincipal / graphMaxValue) * graphBodyHeightPc;
+  const endingPrincipalY = graphBodyHeightPc - endingPrincipalHeight;
 
-  const principalPaidHeight = (yearData.principalPaid / graphMaxValue) * 100;
+  const principalPaidHeight =
+    (yearData.principalPaid / graphMaxValue) * graphBodyHeightPc;
   const principalPaidY = endingPrincipalY - principalPaidHeight;
 
-  const interestPaidHeight = (yearData.interestPaid / graphMaxValue) * 100;
+  const interestPaidHeight =
+    (yearData.interestPaid / graphMaxValue) * graphBodyHeightPc;
   const interestPaidY = principalPaidY - interestPaidHeight;
 
   const commonProps = {

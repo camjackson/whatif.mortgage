@@ -14,6 +14,7 @@ describe('RepaymentColumn', () => {
       <svg>
         <RepaymentColumn
           graphMaxValue="1000"
+          graphBodyHeightPc={50}
           yearData={yearData}
           x="35%"
           width="5%"
@@ -35,17 +36,17 @@ describe('RepaymentColumn', () => {
   });
 
   it('renders the ending principal rect at the bottom', () => {
-    expect(rects.at(0)).toHaveProp('height', '24%');
-    expect(rects.at(0)).toHaveProp('y', '76%');
+    expect(rects.at(0)).toHaveProp('height', '12%');
+    expect(rects.at(0)).toHaveProp('y', '38%');
   });
 
   it('renders the principal paid rect above the ending principal rect', () => {
-    expect(rects.at(1)).toHaveProp('height', '8%');
-    expect(rects.at(1)).toHaveProp('y', '68%');
+    expect(rects.at(1)).toHaveProp('height', '4%');
+    expect(rects.at(1)).toHaveProp('y', '34%');
   });
 
   it('renders the interest paid rect above the principal paid rect', () => {
-    expect(rects.at(2)).toHaveProp('height', '10%');
-    expect(rects.at(2)).toHaveProp('y', '58%');
+    expect(rects.at(2)).toHaveProp('height', '5%');
+    expect(rects.at(2)).toHaveProp('y', '29%');
   });
 });

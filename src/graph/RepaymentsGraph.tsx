@@ -5,6 +5,12 @@ import LoanPeriod from '../math/LoanPeriod';
 
 const graphWidthPx = 1000;
 const graphHeightPx = 500;
+const graphGutterPx = 40;
+const graphGutterWidthPc = (graphGutterPx / graphWidthPx) * 100;
+const graphGutterHeightPc = (graphGutterPx / graphHeightPx) * 100;
+// The percentage of the total graph excluding the gutters
+const graphBodyWidthPc = 100 - graphGutterWidthPc;
+const graphBodyHeightPc = 100 - graphGutterHeightPc;
 
 type Props = {
   years: LoanPeriod[];
@@ -18,7 +24,7 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
 
   // In the early years, the graph numbers go higher than the initial principal
   const graphMaxValue = years[0].getTotal();
-  const columnWidth = 100 / years.length;
+  const columnWidthPc = graphBodyWidthPc / years.length;
 
   const trackMouseCoords = e => {
     const svg = (svgRef as any).current;
@@ -38,9 +44,10 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
         <RepaymentColumn
           key={index}
           graphMaxValue={graphMaxValue}
+          graphBodyHeightPc={graphBodyHeightPc}
           yearData={yearData}
-          width={`${columnWidth}%`}
-          x={`${index * columnWidth}%`}
+          width={`${columnWidthPc}%`}
+          x={`${index * columnWidthPc + graphGutterWidthPc}%`}
           onMouseEnter={() => setHoveredYear(index)}
         />
       ))}
