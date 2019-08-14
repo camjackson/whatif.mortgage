@@ -35,14 +35,14 @@ describe('RepaymentsGraph', () => {
 
     expect(columns.at(0)).toHaveProp({
       graphMaxValue: 1045,
-      width: '18.8%',
-      x: '6%',
+      width: '18.4%',
+      x: '8%',
       yearData: years[0],
     });
     expect(columns.at(1)).toHaveProp({
       graphMaxValue: 1045,
-      width: '18.8%',
-      x: '24.8%',
+      width: '18.4%',
+      x: '26.4%',
       yearData: years[1],
     });
   });

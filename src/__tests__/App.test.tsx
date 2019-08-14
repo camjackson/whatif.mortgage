@@ -44,8 +44,8 @@ it('works', () => {
   [principalRemainingRect, principalPaidRect, interestPaidRect].forEach(
     rect => {
       expect(rect).toHaveProp({
-        x: '6%',
-        width: '31.333333333333332%',
+        x: '8%',
+        width: '30.666666666666668%',
       });
     },
   );

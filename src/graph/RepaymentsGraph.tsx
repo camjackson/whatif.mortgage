@@ -1,12 +1,14 @@
 import React, { useState, useRef, FunctionComponent as FC } from 'react';
 import styled from 'styled-components';
 import RepaymentColumn from './RepaymentColumn';
+import GridLines from './GridLines';
 import HoverBox from './HoverBox';
 import LoanPeriod from '../math/LoanPeriod';
+import getGridLineInterval from './getGridLineInterval';
 
 const graphWidthPx = 1000;
 const graphHeightPx = 500;
-const graphGutterWidthPx = 60;
+const graphGutterWidthPx = 80;
 const graphGutterHeightPx = 30;
 const graphGutterWidthPc = (graphGutterWidthPx / graphWidthPx) * 100;
 const graphGutterHeightPc = (graphGutterHeightPx / graphHeightPx) * 100;
@@ -30,7 +32,7 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
   const [mouseCoords, setMouseCoords] = useState({ x: -1, y: -1 });
   const svgRef = useRef<SVGSVGElement>(null);
 
-  // In the early years, the graph numbers go higher than the initial principal
+  // In the first year, the interest pushes the column higher than the initial principal
   const graphMaxValue = years[0].getTotal();
   const columnWidthPc = graphBodyWidthPc / years.length;
 
@@ -68,6 +70,13 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
           />
         </React.Fragment>
       ))}
+      <GridLines
+        interval={getGridLineInterval(graphMaxValue)}
+        maxValue={graphMaxValue}
+        graphGutterWidthPx={graphGutterWidthPx}
+        graphBodyHeightPc={graphBodyHeightPc}
+        graphBodyWidthPc={graphBodyWidthPc}
+      />
       {hoveredYear !== null && hoveredYear < years.length && (
         <HoverBox
           mouseCoords={mouseCoords}
