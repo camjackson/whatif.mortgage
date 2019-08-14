@@ -44,8 +44,8 @@ it('works', () => {
   [principalRemainingRect, principalPaidRect, interestPaidRect].forEach(
     rect => {
       expect(rect).toHaveProp({
-        x: '4%',
-        width: '32%',
+        x: '6%',
+        width: '31.333333333333332%',
       });
     },
   );
@@ -65,7 +65,7 @@ it('works', () => {
     parsePercentage(interestPaidRect.prop('height')) +
       parsePercentage(principalPaidRect.prop('height')) +
       parsePercentage(principalRemainingRect.prop('height')),
-  ).toBeCloseTo(92);
+  ).toEqual(94);
 
   //... and the summary stats...
   expect(app).toIncludeText('Total interest paid: USD 56');

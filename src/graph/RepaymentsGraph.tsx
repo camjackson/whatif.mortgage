@@ -1,16 +1,24 @@
 import React, { useState, useRef, FunctionComponent as FC } from 'react';
+import styled from 'styled-components';
 import RepaymentColumn from './RepaymentColumn';
 import HoverBox from './HoverBox';
 import LoanPeriod from '../math/LoanPeriod';
 
 const graphWidthPx = 1000;
 const graphHeightPx = 500;
-const graphGutterPx = 40;
-const graphGutterWidthPc = (graphGutterPx / graphWidthPx) * 100;
-const graphGutterHeightPc = (graphGutterPx / graphHeightPx) * 100;
+const graphGutterWidthPx = 60;
+const graphGutterHeightPx = 30;
+const graphGutterWidthPc = (graphGutterWidthPx / graphWidthPx) * 100;
+const graphGutterHeightPc = (graphGutterHeightPx / graphHeightPx) * 100;
 // The percentage of the total graph excluding the gutters
 const graphBodyWidthPc = 100 - graphGutterWidthPc;
 const graphBodyHeightPc = 100 - graphGutterHeightPc;
+
+const textHeight = 16;
+const Text = styled.text`
+  font-size: ${textHeight}px;
+  text-anchor: middle;
+`;
 
 type Props = {
   years: LoanPeriod[];
@@ -32,6 +40,8 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
     setMouseCoords({ x: e.clientX - svgX, y: e.clientY - svgY });
   };
 
+  const columnXPc = index => index * columnWidthPc + graphGutterWidthPc;
+
   return (
     <svg
       width={graphWidthPx}
@@ -41,15 +51,22 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
     >
       <rect width={graphWidthPx} height={graphHeightPx} fill="#e3e3e3" />
       {years.map((yearData, index) => (
-        <RepaymentColumn
-          key={index}
-          graphMaxValue={graphMaxValue}
-          graphBodyHeightPc={graphBodyHeightPc}
-          yearData={yearData}
-          width={`${columnWidthPc}%`}
-          x={`${index * columnWidthPc + graphGutterWidthPc}%`}
-          onMouseEnter={() => setHoveredYear(index)}
-        />
+        <React.Fragment key={index}>
+          <Text
+            x={`${columnXPc(index) + columnWidthPc / 2}%`}
+            y={graphHeightPx - graphGutterHeightPx + textHeight + 5}
+          >
+            {index + 1}
+          </Text>
+          <RepaymentColumn
+            graphMaxValue={graphMaxValue}
+            graphBodyHeightPc={graphBodyHeightPc}
+            yearData={yearData}
+            width={`${columnWidthPc}%`}
+            x={`${columnXPc(index)}%`}
+            onMouseEnter={() => setHoveredYear(index)}
+          />
+        </React.Fragment>
       ))}
       {hoveredYear !== null && hoveredYear < years.length && (
         <HoverBox
