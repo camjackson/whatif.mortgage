@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from '../App';
 
 const change = value => ['change', { target: { value } }];
-const blur = value => ['blur', { target: { value } }];
 
 const parsePercentage = percentageString => {
   expect(percentageString.slice(-1)).toEqual('%');
@@ -14,21 +13,17 @@ const parsePercentage = percentageString => {
 it('works', () => {
   const app = mount(<App />);
 
-  // It starts with the initial input form.
-  expect(app).toIncludeText('I will borrow');
-
-  // If we fill it in and click the button...
+  // If we fill in the form...
   const initialInputs = app.find('input');
   initialInputs.at(0).simulate(...change(1000));
   initialInputs.at(1).simulate(...change(3.6));
   initialInputs.at(2).simulate(...change(3));
-  app.find('button').simulate('click');
 
   // Then it shows the inputs, ...
   const normalInputs = app.find('input');
-  expect(normalInputs.at(0)).toHaveProp('defaultValue', 1000);
-  expect(normalInputs.at(1)).toHaveProp('defaultValue', 3.6);
-  expect(normalInputs.at(2)).toHaveProp('defaultValue', 3);
+  expect(normalInputs.at(0)).toHaveValue(1000);
+  expect(normalInputs.at(1)).toHaveValue(3.6);
+  expect(normalInputs.at(2)).toHaveValue(3);
 
   //... and the table, ...
   const tableText = ['USD 31', 'USD 321', 'USD 679'];
@@ -75,7 +70,7 @@ it('works', () => {
   expect(app.find('HoverBox')).not.toExist();
 
   // Now if we change from 3 years to 5, ...
-  normalInputs.at(2).simulate(...blur(5));
+  normalInputs.at(2).simulate(...change(5));
 
   // ... then the summary stats get updated.
   expect(app).toIncludeText('Total interest paid: USD 94');
