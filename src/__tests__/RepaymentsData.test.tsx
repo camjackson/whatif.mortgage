@@ -12,11 +12,9 @@ describe('RepaymentsData', () => {
       />,
     );
 
-    const table = data.find('RepaymentsTable');
     const graph = data.find('RepaymentsGraph');
     const stats = data.find('RepaymentsStats');
 
-    expect(table.prop('years')).toHaveLength(3);
     expect(graph.prop('years')).toHaveLength(3);
     expect(graph.prop('loanAmount')).toEqual(1000);
     expect(stats.prop('stats')).toEqual(

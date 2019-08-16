@@ -39,6 +39,7 @@ describe('calculateLoanPeriods', () => {
     it('adds up the total interest paid and the total P&I paid', () => {
       expect(stats.totalInterestPaid).toBeCloseTo(55.19);
       expect(stats.totalAmountPaid).toEqual(1080);
+      expect(stats.interestToPrincipalRatio).toBeCloseTo(5.519);
       // The numbers are a bit off because we used a nice round number for
       // the repayment figure up the top.
     });

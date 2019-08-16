@@ -7,11 +7,8 @@ import calculateLoanPeriods from './math/calculateLoanPeriods';
 
 const Section = styled.section`
   display: flex;
-`;
-
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 type Props = {
@@ -35,11 +32,8 @@ const RepaymentsData: FC<Props> = ({
   );
   return (
     <Section>
-      <RepaymentsTable years={years} />
-      <Column>
-        <RepaymentsGraph years={years} loanAmount={loanAmount} />
-        <RepaymentsStats stats={stats} />
-      </Column>
+      <RepaymentsStats monthlyRepayments={monthlyRepayments} stats={stats} />
+      <RepaymentsGraph years={years} loanAmount={loanAmount} />
     </Section>
   );
 };

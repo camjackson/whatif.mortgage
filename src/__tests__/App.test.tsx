@@ -25,10 +25,6 @@ it('works', () => {
   expect(normalInputs.at(1)).toHaveValue(3.6);
   expect(normalInputs.at(2)).toHaveValue(3);
 
-  //... and the table, ...
-  const tableText = ['USD 31', 'USD 321', 'USD 679'];
-  expect(app.find('table')).toIncludeText(tableText.join(''));
-
   //... and the graph, ...
   let rects = app.find('svg').find('rect');
   const principalRemainingRect = rects.at(1);
@@ -63,8 +59,9 @@ it('works', () => {
   ).toEqual(94);
 
   //... and the summary stats...
-  expect(app).toIncludeText('Total interest paid: USD 56');
-  expect(app).toIncludeText('Total amount paid: USD 1,056');
+  expect(app).toIncludeText('monthly repayments of USD 29');
+  expect(app).toIncludeText('your total interest bill will be USD 56');
+  expect(app).toIncludeText('or 6% of the amount you borrowed');
 
   // ... but no HoverBox yet.
   expect(app.find('HoverBox')).not.toExist();
@@ -73,8 +70,9 @@ it('works', () => {
   normalInputs.at(2).simulate(...change(5));
 
   // ... then the summary stats get updated.
-  expect(app).toIncludeText('Total interest paid: USD 94');
-  expect(app).toIncludeText('Total amount paid: USD 1,094');
+  expect(app).toIncludeText('monthly repayments of USD 18');
+  expect(app).toIncludeText('your total interest bill will be USD 94');
+  expect(app).toIncludeText('or 9% of the amount you borrowed');
 
   // Now if we hover over the second column of the graph, ...
   rects = app.find('rect');

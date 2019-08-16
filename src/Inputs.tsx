@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 const Form = styled.form`
   font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
 `;
 
 const NumberInput = styled.input.attrs({
@@ -43,7 +47,7 @@ const Inputs = ({
       min="0"
       max="99"
       step="1"
-      style={{ width: 60 }}
+      style={{ width: 60, marginLeft: 10 }}
       value={loanLengthInYears}
       onChange={setValue('loanLengthInYears')}
     />{' '}

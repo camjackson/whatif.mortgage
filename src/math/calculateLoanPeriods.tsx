@@ -3,6 +3,7 @@ import LoanPeriod from './LoanPeriod';
 export type SummaryStats = {
   totalInterestPaid: number;
   totalAmountPaid: number;
+  interestToPrincipalRatio: number;
 };
 
 type FullStats = {
@@ -20,9 +21,10 @@ const calculateLoanPeriods = (
   const monthlyInterestRate = annualInterestRate / 12;
   const numberOfMonths = loanLengthInYears * 12;
   const months: LoanPeriod[] = [];
-  const stats = {
+  const stats: SummaryStats = {
     totalInterestPaid: 0,
     totalAmountPaid: 0,
+    interestToPrincipalRatio: 0,
   };
 
   // Month 0 is just the initial state
@@ -38,6 +40,7 @@ const calculateLoanPeriods = (
     stats.totalInterestPaid += month.interestPaid;
     stats.totalAmountPaid += month.interestPaid + month.principalPaid;
   }
+  stats.interestToPrincipalRatio = (stats.totalInterestPaid / loanAmount) * 100;
 
   const years: LoanPeriod[] = [];
   for (let yearIndex = 1; yearIndex <= loanLengthInYears; yearIndex++) {

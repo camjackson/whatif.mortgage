@@ -1,5 +1,5 @@
 import React, { FunctionComponent as FC } from 'react';
-import formatCurrency from '../formatCurrency';
+import { formatCurrency } from '../formatting';
 
 type Props = {
   interval;

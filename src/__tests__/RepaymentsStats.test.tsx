@@ -7,10 +7,16 @@ describe('RepaymentsStats', () => {
     const stats: SummaryStats = {
       totalInterestPaid: 100,
       totalAmountPaid: 200,
+      interestToPrincipalRatio: 8,
     };
-    const repaymentsStats = mount(<RepaymentsStats stats={stats} />);
+    const repaymentsStats = mount(
+      <RepaymentsStats monthlyRepayments={20} stats={stats} />,
+    );
 
-    expect(repaymentsStats).toIncludeText('Total interest paid: USD 100');
-    expect(repaymentsStats).toIncludeText('Total amount paid: USD 200');
+    expect(repaymentsStats).toIncludeText('monthly repayments of USD 20');
+    expect(repaymentsStats).toIncludeText(
+      'your total interest bill will be USD 100',
+    );
+    expect(repaymentsStats).toIncludeText('or 8% of the amount you borrowed');
   });
 });
