@@ -1,12 +1,12 @@
 import React from 'react';
-import RepaymentsData from '../RepaymentsData';
+import Scenario from '../Scenario';
 
 jest.mock('../math/calculateRepayment', () => () => 30);
 
-describe('RepaymentsData', () => {
+describe('Scenario', () => {
   it('calculates some stuff and passes it down', () => {
     const data = mount(
-      <RepaymentsData
+      <Scenario
         loanAmount={1000}
         annualInterestRate={3.6}
         loanLengthInYears={3}
