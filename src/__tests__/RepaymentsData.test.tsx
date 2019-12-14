@@ -1,6 +1,8 @@
 import React from 'react';
 import RepaymentsData from '../RepaymentsData';
 
+jest.mock('../math/calculateRepayment', () => () => 30);
+
 describe('RepaymentsData', () => {
   it('calculates some stuff and passes it down', () => {
     const data = mount(
@@ -8,7 +10,6 @@ describe('RepaymentsData', () => {
         loanAmount={1000}
         annualInterestRate={3.6}
         loanLengthInYears={3}
-        monthlyRepayments={30}
       />,
     );
 
@@ -19,7 +20,7 @@ describe('RepaymentsData', () => {
     expect(graph.prop('loanAmount')).toEqual(1000);
     expect(stats.prop('stats')).toEqual(
       expect.objectContaining({
-        totalAmountPaid: 1080,
+        totalAmountPaid: 30 * 3 * 12,
       }),
     );
   });

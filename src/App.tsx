@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import Inputs from './Inputs';
-import RepaymentsData from './RepaymentsData';
+import Scenario from './Scenario';
 
 const GlobalStyles = createGlobalStyle`
   html, body, #root {
@@ -10,6 +11,22 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+  }
+`;
+
+const Button = styled.button`
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 25px;
+  border-radius: 2px;
+  border: 0;
+  background-color: #8787e6;
+  color: black;
+  :hover {
+    background-color: #3636cc;
+    color: white;
+    cursor: pointer;
   }
 `;
 
@@ -32,15 +49,10 @@ const initialValues = (() => {
   };
 })();
 
-const calculateRepayment = (p, r, n) => {
-  const onePlusRToTheN = Math.pow(1 + r, n);
-  const numerator = r * onePlusRToTheN;
-  const denominator = onePlusRToTheN - 1;
-
-  return p * (numerator / denominator);
-};
-
 const App = () => {
+  const [scenarios, setScenarios] = useState([null]);
+  const addScenario = () => setScenarios([...scenarios, null]);
+
   const [values, setValues] = useState(initialValues);
   const setValue = key => event => {
     setValues({ ...values, [key]: event.target.value });
@@ -50,22 +62,19 @@ const App = () => {
     localStorage.setItem('values', JSON.stringify(values));
   }, [values]);
 
-  const monthlyRepayments = calculateRepayment(
-    values.loanAmount,
-    values.annualInterestRate / 100 / 12,
-    values.loanLengthInYears * 12,
-  );
-
   return (
     <>
       <GlobalStyles />
       <Inputs {...values} setValue={setValue} />
-      <RepaymentsData
-        loanAmount={values.loanAmount}
-        annualInterestRate={values.annualInterestRate}
-        loanLengthInYears={values.loanLengthInYears}
-        monthlyRepayments={monthlyRepayments}
-      />
+      {scenarios.map((scenario, i) => (
+        <Scenario
+          key={i}
+          loanAmount={values.loanAmount}
+          annualInterestRate={values.annualInterestRate}
+          loanLengthInYears={values.loanLengthInYears}
+        />
+      ))}
+      <Button onClick={addScenario}>What if...</Button>
     </>
   );
 };
