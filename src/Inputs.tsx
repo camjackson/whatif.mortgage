@@ -17,6 +17,9 @@ const NumberInput = styled.input.attrs({
   font-size: inherit;
 `;
 
+const getLoanAmountStep = loanAmount =>
+  Math.pow(10, Math.floor(Math.log10(loanAmount)) - 1);
+
 const Inputs = ({
   loanAmount,
   annualInterestRate,
@@ -28,14 +31,15 @@ const Inputs = ({
     <NumberInput
       min="0"
       max="10000000"
-      step="1"
+      step={getLoanAmountStep(loanAmount)}
+      formNoValidate
       style={{ width: 160 }}
       value={loanAmount}
       onChange={setValue('loanAmount')}
     />
     at{' '}
     <NumberInput
-      min="0"
+      min="0.01"
       max="99"
       step="0.01"
       style={{ width: 100, textAlign: 'right' }}
@@ -44,7 +48,7 @@ const Inputs = ({
     />{' '}
     %p.a., over{' '}
     <NumberInput
-      min="0"
+      min="1"
       max="99"
       step="1"
       style={{ width: 60, marginLeft: 10 }}
