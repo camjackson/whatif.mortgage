@@ -9,7 +9,7 @@ const Section = styled.section`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 5rem;
 `;
 
 type Props = {

@@ -4,7 +4,7 @@ import { formatCurrency, formatInteger } from './formatting';
 import { SummaryStats } from './math/calculateLoanPeriods';
 
 const P = styled.p`
-  font-size: 30px;
+  font-size: 3rem;
   font-weight: lighter;
   line-height: 1.2;
 `;

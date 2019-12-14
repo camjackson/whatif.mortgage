@@ -5,6 +5,15 @@ import Inputs from './Inputs';
 import Scenario from './Scenario';
 
 const GlobalStyles = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    /* 1rem = 10px (assuming browser has font-size: 16px; ) */
+    font-size: 62.5%;
+  }
+
   html, body, #root {
     height: 100%
     border: 0;
@@ -16,10 +25,10 @@ const GlobalStyles = createGlobalStyle`
 
 const Button = styled.button`
   display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  font-size: 25px;
-  border-radius: 2px;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  font-size: 2.5rem;
+  border-radius: 0.2rem;
   border: 0;
   background-color: #8787e6;
   color: black;

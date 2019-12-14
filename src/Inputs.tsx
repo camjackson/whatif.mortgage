@@ -2,18 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Form = styled.form`
-  font-size: 40px;
+  font-size: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  margin: 2rem 0;
 `;
 
 const NumberInput = styled.input.attrs({
   type: 'number',
 })`
   border: 0;
-  border-bottom: 2px solid grey;
+  border-bottom: 0.2rem solid grey;
   font-size: inherit;
 `;
 
