@@ -15,3 +15,4 @@ Mortgage scenario calculator and comparer.
   - Establish palettes, fonts, spacing, etc
   - Should I have used grid anywhere?
   - Variables
+- Store full scenario list in localstorage

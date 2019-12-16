@@ -1,4 +1,4 @@
-import React, { FunctionComponent as FC } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { formatCurrency, formatInteger } from './formatting';
 import { SummaryStats } from './math/calculateLoanPeriods';
@@ -7,6 +7,7 @@ const P = styled.p`
   font-size: 3rem;
   font-weight: lighter;
   line-height: 1.2;
+  grid-area: stats;
 `;
 
 const Strong = styled.strong`

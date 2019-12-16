@@ -1,4 +1,4 @@
-import React, { FunctionComponent as FC } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { formatCurrency } from '../formatting';
 import LoanPeriod from '../math/LoanPeriod';

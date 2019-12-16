@@ -1,4 +1,4 @@
-import React, { FunctionComponent as FC } from 'react';
+import React, { FC } from 'react';
 import { formatCurrency } from '../formatting';
 
 type Props = {

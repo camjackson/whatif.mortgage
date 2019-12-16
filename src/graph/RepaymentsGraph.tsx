@@ -1,4 +1,4 @@
-import React, { useState, useRef, FunctionComponent as FC } from 'react';
+import React, { useState, useRef, FC } from 'react';
 import styled from 'styled-components';
 import RepaymentColumn from './RepaymentColumn';
 import GridLines from './GridLines';
@@ -20,6 +20,10 @@ const textHeight = 16;
 const Text = styled.text`
   font-size: ${textHeight}px;
   text-anchor: middle;
+`;
+
+const Svg = styled.svg`
+  grid-area: graph;
 `;
 
 type Props = {
@@ -45,7 +49,7 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
   const columnXPc = index => index * columnWidthPc + graphGutterWidthPc;
 
   return (
-    <svg
+    <Svg
       width={graphWidthPx}
       height={graphHeightPx}
       ref={svgRef}
@@ -84,7 +88,7 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
           yearNumber={hoveredYear + 1}
         />
       )}
-    </svg>
+    </Svg>
   );
 };
 

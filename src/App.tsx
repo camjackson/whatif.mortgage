@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import Inputs from './Inputs';
-import Scenario from './Scenario';
+import ScenarioPanel from './ScenarioPanel';
+import { BaseScenario, Scenario, ScenarioKey } from './models';
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -39,9 +40,9 @@ const Button = styled.button`
   }
 `;
 
-const initialValues = (() => {
+const initialBaseScenario: BaseScenario = (() => {
   try {
-    const parsed = JSON.parse(localStorage.getItem('values') || '');
+    const parsed = JSON.parse(localStorage.getItem('baseScenario') || '');
     if (
       parsed.loanAmount &&
       parsed.annualInterestRate &&
@@ -58,29 +59,42 @@ const initialValues = (() => {
   };
 })();
 
-const App = () => {
-  const [scenarios, setScenarios] = useState([null]);
-  const addScenario = () => setScenarios([...scenarios, null]);
+type BaseScenarioStateHook = [BaseScenario, (BaseScenario) => void];
+type ScenariosStateHook = [Scenario[], (newValues: Scenario[]) => void];
 
-  const [values, setValues] = useState(initialValues);
-  const setValue = key => event => {
-    setValues({ ...values, [key]: event.target.value });
+const App = () => {
+  const [baseScenario, setBaseScenario]: BaseScenarioStateHook = useState(
+    initialBaseScenario,
+  );
+  const setBaseScenarioValue = (key: ScenarioKey) => event => {
+    setBaseScenario({ ...baseScenario, [key]: event.target.value });
+  };
+
+  const [scenarios, setScenarios]: ScenariosStateHook = useState([{}]);
+  const addScenario = () => setScenarios([...scenarios, {}]);
+  const setScenarioValue = (index: number) => (key: ScenarioKey) => event => {
+    setScenarios(
+      scenarios.map((scenario, i) =>
+        index === i ? { ...scenario, [key]: event.target.value } : scenario,
+      ),
+    );
   };
 
   useEffect(() => {
-    localStorage.setItem('values', JSON.stringify(values));
-  }, [values]);
+    localStorage.setItem('baseScenario', JSON.stringify(baseScenario));
+  }, [baseScenario]);
 
   return (
     <>
       <GlobalStyles />
-      <Inputs {...values} setValue={setValue} />
-      {scenarios.map((scenario, i) => (
-        <Scenario
-          key={i}
-          loanAmount={values.loanAmount}
-          annualInterestRate={values.annualInterestRate}
-          loanLengthInYears={values.loanLengthInYears}
+      <Inputs {...baseScenario} setValue={setBaseScenarioValue} />
+      {scenarios.map((scenario, index) => (
+        <ScenarioPanel
+          key={index}
+          hideInputs={index === 0}
+          baseScenario={baseScenario}
+          scenario={scenario}
+          setValue={setScenarioValue(index)}
         />
       ))}
       <Button onClick={addScenario}>What if...</Button>
