@@ -4,6 +4,7 @@
 
 /coverage
 /build
+/src/styles/output.css
 
 .DS_Store
 .env.local

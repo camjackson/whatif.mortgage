@@ -16,3 +16,6 @@ Mortgage scenario calculator and comparer.
   - Should I have used grid anywhere?
   - Variables
 - Store full scenario list in localstorage
+- Sharing of scenarios via special URL
+- Editor plugins for tailwind/postcss
+- yarn upgrade (caniuse-lite)
