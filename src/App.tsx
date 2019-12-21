@@ -1,44 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { createGlobalStyle } from 'styled-components';
 import Inputs from './Inputs';
 import ScenarioPanel from './ScenarioPanel';
 import { BaseScenario, Scenario, ScenarioKey } from './models';
-
-const GlobalStyles = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    /* 1rem = 10px (assuming browser has font-size: 16px; ) */
-    font-size: 62.5%;
-  }
-
-  html, body, #root {
-    height: 100%
-    border: 0;
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-  }
-`;
-
-const Button = styled.button`
-  display: block;
-  margin: 2rem auto;
-  padding: 1rem 2rem;
-  font-size: 2.5rem;
-  border-radius: 0.2rem;
-  border: 0;
-  background-color: #8787e6;
-  color: black;
-  :hover {
-    background-color: #3636cc;
-    color: white;
-    cursor: pointer;
-  }
-`;
 
 const initialBaseScenario: BaseScenario = (() => {
   try {
@@ -86,7 +49,6 @@ const App = () => {
 
   return (
     <>
-      <GlobalStyles />
       <Inputs {...baseScenario} setValue={setBaseScenarioValue} />
       {scenarios.map((scenario, index) => (
         <ScenarioPanel
@@ -97,7 +59,12 @@ const App = () => {
           setValue={setScenarioValue(index)}
         />
       ))}
-      <Button onClick={addScenario}>What if...</Button>
+      <button
+        className="block mx-auto my-4 px-8 py-4 border border-blue-700 rounded-sm text-xl"
+        onClick={addScenario}
+      >
+        What if...
+      </button>
     </>
   );
 };

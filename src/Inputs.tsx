@@ -1,21 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 
-const Form = styled.form`
-  font-size: 4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem 0;
-`;
-
-const NumberInput = styled.input.attrs({
-  type: 'number',
-})`
-  border: 0;
-  border-bottom: 0.2rem solid grey;
-  font-size: inherit;
-`;
+const NumberInput = props => (
+  <input className="border-b-2 border-gray-700" type="number" {...props} />
+);
 
 const getLoanAmountStep = loanAmount =>
   Math.pow(10, Math.floor(Math.log10(loanAmount)) - 1);
@@ -26,7 +13,7 @@ const Inputs = ({
   loanLengthInYears,
   setValue,
 }) => (
-  <Form>
+  <form className="flex justify-center items-center my-4 mx-0 text-4xl">
     I will borrow $
     <NumberInput
       min="0"
@@ -56,7 +43,7 @@ const Inputs = ({
       onChange={setValue('loanLengthInYears')}
     />{' '}
     years
-  </Form>
+  </form>
 );
 
 export default Inputs;

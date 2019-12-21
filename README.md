@@ -18,4 +18,10 @@ Mortgage scenario calculator and comparer.
 - Store full scenario list in localstorage
 - Sharing of scenarios via special URL
 - Editor plugins for tailwind/postcss
-- yarn upgrade (caniuse-lite)
+- Commas in numeric inputs
+- Extract form components
+  - Base input
+  - Number input
+  - Specific field inputs
+- Make all graphs fixed to the same scale as the first one
+  - Makes it easier to visually compare them
