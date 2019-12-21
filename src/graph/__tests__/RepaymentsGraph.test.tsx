@@ -101,4 +101,25 @@ describe('RepaymentsGraph', () => {
 
     expect(graph.find(HoverBox)).toHaveProp({ coords: { x: 749, y: 1 } });
   });
+
+  it('hides the hover box when the mouse leaves the chart', () => {
+    const moveEvent = { clientX: svgX + 50, clientY: svgY + 50 };
+    act(() => {
+      graph.find('svg').simulate('mouseMove', moveEvent);
+      graph
+        .find(RepaymentColumn)
+        .at(3)
+        .prop('onMouseEnter')();
+    });
+    graph.update();
+
+    expect(graph.find(HoverBox)).toExist();
+
+    act(() => {
+      graph.find('svg').simulate('mouseLeave', {});
+    });
+    graph.update();
+
+    expect(graph.find(HoverBox)).not.toExist();
+  });
 });

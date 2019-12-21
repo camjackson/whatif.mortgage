@@ -64,6 +64,7 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
       height={graphHeightPx}
       ref={svgRef}
       onMouseMove={trackMouseCoords}
+      onMouseLeave={() => setHoveredYear(null)}
     >
       <rect width={graphWidthPx} height={graphHeightPx} fill="none" />
       {years.map((yearData, index) => (
