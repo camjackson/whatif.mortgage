@@ -25,14 +25,12 @@ describe('RepaymentColumn', () => {
     rects = column.find('rect');
   });
 
-  it('renders 3 boxes with the same x and width', () => {
-    expect(rects).toHaveLength(3);
-    expect(rects.at(0)).toHaveProp('x', '35%');
-    expect(rects.at(0)).toHaveProp('width', '5%');
-    expect(rects.at(1)).toHaveProp('x', '35%');
-    expect(rects.at(1)).toHaveProp('width', '5%');
-    expect(rects.at(2)).toHaveProp('x', '35%');
-    expect(rects.at(2)).toHaveProp('width', '5%');
+  it('renders 4 boxes with the same x and width', () => {
+    expect(rects).toHaveLength(4);
+    [0, 1, 2, 3].forEach(i => {
+      expect(rects.at(i)).toHaveProp('x', '35%');
+      expect(rects.at(i)).toHaveProp('width', '5%');
+    });
   });
 
   it('renders the ending principal rect at the bottom', () => {
@@ -48,5 +46,10 @@ describe('RepaymentColumn', () => {
   it('renders the interest paid rect above the principal paid rect', () => {
     expect(rects.at(2)).toHaveProp('height', '5%');
     expect(rects.at(2)).toHaveProp('y', '29%');
+  });
+
+  it('renders a border around all the rects', () => {
+    expect(rects.at(3)).toHaveProp('height', '21%');
+    expect(rects.at(3)).toHaveProp('y', '29%');
   });
 });

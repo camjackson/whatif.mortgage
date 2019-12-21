@@ -1,36 +1,29 @@
 import React, { FC } from 'react';
 import { formatCurrency } from '../formatting';
 import LoanPeriod from '../math/LoanPeriod';
+import { Coords } from '../math/Coords';
 
-const boxWidth = 250;
-const boxHeight = 95;
-const mouseOffset = 20;
+export const boxWidth = 250;
+export const boxHeight = 95;
 const textMargin = 10;
 const lineHeight = 20;
 
-type Coords = {
-  x: number;
-  y: number;
-};
-
 type Props = {
-  mouseCoords: Coords;
+  coords: Coords;
   yearData: LoanPeriod;
   yearNumber: number;
 };
 
-const HoverBox: FC<Props> = ({ mouseCoords, yearData, yearNumber }) => {
-  const boxX = mouseCoords.x + mouseOffset;
-  const boxY = mouseCoords.y - mouseOffset;
-  const textX = boxX + textMargin;
-  const textY = boxY + textMargin;
+const HoverBox: FC<Props> = ({ coords, yearData, yearNumber }) => {
+  const textX = coords.x + textMargin;
+  const textY = coords.y + textMargin;
 
   return (
     <>
       <rect
         className="text-black stroke-current fill-white"
-        x={boxX}
-        y={boxY}
+        x={coords.x}
+        y={coords.y}
         width={boxWidth}
         height={boxHeight}
       />

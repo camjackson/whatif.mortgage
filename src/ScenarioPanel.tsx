@@ -3,7 +3,7 @@ import ScenarioInputs from './ScenarioInputs';
 import RepaymentsGraph from './graph/RepaymentsGraph';
 import RepaymentsStats from './RepaymentsStats';
 import calculateLoanPeriods from './math/calculateLoanPeriods';
-import calculateRepayment from './math/calculateRepayment';
+import realCalculateRepayment from './math/calculateRepayment';
 import { BaseScenario, Scenario, ScenarioKey } from './models';
 
 const gridAreas = {
@@ -18,6 +18,7 @@ type Props = {
   baseScenario: BaseScenario;
   scenario: Scenario;
   setValue: (key: ScenarioKey) => (event) => void;
+  calculateRepayment?: (p: number, r: number, n: number) => number;
 };
 
 const ScenarioPanel: FC<Props> = ({
@@ -25,6 +26,7 @@ const ScenarioPanel: FC<Props> = ({
   baseScenario,
   scenario,
   setValue,
+  calculateRepayment = realCalculateRepayment,
 }) => {
   const { loanAmount, annualInterestRate, loanLengthInYears }: Scenario = {
     ...baseScenario,

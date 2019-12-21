@@ -15,13 +15,15 @@ describe('RepaymentsGraph', () => {
   ];
   let graph;
   let getBoundingClientRect;
+  const svgX = 456;
+  const svgY = 134;
 
   beforeEach(() => {
     graph = mount(<RepaymentsGraph years={years} loanAmount={1000} />);
     getBoundingClientRect = Element.prototype.getBoundingClientRect;
     Element.prototype.getBoundingClientRect = () => ({
-      x: 456,
-      y: 134,
+      x: svgX,
+      y: svgY,
     });
   });
 
@@ -51,8 +53,8 @@ describe('RepaymentsGraph', () => {
     expect(graph.find(HoverBox)).not.toExist();
   });
 
-  it('renders a hoverbox for the current year at the current mouse coords', () => {
-    const event = { clientX: 656, clientY: 234 };
+  it('renders a hover box for the current year at an offset from the current mouse coords', () => {
+    const event = { clientX: svgX + 200, clientY: svgY + 100 };
 
     act(() => {
       graph.find('svg').simulate('mouseMove', event);
@@ -64,9 +66,39 @@ describe('RepaymentsGraph', () => {
     graph.update();
 
     expect(graph.find(HoverBox)).toHaveProp({
-      mouseCoords: { x: 200, y: 100 },
+      coords: { x: 220, y: 80 },
       yearData: years[3],
       yearNumber: 4,
     });
+  });
+
+  it('constrains the hover box so it does not overlap the axes', () => {
+    const event = { clientX: svgX + 5, clientY: svgY + 490 };
+
+    act(() => {
+      graph.find('svg').simulate('mouseMove', event);
+      graph
+        .find(RepaymentColumn)
+        .at(3)
+        .prop('onMouseEnter')();
+    });
+    graph.update();
+
+    expect(graph.find(HoverBox)).toHaveProp({ coords: { x: 80, y: 375 } });
+  });
+
+  it('constrains the hover box so it does not go off the top-right corner', () => {
+    const event = { clientX: svgX + 950, clientY: svgY + 10 };
+
+    act(() => {
+      graph.find('svg').simulate('mouseMove', event);
+      graph
+        .find(RepaymentColumn)
+        .at(3)
+        .prop('onMouseEnter')();
+    });
+    graph.update();
+
+    expect(graph.find(HoverBox)).toHaveProp({ coords: { x: 749, y: 1 } });
   });
 });

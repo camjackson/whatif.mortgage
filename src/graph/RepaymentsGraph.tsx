@@ -1,9 +1,13 @@
 import React, { useState, useRef, FC } from 'react';
 import RepaymentColumn from './RepaymentColumn';
 import GridLines from './GridLines';
-import HoverBox from './HoverBox';
+import HoverBox, {
+  boxWidth as hoverBoxWidth,
+  boxHeight as hoverBoxHeight,
+} from './HoverBox';
 import LoanPeriod from '../math/LoanPeriod';
 import getGridLineInterval from './getGridLineInterval';
+import { Coords, constrainCoords } from '../math/Coords';
 
 const graphWidthPx = 1000;
 const graphHeightPx = 500;
@@ -11,9 +15,17 @@ const graphGutterWidthPx = 80;
 const graphGutterHeightPx = 30;
 const graphGutterWidthPc = (graphGutterWidthPx / graphWidthPx) * 100;
 const graphGutterHeightPc = (graphGutterHeightPx / graphHeightPx) * 100;
+const graphGutterYPx = graphHeightPx - graphGutterHeightPx;
 // The percentage of the total graph excluding the gutters
 const graphBodyWidthPc = 100 - graphGutterWidthPc;
 const graphBodyHeightPc = 100 - graphGutterHeightPc;
+
+const hoverBoxMinCoords: Coords = { x: graphGutterWidthPx, y: 1 };
+const hoverBoxMaxCoords: Coords = {
+  x: graphWidthPx - hoverBoxWidth - 1,
+  y: graphGutterYPx - hoverBoxHeight,
+};
+const hoverBoxOffset = 20;
 
 const baseFontSizePx = 16;
 
@@ -36,6 +48,11 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
     const { x: svgX, y: svgY } = svg.getBoundingClientRect();
     setMouseCoords({ x: e.clientX - svgX, y: e.clientY - svgY });
   };
+  const hoverBoxCoords = constrainCoords(
+    { x: mouseCoords.x + hoverBoxOffset, y: mouseCoords.y - hoverBoxOffset },
+    hoverBoxMinCoords,
+    hoverBoxMaxCoords,
+  );
 
   const columnXPc = index => index * columnWidthPc + graphGutterWidthPc;
 
@@ -77,7 +94,7 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
       />
       {hoveredYear !== null && hoveredYear < years.length && (
         <HoverBox
-          mouseCoords={mouseCoords}
+          coords={hoverBoxCoords}
           yearData={years[hoveredYear]}
           yearNumber={hoveredYear + 1}
         />
