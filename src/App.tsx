@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Inputs from './Inputs';
+import Header from './Header';
 import ScenarioPanel from './ScenarioPanel';
 import { BaseScenario, Scenario, ScenarioKey } from './models';
 
@@ -49,7 +49,7 @@ const App = () => {
 
   return (
     <>
-      <Inputs {...baseScenario} setValue={setBaseScenarioValue} />
+      <Header {...baseScenario} setValue={setBaseScenarioValue} />
       {scenarios.map((scenario, index) => (
         <ScenarioPanel
           key={index}

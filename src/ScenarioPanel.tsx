@@ -46,7 +46,7 @@ const ScenarioPanel: FC<Props> = ({
   return (
     <section
       style={gridAreas}
-      className="mb-8 grid items-center justify-items-center"
+      className="my-8 grid items-center justify-items-center"
     >
       {hideInputs ? (
         <div style={{ gridArea: 'form' }} />

@@ -25,7 +25,7 @@ it('works', () => {
   expect(normalInputs.at(1)).toHaveValue(3.6);
   expect(normalInputs.at(2)).toHaveValue(3);
 
-  //... and the graph, ...
+  //... and it shows the graph, ...
   let rects = app.find('svg').find('rect');
   const principalRemainingRect = rects.at(1);
   const principalPaidRect = rects.at(2);
@@ -51,14 +51,14 @@ it('works', () => {
     parsePercentage(interestPaidRect.prop('height')) +
       parsePercentage(principalPaidRect.prop('height')),
   ).toBeCloseTo(parsePercentage(principalRemainingRect.prop('y')));
-  // (and all three sum up to 100)
+  // (and all three sum up to a little under 100% [space left for the axis])
   expect(
     parsePercentage(interestPaidRect.prop('height')) +
       parsePercentage(principalPaidRect.prop('height')) +
       parsePercentage(principalRemainingRect.prop('height')),
-  ).toEqual(94);
+  ).toBeCloseTo(94);
 
-  //... and the summary stats...
+  //... and it shows the summary stats...
   expect(app).toIncludeText('monthly repayments of USD 29');
   expect(app).toIncludeText('your total interest bill will be USD 56');
   expect(app).toIncludeText('or 6% of the amount you borrowed');

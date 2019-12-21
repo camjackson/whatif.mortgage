@@ -10,6 +10,7 @@ Mortgage scenario calculator and comparer.
 - Highlight selected column
 - Hoverbox flip sides to avoid going OOB
 - Hoverbox contain to graph area so it doesn't cover labels
+- Hide hoverbox when mouse leaves graph
 - CSS refactoring:
   - Try tailwind?
   - Establish palettes, fonts, spacing, etc
