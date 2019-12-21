@@ -1,5 +1,4 @@
 import React, { useState, useRef, FC } from 'react';
-import styled from 'styled-components';
 import RepaymentColumn from './RepaymentColumn';
 import GridLines from './GridLines';
 import HoverBox from './HoverBox';
@@ -16,15 +15,7 @@ const graphGutterHeightPc = (graphGutterHeightPx / graphHeightPx) * 100;
 const graphBodyWidthPc = 100 - graphGutterWidthPc;
 const graphBodyHeightPc = 100 - graphGutterHeightPc;
 
-const textHeight = 16;
-const Text = styled.text`
-  font-size: ${textHeight}px;
-  text-anchor: middle;
-`;
-
-const Svg = styled.svg`
-  grid-area: graph;
-`;
+const baseFontSizePx = 16;
 
 type Props = {
   years: LoanPeriod[];
@@ -49,21 +40,24 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
   const columnXPc = index => index * columnWidthPc + graphGutterWidthPc;
 
   return (
-    <Svg
+    <svg
+      style={{ gridArea: 'graph' }}
+      className="shadow-lg"
       width={graphWidthPx}
       height={graphHeightPx}
       ref={svgRef}
       onMouseMove={trackMouseCoords}
     >
-      <rect width={graphWidthPx} height={graphHeightPx} fill="#e3e3e3" />
+      <rect width={graphWidthPx} height={graphHeightPx} fill="none" />
       {years.map((yearData, index) => (
         <React.Fragment key={index}>
-          <Text
+          <text
+            className="anchor-middle"
             x={`${columnXPc(index) + columnWidthPc / 2}%`}
-            y={graphHeightPx - graphGutterHeightPx + textHeight + 5}
+            y={graphHeightPx - graphGutterHeightPx + baseFontSizePx + 5}
           >
             {index + 1}
-          </Text>
+          </text>
           <RepaymentColumn
             graphMaxValue={graphMaxValue}
             graphBodyHeightPc={graphBodyHeightPc}
@@ -88,7 +82,7 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
           yearNumber={hoveredYear + 1}
         />
       )}
-    </Svg>
+    </svg>
   );
 };
 

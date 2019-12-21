@@ -5,10 +5,28 @@
 
 @tailwind utilities;
 
+/* Grid-related utils */
 .grid {
   display: grid;
 }
 
 .justify-items-center {
   justify-items: center;
+}
+
+/* SVG-related utils */
+.anchor-middle {
+  text-anchor: middle;
+}
+
+.fill-none {
+  fill: none;
+}
+
+.fill-white {
+  fill: white;
+}
+
+.baseline-hanging {
+  dominant-baseline: hanging;
 }

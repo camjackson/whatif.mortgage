@@ -1,36 +1,22 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import LoanPeriod from '../math/LoanPeriod';
 
-// ----- interestPaidY
+// ----- interestPaidYPc
 // |   |
-// |   | interestPaidHeight
+// |   | interestPaidHeightPc
 // |   |
 // |---| prinpalPaidY
 // |   |
-// |   | principalPaidHeight
+// |   | principalPaidHeightPc
 // |   |
-// |---| endingPrincipalY
+// |---| endingPrincipalYPc
 // |   |
 // |   |
-// |   | endingPrincipalHeight
+// |   | endingPrincipalHeightPc
 // |   |
 // |   |
 // |   |
 // -----
-
-const EndingPrincipalRect = styled.rect`
-  fill: pink;
-  stroke: red;
-`;
-
-const PrincipalPaidRect = styled.rect`
-  fill: purple;
-`;
-
-const InterestPaidRect = styled.rect`
-  fill: green;
-`;
 
 type Props = {
   graphMaxValue: number;
@@ -49,17 +35,20 @@ const RepaymentColumn: FC<Props> = ({
   width,
   onMouseEnter,
 }) => {
-  const endingPrincipalHeight =
+  const endingPrincipalHeightPc =
     (yearData.endingPrincipal / graphMaxValue) * graphBodyHeightPc;
-  const endingPrincipalY = graphBodyHeightPc - endingPrincipalHeight;
+  const endingPrincipalYPc = graphBodyHeightPc - endingPrincipalHeightPc;
 
-  const principalPaidHeight =
+  const principalPaidHeightPc =
     (yearData.principalPaid / graphMaxValue) * graphBodyHeightPc;
-  const principalPaidY = endingPrincipalY - principalPaidHeight;
+  const principalPaidYPc = endingPrincipalYPc - principalPaidHeightPc;
 
-  const interestPaidHeight =
+  const interestPaidHeightPc =
     (yearData.interestPaid / graphMaxValue) * graphBodyHeightPc;
-  const interestPaidY = principalPaidY - interestPaidHeight;
+  const interestPaidYPc = principalPaidYPc - interestPaidHeightPc;
+
+  const wholeColumnHeightPc =
+    endingPrincipalHeightPc + principalPaidHeightPc + interestPaidHeightPc;
 
   const commonProps = {
     x,
@@ -69,20 +58,29 @@ const RepaymentColumn: FC<Props> = ({
 
   return (
     <>
-      <EndingPrincipalRect
+      <rect
         {...commonProps}
-        y={`${endingPrincipalY}%`}
-        height={`${endingPrincipalHeight}%`}
+        className="fill-current text-pink-300"
+        y={`${endingPrincipalYPc}%`}
+        height={`${endingPrincipalHeightPc}%`}
       />
-      <PrincipalPaidRect
+      <rect
         {...commonProps}
-        y={`${principalPaidY}%`}
-        height={`${principalPaidHeight}%`}
+        className="fill-current text-purple-300"
+        y={`${principalPaidYPc}%`}
+        height={`${principalPaidHeightPc}%`}
       />
-      <InterestPaidRect
+      <rect
         {...commonProps}
-        y={`${interestPaidY}%`}
-        height={`${interestPaidHeight}%`}
+        className="fill-current text-green-300"
+        y={`${interestPaidYPc}%`}
+        height={`${interestPaidHeightPc}%`}
+      />
+      <rect
+        {...commonProps}
+        className="fill-none stroke-current text-gray-500"
+        height={`${wholeColumnHeightPc}%`}
+        y={`${interestPaidYPc}%`}
       />
     </>
   );
