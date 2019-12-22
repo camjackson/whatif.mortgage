@@ -1,6 +1,9 @@
 const integerOpts = { minimumFractionDigits: 0, maximumFractionDigits: 0 };
 
-const defaultLocale = process.env.NODE_ENV === 'test' ? 'en-AU' : undefined;
+const toLocaleString =
+  process.env.NODE_ENV === 'test'
+    ? number => `$${formatInteger(number)}`
+    : number => number.toLocaleString(undefined, currencyOpts);
 
 const currencyOpts = {
   style: 'currency',
@@ -10,7 +13,7 @@ const currencyOpts = {
 };
 
 export const formatCurrency = (number: number): string =>
-  number.toLocaleString(defaultLocale, currencyOpts);
+  toLocaleString(number);
 
 export const formatInteger = number =>
-  number.toLocaleString(defaultLocale, integerOpts);
+  number.toLocaleString(undefined, integerOpts);

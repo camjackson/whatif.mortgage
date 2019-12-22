@@ -1,12 +1,13 @@
 import { formatCurrency, formatInteger } from '../formatting';
 
 describe('formatCurrency', () => {
+  // These tests are kinda dumb now because I'm just stubbing toLocaleString
   it('formats numbers as currency', () => {
     expect(formatCurrency(123)).toEqual('$123');
     expect(formatCurrency(123.45)).toEqual('$123');
     expect(formatCurrency(123.56)).toEqual('$124');
-    expect(formatCurrency(-123.45)).toEqual('-$123');
-    expect(formatCurrency(-123.56)).toEqual('-$124');
+    expect(formatCurrency(-123.45)).toEqual('$-123');
+    expect(formatCurrency(-123.56)).toEqual('$-124');
   });
 });
 

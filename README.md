@@ -10,7 +10,6 @@ Mortgage scenario calculator and comparer.
   - And keep it there when mouse leaves the graph
 - Highlight selected column
 - Sharing of scenarios via special URL
-- Editor plugins for tailwind/postcss
 - Commas in numeric inputs
 - Extract form components
   - Base input
