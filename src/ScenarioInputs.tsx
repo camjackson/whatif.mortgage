@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import { Scenario, ScenarioKey } from './models';
+import Form from './form/Form';
+import { LoanAmountInput, InterestRateInput, YearsInput } from './form/Inputs';
 
 type Props = {
   scenario: Scenario;
@@ -7,19 +9,17 @@ type Props = {
 };
 
 const ScenarioInputs: FC<Props> = ({ scenario, setValue }) => (
-  <form style={{ gridArea: 'form' }}>
+  <Form style={{ gridArea: 'form' }}>
     <label>
       New interest rate:{' '}
-      <input
-        type="number"
-        min={0.01}
-        max={99.99}
-        step={0.01}
+      <InterestRateInput
+        width="4ch"
         value={scenario.annualInterestRate}
         onChange={setValue(ScenarioKey.annualInterestRate)}
       />
+      %
     </label>
-  </form>
+  </Form>
 );
 
 export default ScenarioInputs;

@@ -7,7 +7,7 @@ const toLocaleString =
 
 const currencyOpts = {
   style: 'currency',
-  currency: 'AUD',
+  currency: 'USD',
   currencyDisplay: 'symbol',
   ...integerOpts,
 };
