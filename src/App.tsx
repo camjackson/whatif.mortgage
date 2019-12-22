@@ -1,39 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import ScenarioPanel from './ScenarioPanel';
+import StateStorage, { State } from './StateStorage';
 import { BaseScenario, Scenario, ScenarioKey } from './models';
 
-const initialBaseScenario: BaseScenario = (() => {
-  try {
-    const parsed = JSON.parse(localStorage.getItem('baseScenario') || '');
-    if (
-      parsed.loanAmount &&
-      parsed.annualInterestRate &&
-      parsed.loanLengthInYears
-    ) {
-      return parsed;
-    }
-  } catch (e) {}
-
-  return {
-    loanAmount: 500000,
-    annualInterestRate: 4.99,
-    loanLengthInYears: 30,
-  };
-})();
+const stateStorage = new StateStorage(window.localStorage);
+const initialState: State = stateStorage.getFromStorage();
 
 type BaseScenarioStateHook = [BaseScenario, (BaseScenario) => void];
 type ScenariosStateHook = [Scenario[], (newValues: Scenario[]) => void];
 
 const App = () => {
   const [baseScenario, setBaseScenario]: BaseScenarioStateHook = useState(
-    initialBaseScenario,
+    initialState.baseScenario,
   );
   const setBaseScenarioValue = (key: ScenarioKey) => event => {
     setBaseScenario({ ...baseScenario, [key]: event.target.value });
   };
 
-  const [scenarios, setScenarios]: ScenariosStateHook = useState([{}]);
+  const [scenarios, setScenarios]: ScenariosStateHook = useState(
+    initialState.scenarios,
+  );
   const addScenario = () => setScenarios([...scenarios, {}]);
   const setScenarioValue = (index: number) => (key: ScenarioKey) => event => {
     setScenarios(
@@ -43,9 +30,10 @@ const App = () => {
     );
   };
 
-  useEffect(() => {
-    localStorage.setItem('baseScenario', JSON.stringify(baseScenario));
-  }, [baseScenario]);
+  useEffect(() => stateStorage.persistToStorage({ baseScenario, scenarios }), [
+    baseScenario,
+    scenarios,
+  ]);
 
   return (
     <>
