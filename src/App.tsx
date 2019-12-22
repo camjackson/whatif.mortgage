@@ -2,47 +2,46 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import ScenarioPanel from './ScenarioPanel';
 import StateStorage, { State } from './StateStorage';
-import { BaseScenario, Scenario, ScenarioKey } from './models';
+import { ScenarioKey } from './models';
 
 const stateStorage = new StateStorage(window.localStorage);
 const initialState: State = stateStorage.getFromStorage();
 
-type BaseScenarioStateHook = [BaseScenario, (BaseScenario) => void];
-type ScenariosStateHook = [Scenario[], (newValues: Scenario[]) => void];
+type StateHook = [State, (newValue: State) => void];
 
 const App = () => {
-  const [baseScenario, setBaseScenario]: BaseScenarioStateHook = useState(
-    initialState.baseScenario,
-  );
-  const setBaseScenarioValue = (key: ScenarioKey) => event => {
-    setBaseScenario({ ...baseScenario, [key]: event.target.value });
-  };
+  const [state, setState]: StateHook = useState(initialState);
 
-  const [scenarios, setScenarios]: ScenariosStateHook = useState(
-    initialState.scenarios,
-  );
-  const addScenario = () => setScenarios([...scenarios, {}]);
+  const setBaseScenarioValue = (key: ScenarioKey) => event => {
+    setState({
+      ...state,
+      baseScenario: { ...state.baseScenario, [key]: event.target.value },
+    });
+  };
   const setScenarioValue = (index: number) => (key: ScenarioKey) => event => {
-    setScenarios(
-      scenarios.map((scenario, i) =>
+    setState({
+      ...state,
+      scenarios: state.scenarios.map((scenario, i) =>
         index === i ? { ...scenario, [key]: event.target.value } : scenario,
       ),
-    );
+    });
   };
+  const addScenario = () =>
+    setState({ ...state, scenarios: [...state.scenarios, {}] });
 
-  useEffect(() => stateStorage.persistToStorage({ baseScenario, scenarios }), [
-    baseScenario,
-    scenarios,
-  ]);
+  useEffect(() => stateStorage.persistToStorage(state), [state]);
 
   return (
     <>
-      <Header {...baseScenario} setValue={setBaseScenarioValue} />
-      {scenarios.map((scenario, index) => (
+      <Header
+        baseScenario={state.baseScenario}
+        setValue={setBaseScenarioValue}
+      />
+      {state.scenarios.map((scenario, index) => (
         <ScenarioPanel
           key={index}
           hideInputs={index === 0}
-          baseScenario={baseScenario}
+          baseScenario={state.baseScenario}
           scenario={scenario}
           setValue={setScenarioValue(index)}
         />

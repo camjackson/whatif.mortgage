@@ -20,3 +20,4 @@ Mortgage scenario calculator and comparer.
 - Tests for overriding numbers in scenarios
   - Unit
   - Journey
+- useReducer()
