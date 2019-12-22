@@ -27,10 +27,10 @@ describe('GridLines', () => {
   });
 
   it('renders the right text labels', () => {
-    expect(texts.at(0)).toHaveText(`USD 100,000`);
-    expect(texts.at(1)).toHaveText(`USD 200,000`);
-    expect(texts.at(2)).toHaveText(`USD 300,000`);
-    expect(texts.at(3)).toHaveText(`USD 400,000`);
+    expect(texts.at(0)).toHaveText(`$100,000`);
+    expect(texts.at(1)).toHaveText(`$200,000`);
+    expect(texts.at(2)).toHaveText(`$300,000`);
+    expect(texts.at(3)).toHaveText(`$400,000`);
   });
 
   it('renders the lines across the width of the graph', () => {

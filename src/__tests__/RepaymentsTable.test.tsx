@@ -16,7 +16,7 @@ describe('RepaymentsTable', () => {
 
     expect(bodyRows).toHaveLength(5);
 
-    const firstRowContents = ['1', 'USD 45', 'USD 180', 'USD 820'];
+    const firstRowContents = ['1', '$45', '$180', '$820'];
     expect(bodyRows.at(0)).toHaveText(firstRowContents.join(''));
   });
 });

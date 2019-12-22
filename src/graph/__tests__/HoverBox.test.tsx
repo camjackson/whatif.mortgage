@@ -44,8 +44,8 @@ describe('HoverBox', () => {
     expect(hoverBox).toIncludeText('Year 13:');
 
     // Be careful, the next three lines have mystery characters after the 'USD'
-    expect(hoverBox).toIncludeText('Interest paid: USD 123');
-    expect(hoverBox).toIncludeText('Principal paid: USD 456');
-    expect(hoverBox).toIncludeText('Principal remaining: USD 654,321');
+    expect(hoverBox).toIncludeText('Interest paid: $123');
+    expect(hoverBox).toIncludeText('Principal paid: $456');
+    expect(hoverBox).toIncludeText('Principal remaining: $654,321');
   });
 });

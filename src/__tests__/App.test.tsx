@@ -59,8 +59,8 @@ it('works', () => {
   ).toBeCloseTo(94);
 
   //... and it shows the summary stats...
-  expect(app).toIncludeText('monthly repayments of USD 29');
-  expect(app).toIncludeText('your total interest bill will be USD 56');
+  expect(app).toIncludeText('monthly repayments of $29');
+  expect(app).toIncludeText('your total interest bill will be $56');
   expect(app).toIncludeText('or 6% of the amount you borrowed');
 
   // ... but no HoverBox yet.
@@ -70,8 +70,8 @@ it('works', () => {
   normalInputs.at(2).simulate(...change(5));
 
   // ... then the summary stats get updated.
-  expect(app).toIncludeText('monthly repayments of USD 18');
-  expect(app).toIncludeText('your total interest bill will be USD 94');
+  expect(app).toIncludeText('monthly repayments of $18');
+  expect(app).toIncludeText('your total interest bill will be $94');
   expect(app).toIncludeText('or 9% of the amount you borrowed');
 
   // Now if we hover over the second column of the graph, ...
@@ -81,7 +81,7 @@ it('works', () => {
   // ... then it shows the HoverBox with the year 2 stats.
   const hoverBox = app.find('HoverBox');
   expect(hoverBox).toIncludeText('Year 2:');
-  expect(hoverBox).toIncludeText('Interest paid: USD 26');
-  expect(hoverBox).toIncludeText('Principal paid: USD 193');
-  expect(hoverBox).toIncludeText('Principal remaining: USD 621');
+  expect(hoverBox).toIncludeText('Interest paid: $26');
+  expect(hoverBox).toIncludeText('Principal paid: $193');
+  expect(hoverBox).toIncludeText('Principal remaining: $621');
 });

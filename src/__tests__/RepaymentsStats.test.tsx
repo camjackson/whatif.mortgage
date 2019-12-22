@@ -13,9 +13,9 @@ describe('RepaymentsStats', () => {
       <RepaymentsStats monthlyRepayments={20} stats={stats} />,
     );
 
-    expect(repaymentsStats).toIncludeText('monthly repayments of USD 20');
+    expect(repaymentsStats).toIncludeText('monthly repayments of $20');
     expect(repaymentsStats).toIncludeText(
-      'your total interest bill will be USD 100',
+      'your total interest bill will be $100',
     );
     expect(repaymentsStats).toIncludeText('or 8% of the amount you borrowed');
   });
