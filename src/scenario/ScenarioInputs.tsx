@@ -9,7 +9,7 @@ type Props = {
 };
 
 const ScenarioInputs: FC<Props> = ({ baseScenario, scenario, setValue }) => (
-  <form style={{ gridArea: 'form' }} className="flex flex-col">
+  <form noValidate style={{ gridArea: 'form' }} className="flex flex-col">
     <label>
       New interest rate:{' '}
       <InterestRateInput
@@ -27,6 +27,13 @@ const ScenarioInputs: FC<Props> = ({ baseScenario, scenario, setValue }) => (
       <LoanAmountInput
         value={scenario.constantOffsetAmount || 0}
         onChange={setValue(ScenarioKey.constantOffsetAmount)}
+      />
+    </label>
+    <label>
+      Offset added each month: $
+      <LoanAmountInput
+        value={scenario.monthlyOffsetIncrement || 0}
+        onChange={setValue(ScenarioKey.monthlyOffsetIncrement)}
       />
     </label>
   </form>

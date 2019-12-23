@@ -13,18 +13,16 @@ const App = () => {
   const [state, setState]: StateHook = useState(initialState);
 
   const setBaseScenarioValue = (key: ScenarioKey) => event => {
-    setState({
-      ...state,
-      baseScenario: { ...state.baseScenario, [key]: event.target.value },
-    });
+    const value = parseFloat(event.target.value);
+    const newBaseScenario = { ...state.baseScenario, [key]: value };
+    setState({ ...state, baseScenario: newBaseScenario });
   };
   const setScenarioValue = (index: number) => (key: ScenarioKey) => event => {
-    setState({
-      ...state,
-      scenarios: state.scenarios.map((scenario, i) =>
-        index === i ? { ...scenario, [key]: event.target.value } : scenario,
-      ),
-    });
+    const value = parseFloat(event.target.value);
+    const newScenarios = state.scenarios.map((scenario, i) =>
+      index === i ? { ...scenario, [key]: value } : scenario,
+    );
+    setState({ ...state, scenarios: newScenarios });
   };
   const addScenario = () =>
     setState({ ...state, scenarios: [...state.scenarios, {}] });

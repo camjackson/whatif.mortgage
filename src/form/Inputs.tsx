@@ -9,7 +9,7 @@ const NumberInput = props => (
 );
 
 const getLoanAmountStep = (loanAmount: number): number =>
-  Math.pow(10, Math.floor(Math.log10(loanAmount)) - 1);
+  Math.max(Math.pow(10, Math.floor(Math.log10(loanAmount)) - 1), 1);
 
 export const LoanAmountInput = ({ style = {}, ...props }) => (
   <NumberInput

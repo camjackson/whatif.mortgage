@@ -74,4 +74,31 @@ describe('calculateLoanPeriods', () => {
       expect(stats.monthsFinishedEarly).toEqual(1);
     });
   });
+
+  describe('with an increasing offset', () => {
+    const offsetScenario: Scenario = {
+      loanAmount: 1000,
+      annualInterestRate: 3.6,
+      loanLengthInYears: 3,
+      constantOffsetAmount: 100,
+      monthlyOffsetIncrement: 50,
+    };
+    const { months } = calculateLoanPeriods(offsetScenario, 30);
+
+    it('reduces interest paid and increases principal paid in each month', () => {
+      expect(months).toHaveLength(37);
+
+      expect(months[1].interestPaid).toEqual(2.7);
+      expect(months[1].principalPaid).toEqual(27.3);
+      expect(months[1].endingPrincipal).toEqual(972.7);
+
+      expect(months[2].interestPaid).toEqual(2.4681);
+      expect(months[2].principalPaid).toEqual(27.5319);
+      expect(months[2].endingPrincipal).toBeCloseTo(945.1681);
+
+      expect(months[3].interestPaid).toBeCloseTo(2.2355);
+      expect(months[3].principalPaid).toBeCloseTo(27.7645);
+      expect(months[3].endingPrincipal).toBeCloseTo(917.4036);
+    });
+  });
 });

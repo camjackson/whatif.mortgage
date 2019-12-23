@@ -9,7 +9,7 @@ export type Scenario = {
   annualInterestRate?: number;
   loanLengthInYears?: number;
   constantOffsetAmount?: number;
-  // more to come!
+  monthlyOffsetIncrement?: number;
 };
 
 export enum ScenarioKey {
@@ -17,4 +17,5 @@ export enum ScenarioKey {
   annualInterestRate = 'annualInterestRate',
   loanLengthInYears = 'loanLengthInYears',
   constantOffsetAmount = 'constantOffsetAmount',
+  monthlyOffsetIncrement = 'monthlyOffsetIncrement',
 }

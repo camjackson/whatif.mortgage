@@ -9,7 +9,10 @@ type Props = {
 
 const Header: FC<Props> = ({ baseScenario, setValue }) => (
   <header className="shadow-md fixed w-full h-20 top-0 bg-gray-100">
-    <form className="flex justify-center items-center h-full text-4xl font-thin">
+    <form
+      noValidate
+      className="flex justify-center items-center h-full text-4xl font-thin"
+    >
       I will borrow $
       <LoanAmountInput
         value={baseScenario.loanAmount}

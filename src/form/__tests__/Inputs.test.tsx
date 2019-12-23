@@ -5,6 +5,9 @@ import { LoanAmountInput } from '../Inputs';
 describe('LoanAmountInput', () => {
   it('dynamically determines the step amount', () => {
     const testCases = [
+      { value: 0, step: 1 },
+      { value: 9, step: 1 },
+      { value: 10, step: 1 },
       { value: 1000, step: 100 },
       { value: 900, step: 10 },
       { value: 890, step: 10 },

@@ -23,11 +23,12 @@ const calculateLoanPeriods = (
     annualInterestRate,
     loanLengthInYears,
     constantOffsetAmount = 0,
+    monthlyOffsetIncrement = 0,
   } = scenario;
-
   const monthlyInterestRate = annualInterestRate / 12;
   const numberOfMonths = loanLengthInYears * 12;
   const months: LoanPeriod[] = [];
+  let cumulativeOffset: number = constantOffsetAmount;
   const stats: SummaryStats = {
     totalInterestPaid: 0,
     totalAmountPaid: 0,
@@ -43,9 +44,10 @@ const calculateLoanPeriods = (
     const month = months[i - 1].createNextLoanPeriod(
       monthlyInterestRate,
       monthlyRepayments,
-      constantOffsetAmount,
+      cumulativeOffset,
     );
     months.push(month);
+    cumulativeOffset += monthlyOffsetIncrement;
     stats.totalInterestPaid += month.interestPaid;
     stats.totalAmountPaid += month.interestPaid + month.principalPaid;
   }

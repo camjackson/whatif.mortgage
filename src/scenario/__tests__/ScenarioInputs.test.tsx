@@ -76,4 +76,32 @@ describe('ScenarioInputs', () => {
     const offsetAmountInput = inputs.find('input').at(1);
     expect(offsetAmountInput).toHaveValue(0);
   });
+
+  it('has an offset increment input', () => {
+    const change = jest.fn();
+    const inputs = mount(
+      <ScenarioInputs
+        baseScenario={baseScenario}
+        scenario={{ monthlyOffsetIncrement: 10 }}
+        setValue={key => event => change(key, event.target.value)}
+      />,
+    );
+    const offsetAmountInput = inputs.find('input').at(2);
+    expect(offsetAmountInput).toHaveValue(10);
+
+    offsetAmountInput.simulate('change', { target: { value: 15 } });
+    expect(change).toHaveBeenCalledWith('monthlyOffsetIncrement', 15);
+  });
+
+  it('defaults the offset increment to 0', () => {
+    const inputs = mount(
+      <ScenarioInputs
+        baseScenario={baseScenario}
+        scenario={{}}
+        setValue={() => () => {}}
+      />,
+    );
+    const offsetAmountInput = inputs.find('input').at(2);
+    expect(offsetAmountInput).toHaveValue(0);
+  });
 });
