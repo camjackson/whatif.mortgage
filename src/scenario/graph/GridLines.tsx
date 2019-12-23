@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import { formatCurrency } from '../formatting';
+import { formatCurrency } from '../../formatting';
 
 type Props = {
-  interval;
-  maxValue;
-  graphGutterWidthPx;
-  graphBodyHeightPc;
-  graphBodyWidthPc;
+  interval: number;
+  maxValue: number;
+  graphGutterWidthPx: number;
+  graphBodyHeightPc: number;
+  graphBodyWidthPc: number;
 };
 
 const GridLines: FC<Props> = ({

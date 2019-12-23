@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
-import ScenarioPanel from './ScenarioPanel';
+import ScenarioPanel from './scenario/ScenarioPanel';
 import StateStorage, { State } from './StateStorage';
 import { ScenarioKey } from './models';
 

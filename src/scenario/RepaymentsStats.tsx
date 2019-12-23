@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { formatCurrency, formatInteger } from './formatting';
-import { SummaryStats } from './math/calculateLoanPeriods';
+import { formatCurrency, formatInteger } from '../formatting';
+import { SummaryStats } from '../math/calculateLoanPeriods';
 
 type Props = {
   monthlyRepayments: number;

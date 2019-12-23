@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { formatCurrency } from '../formatting';
-import LoanPeriod from '../math/LoanPeriod';
-import { Coords } from '../math/Coords';
+import { formatCurrency } from '../../formatting';
+import LoanPeriod from '../../math/LoanPeriod';
+import { Coords } from '../../math/Coords';
 
 export const boxWidth = 250;
 export const boxHeight = 95;

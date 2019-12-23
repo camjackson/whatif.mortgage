@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import LoanPeriod from '../math/LoanPeriod';
+import LoanPeriod from '../../math/LoanPeriod';
 
 // ----- interestPaidYPc
 // |   |

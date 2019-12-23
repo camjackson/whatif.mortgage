@@ -25,7 +25,6 @@ describe('ScenarioPanel', () => {
     const stats = panel.find('RepaymentsStats');
 
     expect(graph.prop('years')).toHaveLength(3);
-    expect(graph.prop('loanAmount')).toEqual(1000);
     expect(stats.prop('stats')).toEqual(
       expect.objectContaining({
         totalAmountPaid: 30 * 3 * 12,
@@ -51,7 +50,6 @@ describe('ScenarioPanel', () => {
     const stats = panel.find('RepaymentsStats');
 
     expect(graph.prop('years')).toHaveLength(3);
-    expect(graph.prop('loanAmount')).toEqual(1000);
     expect(stats.prop('stats')).toEqual(
       expect.objectContaining({
         totalAmountPaid: 20 * 3 * 12,

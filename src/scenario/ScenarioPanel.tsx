@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import ScenarioInputs from './ScenarioInputs';
 import RepaymentsGraph from './graph/RepaymentsGraph';
 import RepaymentsStats from './RepaymentsStats';
-import calculateLoanPeriods from './math/calculateLoanPeriods';
-import realCalculateRepayment from './math/calculateRepayment';
-import { BaseScenario, Scenario, ScenarioKey } from './models';
+import calculateLoanPeriods from '../math/calculateLoanPeriods';
+import realCalculateRepayment from '../math/calculateRepayment';
+import { BaseScenario, Scenario, ScenarioKey } from '../models';
 
 const gridAreas = {
   gridTemplateAreas: `
@@ -60,7 +60,7 @@ const ScenarioPanel: FC<Props> = ({
         />
       )}
       <RepaymentsStats monthlyRepayments={monthlyRepayments} stats={stats} />
-      <RepaymentsGraph years={years} loanAmount={loanAmount} />
+      <RepaymentsGraph years={years} />
     </section>
   );
 };

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { BaseScenario, Scenario, ScenarioKey } from './models';
-import Form from './form/Form';
-import { LoanAmountInput, InterestRateInput } from './form/Inputs';
+import { BaseScenario, Scenario, ScenarioKey } from '../models';
+import Form from '../form/Form';
+import { LoanAmountInput, InterestRateInput } from '../form/Inputs';
 
 type Props = {
   baseScenario: BaseScenario;

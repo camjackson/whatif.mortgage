@@ -5,9 +5,9 @@ import HoverBox, {
   boxWidth as hoverBoxWidth,
   boxHeight as hoverBoxHeight,
 } from './HoverBox';
-import LoanPeriod from '../math/LoanPeriod';
+import LoanPeriod from '../../math/LoanPeriod';
 import getGridLineInterval from './getGridLineInterval';
-import { Coords, constrainCoords } from '../math/Coords';
+import { Coords, constrainCoords } from '../../math/Coords';
 
 const graphWidthPx = 1000;
 const graphHeightPx = 500;
@@ -31,10 +31,9 @@ const baseFontSizePx = 16;
 
 type Props = {
   years: LoanPeriod[];
-  loanAmount: number;
 };
 
-const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
+const RepaymentsGraph: FC<Props> = ({ years }) => {
   const [hoveredYear, setHoveredYear] = useState(null);
   const [mouseCoords, setMouseCoords] = useState({ x: -1, y: -1 });
   const svgRef = useRef<SVGSVGElement>(null);
@@ -54,7 +53,8 @@ const RepaymentsGraph: FC<Props> = ({ years, loanAmount }) => {
     hoverBoxMaxCoords,
   );
 
-  const columnXPc = index => index * columnWidthPc + graphGutterWidthPc;
+  const columnXPc = (index: number) =>
+    index * columnWidthPc + graphGutterWidthPc;
 
   return (
     <svg
