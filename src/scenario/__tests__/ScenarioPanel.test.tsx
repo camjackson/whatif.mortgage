@@ -1,4 +1,5 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import ScenarioPanel from '../ScenarioPanel';
 
 describe('ScenarioPanel', () => {
@@ -8,13 +9,13 @@ describe('ScenarioPanel', () => {
     loanLengthInYears: 3,
   };
   it('calculates some stuff and passes it down', () => {
-    const calculateRepayment = jest.fn(() => 30);
+    const calculateRepayment = jest.fn(() => 27.78);
     const panel = mount(
       <ScenarioPanel
         hideInputs
         baseScenario={baseScenario}
         scenario={{}}
-        setValue={() => {}}
+        setValue={() => () => {}}
         calculateRepayment={calculateRepayment}
       />,
     );
@@ -25,11 +26,7 @@ describe('ScenarioPanel', () => {
     const stats = panel.find('RepaymentsStats');
 
     expect(graph.prop('years')).toHaveLength(3);
-    expect(stats.prop('stats')).toEqual(
-      expect.objectContaining({
-        totalAmountPaid: 30 * 3 * 12,
-      }),
-    );
+    expect(stats.prop('stats').totalAmountPaid).toBeCloseTo(27.78 * 3 * 12);
   });
 
   it('applies overrides to the base scenario', () => {
@@ -39,7 +36,7 @@ describe('ScenarioPanel', () => {
         hideInputs
         baseScenario={baseScenario}
         scenario={{ annualInterestRate: 2.4 }}
-        setValue={() => {}}
+        setValue={() => () => {}}
         calculateRepayment={calculateRepayment}
       />,
     );

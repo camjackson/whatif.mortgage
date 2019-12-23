@@ -30,13 +30,13 @@ describe('HoverBox', () => {
 
     expect(texts).toHaveLength(4);
     expect(texts.at(0)).toHaveProp('x', 33);
-    expect(texts.at(0)).toHaveProp('y', 57);
+    expect(texts.at(0)).toHaveProp('y', 55);
     expect(texts.at(1)).toHaveProp('x', 33);
-    expect(texts.at(1)).toHaveProp('y', 77);
+    expect(texts.at(1)).toHaveProp('y', 75);
     expect(texts.at(2)).toHaveProp('x', 33);
-    expect(texts.at(2)).toHaveProp('y', 97);
+    expect(texts.at(2)).toHaveProp('y', 95);
     expect(texts.at(3)).toHaveProp('x', 33);
-    expect(texts.at(3)).toHaveProp('y', 117);
+    expect(texts.at(3)).toHaveProp('y', 115);
   });
 
   it('shows the interest paid, principal paid, and ending principal', () => {

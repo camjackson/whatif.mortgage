@@ -19,3 +19,6 @@ Mortgage scenario calculator and comparer.
 - Try RTL again?
 - Monthly-increasing offset amount
 - Increased monthly repayments
+- Summarise difference of scenario
+  - Interest saved (absolute and per cent)
+  - Months early

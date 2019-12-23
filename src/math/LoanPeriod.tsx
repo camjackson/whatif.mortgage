@@ -11,9 +11,9 @@ export default class LoanPeriod {
     repayment: number,
     offsetAmount: number,
   ): LoanPeriod {
-    const interestPaid =
-      ((startingPrincipal - offsetAmount) * periodicInterestRate) / 100;
-    const principalPaid = repayment - interestPaid;
+    const effectivePrincipal = Math.max(startingPrincipal - offsetAmount, 0);
+    const interestPaid = (effectivePrincipal * periodicInterestRate) / 100;
+    const principalPaid = Math.min(repayment - interestPaid, startingPrincipal);
     const endingPrincipal = startingPrincipal - principalPaid;
 
     return new LoanPeriod(interestPaid, principalPaid, endingPrincipal);

@@ -32,6 +32,34 @@ describe('LoanPeriod', () => {
       expect(periodOne.principalPaid).toEqual(79.5);
       expect(periodOne.endingPrincipal).toEqual(920.5);
     });
+
+    it('stops you from paying off the loan past zero', () => {
+      const previousPeriod = new LoanPeriod(0, 0, 110);
+
+      const nextPeriod = previousPeriod.createNextLoanPeriod(
+        interestRate,
+        repayment,
+        10,
+      );
+
+      expect(nextPeriod.interestPaid).toEqual(4.5);
+      expect(nextPeriod.principalPaid).toEqual(110); // Not 115.5
+      expect(nextPeriod.endingPrincipal).toEqual(0); // Not -5.5
+    });
+
+    it('does not give you negative interest when your offset is more than the remaining principal', () => {
+      const previousPeriod = new LoanPeriod(0, 0, 110);
+
+      const nextPeriod = previousPeriod.createNextLoanPeriod(
+        interestRate,
+        repayment,
+        200,
+      );
+
+      expect(nextPeriod.interestPaid).toEqual(0);
+      expect(nextPeriod.principalPaid).toEqual(110);
+      expect(nextPeriod.endingPrincipal).toEqual(0);
+    });
   });
 
   it('can get the total of the loan period', () => {

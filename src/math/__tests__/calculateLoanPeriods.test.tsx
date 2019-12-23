@@ -8,7 +8,7 @@ describe('calculateLoanPeriods', () => {
     loanLengthInYears: 3,
     constantOffsetAmount: 0,
   };
-  const { months, years, stats } = calculateLoanPeriods(scenario, 30);
+  const { months, years, stats } = calculateLoanPeriods(scenario, 27.77778);
 
   describe('the monthly stats', () => {
     it('has the initial state as the zeroeth month', () => {
@@ -21,12 +21,12 @@ describe('calculateLoanPeriods', () => {
       expect(months).toHaveLength(37);
 
       expect(months[1].interestPaid).toEqual(3);
-      expect(months[1].principalPaid).toEqual(27);
-      expect(months[1].endingPrincipal).toEqual(973);
+      expect(months[1].principalPaid).toBeCloseTo(24.78);
+      expect(months[1].endingPrincipal).toBeCloseTo(975.22);
 
-      expect(months[2].interestPaid).toBeCloseTo(2.919);
-      expect(months[2].principalPaid).toEqual(27.081);
-      expect(months[2].endingPrincipal).toEqual(945.919);
+      expect(months[2].interestPaid).toBeCloseTo(2.93);
+      expect(months[2].principalPaid).toBeCloseTo(24.85);
+      expect(months[2].endingPrincipal).toBeCloseTo(950.37);
 
       // I think 2 months is enough...
     });
@@ -36,19 +36,17 @@ describe('calculateLoanPeriods', () => {
     it('reduces the months down to years', () => {
       expect(years).toHaveLength(3);
 
-      expect(years[0].interestPaid).toBeCloseTo(30.6);
-      expect(years[0].principalPaid).toBeCloseTo(329.4);
-      expect(years[0].endingPrincipal).toBeCloseTo(670.6);
+      expect(years[0].interestPaid).toBeCloseTo(31.04);
+      expect(years[0].principalPaid).toBeCloseTo(302.29);
+      expect(years[0].endingPrincipal).toBeCloseTo(697.71);
     });
   });
 
   describe('the summary stats', () => {
     it('adds up the total interest paid and the total P&I paid', () => {
-      expect(stats.totalInterestPaid).toBeCloseTo(55.19);
-      expect(stats.totalAmountPaid).toEqual(1080);
-      expect(stats.interestToPrincipalRatio).toBeCloseTo(5.519);
-      // The numbers are a bit off because we used a nice round number for
-      // the repayment figure up the top.
+      expect(stats.totalInterestPaid).toBeCloseTo(59.538);
+      expect(stats.totalAmountPaid).toBeCloseTo(1000);
+      expect(stats.interestToPrincipalRatio).toBeCloseTo(5.958);
     });
   });
 
