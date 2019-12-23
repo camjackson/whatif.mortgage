@@ -5,7 +5,6 @@ import { Coords } from '../../math/Coords';
 
 export const boxWidth = 250;
 export const boxHeight = 95;
-const textMargin = 10;
 const lineHeight = 20;
 
 type Props = {
@@ -14,9 +13,13 @@ type Props = {
   yearNumber: number;
 };
 
+const Text = ({ color = '', ...props }) => (
+  <text className={`baseline-hanging fill-current ${color}`} {...props} />
+);
+
 const HoverBox: FC<Props> = ({ coords, yearData, yearNumber }) => {
-  const textX = coords.x + textMargin;
-  const textY = coords.y + textMargin;
+  const textX = coords.x + 10;
+  const textY = coords.y + 8;
 
   return (
     <>
@@ -27,18 +30,18 @@ const HoverBox: FC<Props> = ({ coords, yearData, yearNumber }) => {
         width={boxWidth}
         height={boxHeight}
       />
-      <text className="baseline-hanging" x={textX} y={textY}>
+      <Text x={textX} y={textY}>
         Year {yearNumber}:
-      </text>
-      <text className="baseline-hanging" x={textX} y={textY + lineHeight}>
+      </Text>
+      <Text color="text-green-600" x={textX} y={textY + lineHeight}>
         Interest paid: {formatCurrency(yearData.interestPaid)}
-      </text>
-      <text className="baseline-hanging" x={textX} y={textY + lineHeight * 2}>
+      </Text>
+      <Text color="text-purple-600" x={textX} y={textY + lineHeight * 2}>
         Principal paid: {formatCurrency(yearData.principalPaid)}
-      </text>
-      <text className="baseline-hanging" x={textX} y={textY + lineHeight * 3}>
+      </Text>
+      <Text color="text-pink-600" x={textX} y={textY + lineHeight * 3}>
         Principal remaining: {formatCurrency(yearData.endingPrincipal)}
-      </text>
+      </Text>
     </>
   );
 };

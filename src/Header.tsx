@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { BaseScenario, ScenarioKey } from './models';
-import Form from './form/Form';
 import { LoanAmountInput, InterestRateInput, YearsInput } from './form/Inputs';
 
 type Props = {
@@ -10,7 +9,7 @@ type Props = {
 
 const Header: FC<Props> = ({ baseScenario, setValue }) => (
   <header className="shadow-md fixed w-full h-20 top-0 bg-gray-100">
-    <Form className="flex justify-center items-center h-full">
+    <form className="flex justify-center items-center h-full text-4xl font-thin">
       I will borrow $
       <LoanAmountInput
         value={baseScenario.loanAmount}
@@ -28,7 +27,7 @@ const Header: FC<Props> = ({ baseScenario, setValue }) => (
         onChange={setValue(ScenarioKey.loanLengthInYears)}
       />{' '}
       years
-    </Form>
+    </form>
   </header>
 );
 

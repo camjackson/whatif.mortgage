@@ -59,7 +59,7 @@ const RepaymentsGraph: FC<Props> = ({ years }) => {
   return (
     <svg
       style={{ gridArea: 'graph' }}
-      className="shadow-lg"
+      className="text-base shadow-lg"
       width={graphWidthPx}
       height={graphHeightPx}
       ref={svgRef}

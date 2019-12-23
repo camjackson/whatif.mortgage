@@ -8,10 +8,7 @@ type Props = {
 };
 
 const RepaymentsStats: FC<Props> = ({ monthlyRepayments, stats }) => (
-  <p
-    style={{ gridArea: 'stats' }}
-    className="text-3xl font-hairline leading-tight"
-  >
+  <p style={{ gridArea: 'stats' }} className="leading-tight">
     With monthly repayments of{' '}
     <strong className="underline">{formatCurrency(monthlyRepayments)}</strong>,{' '}
     <br /> your total interest bill will be{' '}

@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { BaseScenario, Scenario, ScenarioKey } from '../models';
-import Form from '../form/Form';
 import { LoanAmountInput, InterestRateInput } from '../form/Inputs';
 
 type Props = {
@@ -10,7 +9,7 @@ type Props = {
 };
 
 const ScenarioInputs: FC<Props> = ({ baseScenario, scenario, setValue }) => (
-  <Form style={{ gridArea: 'form' }} className="flex flex-col">
+  <form style={{ gridArea: 'form' }} className="flex flex-col">
     <label>
       New interest rate:{' '}
       <InterestRateInput
@@ -30,7 +29,7 @@ const ScenarioInputs: FC<Props> = ({ baseScenario, scenario, setValue }) => (
         onChange={setValue(ScenarioKey.constantOffsetAmount)}
       />
     </label>
-  </Form>
+  </form>
 );
 
 export default ScenarioInputs;
