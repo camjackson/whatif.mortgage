@@ -53,7 +53,11 @@ const ScenarioPanel: FC<Props> = ({
       {hideInputs ? (
         <div style={{ gridArea: 'form' }} />
       ) : (
-        <ScenarioInputs scenario={scenario} setValue={setValue} />
+        <ScenarioInputs
+          baseScenario={baseScenario}
+          scenario={scenario}
+          setValue={setValue}
+        />
       )}
       <RepaymentsStats monthlyRepayments={monthlyRepayments} stats={stats} />
       <RepaymentsGraph years={years} loanAmount={loanAmount} />
