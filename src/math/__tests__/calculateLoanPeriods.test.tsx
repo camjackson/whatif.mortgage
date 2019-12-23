@@ -1,7 +1,14 @@
 import calculateLoanPeriods from '../calculateLoanPeriods';
+import { Scenario } from '../../models';
 
 describe('calculateLoanPeriods', () => {
-  const { months, years, stats } = calculateLoanPeriods(1000, 3.6, 3, 30);
+  const scenario: Scenario = {
+    loanAmount: 1000,
+    annualInterestRate: 3.6,
+    loanLengthInYears: 3,
+    constantOffsetAmount: 0,
+  };
+  const { months, years, stats } = calculateLoanPeriods(scenario, 30);
 
   describe('the monthly stats', () => {
     it('has the initial state as the zeroeth month', () => {
@@ -42,6 +49,30 @@ describe('calculateLoanPeriods', () => {
       expect(stats.interestToPrincipalRatio).toBeCloseTo(5.519);
       // The numbers are a bit off because we used a nice round number for
       // the repayment figure up the top.
+    });
+  });
+
+  describe('with an offset account', () => {
+    const offsetScenario: Scenario = {
+      loanAmount: 1000,
+      annualInterestRate: 3.6,
+      loanLengthInYears: 3,
+      constantOffsetAmount: 100,
+    };
+    const { months, years, stats } = calculateLoanPeriods(offsetScenario, 30);
+
+    it('reduces interest paid and increases principal paid in each month', () => {
+      expect(months).toHaveLength(37);
+
+      expect(months[1].interestPaid).toBeCloseTo(2.7);
+      expect(months[1].principalPaid).toBeCloseTo(27.3);
+      expect(months[1].endingPrincipal).toBeCloseTo(972.7);
+
+      expect(months[2].interestPaid).toBeCloseTo(2.6181);
+      expect(months[2].principalPaid).toBeCloseTo(27.3819);
+      expect(months[2].endingPrincipal).toBeCloseTo(945.3181);
+
+      // I think 2 months is enough...
     });
   });
 });

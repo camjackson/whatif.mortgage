@@ -9,16 +9,27 @@ export default class LoanPeriod {
     startingPrincipal: number,
     periodicInterestRate: number,
     repayment: number,
+    offsetAmount: number,
   ): LoanPeriod {
-    const interestPaid = (startingPrincipal * periodicInterestRate) / 100;
+    const interestPaid =
+      ((startingPrincipal - offsetAmount) * periodicInterestRate) / 100;
     const principalPaid = repayment - interestPaid;
     const endingPrincipal = startingPrincipal - principalPaid;
 
     return new LoanPeriod(interestPaid, principalPaid, endingPrincipal);
   }
 
-  createNextLoanPeriod(periodicInterestRate: number, repayment: number): LoanPeriod {
-    return LoanPeriod.calculate(this.endingPrincipal, periodicInterestRate, repayment);
+  createNextLoanPeriod(
+    periodicInterestRate: number,
+    repayment: number,
+    offsetAmount: number,
+  ): LoanPeriod {
+    return LoanPeriod.calculate(
+      this.endingPrincipal,
+      periodicInterestRate,
+      repayment,
+      offsetAmount,
+    );
   }
 
   getTotal(): number {

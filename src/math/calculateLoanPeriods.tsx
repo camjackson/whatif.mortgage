@@ -1,4 +1,5 @@
 import LoanPeriod from './LoanPeriod';
+import { Scenario } from '../models';
 
 export type SummaryStats = {
   totalInterestPaid: number;
@@ -13,11 +14,16 @@ type FullStats = {
 };
 
 const calculateLoanPeriods = (
-  loanAmount: number,
-  annualInterestRate: number,
-  loanLengthInYears: number,
+  scenario: Scenario,
   monthlyRepayments: number,
 ): FullStats => {
+  const {
+    loanAmount,
+    annualInterestRate,
+    loanLengthInYears,
+    constantOffsetAmount = 0,
+  } = scenario;
+
   const monthlyInterestRate = annualInterestRate / 12;
   const numberOfMonths = loanLengthInYears * 12;
   const months: LoanPeriod[] = [];
@@ -35,6 +41,7 @@ const calculateLoanPeriods = (
     const month = months[i - 1].createNextLoanPeriod(
       monthlyInterestRate,
       monthlyRepayments,
+      constantOffsetAmount,
     );
     months.push(month);
     stats.totalInterestPaid += month.interestPaid;

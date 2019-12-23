@@ -1,14 +1,17 @@
 import LoanPeriod from '../LoanPeriod';
 
 describe('LoanPeriod', () => {
-  const startingPrincipal = 1000;
   const interestRate = 4.5;
   const repayment = 120;
 
   it('can construct the next period from the previous period', () => {
     const periodZero = new LoanPeriod(0, 0, 1000);
 
-    const periodOne = periodZero.createNextLoanPeriod(interestRate, repayment);
+    const periodOne = periodZero.createNextLoanPeriod(
+      interestRate,
+      repayment,
+      0,
+    );
 
     expect(periodOne.interestPaid).toEqual(45);
     expect(periodOne.principalPaid).toEqual(75);
@@ -35,5 +38,19 @@ describe('LoanPeriod', () => {
     expect(sum.interestPaid).toEqual(125);
     expect(sum.principalPaid).toEqual(1000);
     expect(sum.endingPrincipal).toEqual(0);
+  });
+
+  it('reduces the interest paid and increases the principal paid when there is an offset amount', () => {
+    const periodZero = new LoanPeriod(0, 0, 1000);
+
+    const periodOne = periodZero.createNextLoanPeriod(
+      interestRate,
+      repayment,
+      100,
+    );
+
+    expect(periodOne.interestPaid).toEqual(40.5);
+    expect(periodOne.principalPaid).toEqual(79.5);
+    expect(periodOne.endingPrincipal).toEqual(920.5);
   });
 });

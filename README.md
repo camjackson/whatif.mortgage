@@ -17,3 +17,5 @@ Mortgage scenario calculator and comparer.
   - Unit
   - Journey
 - Try RTL again?
+- Monthly-increasing offset amount
+- Increased monthly repayments
