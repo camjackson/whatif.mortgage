@@ -21,4 +21,3 @@ Mortgage scenario calculator and comparer.
 - Increased monthly repayments
 - Summarise difference of scenario
   - Interest saved (absolute and per cent)
-  - Months early

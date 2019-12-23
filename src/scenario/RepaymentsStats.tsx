@@ -7,6 +7,21 @@ type Props = {
   stats: SummaryStats;
 };
 
+const formatMonths = (months: number) => {
+  const leftOverMonths = months % 12;
+  const wholeYears = (months - leftOverMonths) / 12;
+
+  const formattedQuantities = [
+    formatAmount(wholeYears, 'year'),
+    formatAmount(leftOverMonths, 'month'),
+  ].filter(s => s !== '');
+
+  return formattedQuantities.join(' and ');
+};
+const formatAmount = (qty: number, unit: string) => {
+  return qty === 0 ? '' : qty === 1 ? `1 ${unit}` : `${qty} ${unit}s`;
+};
+
 const RepaymentsStats: FC<Props> = ({ monthlyRepayments, stats }) => (
   <p style={{ gridArea: 'stats' }} className="leading-tight">
     With monthly repayments of{' '}
@@ -21,6 +36,13 @@ const RepaymentsStats: FC<Props> = ({ monthlyRepayments, stats }) => (
       {formatInteger(stats.interestToPrincipalRatio)}%
     </strong>{' '}
     of the amount you borrowed.
+    {stats.monthsFinishedEarly !== 0 && (
+      <>
+        <br />
+        You'll exit the loan{' '}
+        <strong>{formatMonths(stats.monthsFinishedEarly)} early</strong>!
+      </>
+    )}
   </p>
 );
 

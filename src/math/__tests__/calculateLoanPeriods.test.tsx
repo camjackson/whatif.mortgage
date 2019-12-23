@@ -8,7 +8,7 @@ describe('calculateLoanPeriods', () => {
     loanLengthInYears: 3,
     constantOffsetAmount: 0,
   };
-  const { months, years, stats } = calculateLoanPeriods(scenario, 27.77778);
+  const { months, years, stats } = calculateLoanPeriods(scenario, 29.2048);
 
   describe('the monthly stats', () => {
     it('has the initial state as the zeroeth month', () => {
@@ -21,14 +21,12 @@ describe('calculateLoanPeriods', () => {
       expect(months).toHaveLength(37);
 
       expect(months[1].interestPaid).toEqual(3);
-      expect(months[1].principalPaid).toBeCloseTo(24.78);
-      expect(months[1].endingPrincipal).toBeCloseTo(975.22);
+      expect(months[1].principalPaid).toBeCloseTo(26.2048);
+      expect(months[1].endingPrincipal).toBeCloseTo(973.7952);
 
-      expect(months[2].interestPaid).toBeCloseTo(2.93);
-      expect(months[2].principalPaid).toBeCloseTo(24.85);
-      expect(months[2].endingPrincipal).toBeCloseTo(950.37);
-
-      // I think 2 months is enough...
+      expect(months[2].interestPaid).toBeCloseTo(2.9214);
+      expect(months[2].principalPaid).toBeCloseTo(26.2834);
+      expect(months[2].endingPrincipal).toBeCloseTo(947.5118);
     });
   });
 
@@ -36,17 +34,18 @@ describe('calculateLoanPeriods', () => {
     it('reduces the months down to years', () => {
       expect(years).toHaveLength(3);
 
-      expect(years[0].interestPaid).toBeCloseTo(31.04);
-      expect(years[0].principalPaid).toBeCloseTo(302.29);
-      expect(years[0].endingPrincipal).toBeCloseTo(697.71);
+      expect(years[0].interestPaid).toBeCloseTo(30.7592);
+      expect(years[0].principalPaid).toBeCloseTo(319.6984);
+      expect(years[0].endingPrincipal).toBeCloseTo(680.3016);
     });
   });
 
   describe('the summary stats', () => {
     it('adds up the total interest paid and the total P&I paid', () => {
-      expect(stats.totalInterestPaid).toBeCloseTo(59.538);
-      expect(stats.totalAmountPaid).toBeCloseTo(1000);
-      expect(stats.interestToPrincipalRatio).toBeCloseTo(5.958);
+      expect(stats.totalInterestPaid).toBeCloseTo(56.7465);
+      expect(stats.totalAmountPaid).toBeCloseTo(1051.3728);
+      expect(stats.interestToPrincipalRatio).toBeCloseTo(5.6747);
+      expect(stats.monthsFinishedEarly).toEqual(0);
     });
   });
 
@@ -57,7 +56,7 @@ describe('calculateLoanPeriods', () => {
       loanLengthInYears: 3,
       constantOffsetAmount: 100,
     };
-    const { months, years, stats } = calculateLoanPeriods(offsetScenario, 30);
+    const { months, stats } = calculateLoanPeriods(offsetScenario, 30);
 
     it('reduces interest paid and increases principal paid in each month', () => {
       expect(months).toHaveLength(37);
@@ -69,8 +68,10 @@ describe('calculateLoanPeriods', () => {
       expect(months[2].interestPaid).toBeCloseTo(2.6181);
       expect(months[2].principalPaid).toBeCloseTo(27.3819);
       expect(months[2].endingPrincipal).toBeCloseTo(945.3181);
+    });
 
-      // I think 2 months is enough...
+    it('counts the number of months early the loan was finished', () => {
+      expect(stats.monthsFinishedEarly).toEqual(1);
     });
   });
 });
