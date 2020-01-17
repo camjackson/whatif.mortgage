@@ -23,7 +23,7 @@ const formatAmount = (qty: number, unit: string) => {
 };
 
 const RepaymentsStats: FC<Props> = ({ monthlyRepayments, stats }) => (
-  <p style={{ gridArea: 'stats' }} className="leading-tight">
+  <p style={{ gridArea: 'stats' }} className="leading-tight p-2">
     With monthly repayments of{' '}
     <strong>{formatCurrency(monthlyRepayments)}</strong>, <br /> your total
     interest bill will be{' '}

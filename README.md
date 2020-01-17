@@ -10,6 +10,8 @@ Mortgage scenario calculator and comparer.
 - Increased monthly repayments
 - Summarise difference of scenario
   - Interest saved (absolute and per cent)
+- Collections of scenarios
+- Remove a scenario
 
 ## Minor features
 
@@ -26,6 +28,7 @@ Mortgage scenario calculator and comparer.
 - Show scenario inputs and outputs as tables?
 - Stop stuff jumping around when numbers change
 - Can I fit two scenarios side by side?
+- Better zero state, faded outline with plus
 
 ## Tech
 

@@ -37,14 +37,14 @@ describe('RepaymentsGraph', () => {
 
     expect(columns.at(0)).toHaveProp({
       graphMaxValue: 1045,
-      width: '18.4%',
-      x: '8%',
+      width: '17.6%',
+      x: '12%',
       yearData: years[0],
     });
     expect(columns.at(1)).toHaveProp({
       graphMaxValue: 1045,
-      width: '18.4%',
-      x: '26.4%',
+      width: '17.6%',
+      x: '29.6%',
       yearData: years[1],
     });
   });
@@ -84,7 +84,7 @@ describe('RepaymentsGraph', () => {
     });
     graph.update();
 
-    expect(graph.find(HoverBox)).toHaveProp({ coords: { x: 80, y: 375 } });
+    expect(graph.find(HoverBox)).toHaveProp({ coords: { x: 60, y: 125 } });
   });
 
   it('constrains the hover box so it does not go off the top-right corner', () => {
@@ -99,7 +99,7 @@ describe('RepaymentsGraph', () => {
     });
     graph.update();
 
-    expect(graph.find(HoverBox)).toHaveProp({ coords: { x: 749, y: 1 } });
+    expect(graph.find(HoverBox)).toHaveProp({ coords: { x: 249, y: 1 } });
   });
 
   it('hides the hover box when the mouse leaves the chart', () => {

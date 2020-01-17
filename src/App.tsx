@@ -35,15 +35,17 @@ const App = () => {
         baseScenario={state.baseScenario}
         setValue={setBaseScenarioValue}
       />
-      {state.scenarios.map((scenario, index) => (
-        <ScenarioPanel
-          key={index}
-          hideInputs={index === 0}
-          baseScenario={state.baseScenario}
-          scenario={scenario}
-          setValue={setScenarioValue(index)}
-        />
-      ))}
+      <main className="grid cols-50-50">
+        {state.scenarios.map((scenario, index) => (
+          <ScenarioPanel
+            key={index}
+            hideInputs={index === 0}
+            baseScenario={state.baseScenario}
+            scenario={scenario}
+            setValue={setScenarioValue(index)}
+          />
+        ))}
+      </main>
       <button
         className="block mx-auto my-4 px-8 py-4 border border-blue-700 rounded-sm text-xl"
         onClick={addScenario}

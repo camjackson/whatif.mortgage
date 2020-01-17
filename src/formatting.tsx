@@ -12,8 +12,12 @@ const currencyOpts = {
   ...integerOpts,
 };
 
-export const formatCurrency = (number: number): string =>
-  toLocaleString(number);
+export const formatCurrency = (number: number): string => {
+  if (number < 100000) {
+    return toLocaleString(number);
+  }
+  return `${toLocaleString(number / 1000)}k`;
+};
 
 export const formatInteger = number =>
   number.toLocaleString(undefined, integerOpts);

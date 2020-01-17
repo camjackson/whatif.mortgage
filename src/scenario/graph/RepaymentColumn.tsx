@@ -24,6 +24,7 @@ type Props = {
   yearData: LoanPeriod;
   x: string; // Percentage
   width: string; // Percentage
+  showBackground: boolean;
   onMouseEnter: (e) => any;
 };
 
@@ -33,6 +34,7 @@ const RepaymentColumn: FC<Props> = ({
   yearData,
   x,
   width,
+  showBackground,
   onMouseEnter,
 }) => {
   const endingPrincipalHeightPc =
@@ -58,6 +60,14 @@ const RepaymentColumn: FC<Props> = ({
 
   return (
     <>
+      {showBackground && (
+        <rect
+          {...commonProps}
+          className="fill-current text-gray-300"
+          y="0"
+          height={`${graphBodyHeightPc}%`}
+        />
+      )}
       <rect
         {...commonProps}
         className="fill-current text-pink-300"
@@ -79,8 +89,8 @@ const RepaymentColumn: FC<Props> = ({
       <rect
         {...commonProps}
         className="fill-none stroke-current text-gray-500"
-        height={`${wholeColumnHeightPc}%`}
         y={`${interestPaidYPc}%`}
+        height={`${wholeColumnHeightPc}%`}
       />
     </>
   );

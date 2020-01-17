@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { mount } from 'enzyme';
 import App from '../App';
 
 const change = value => ['change', { target: { value } }];
@@ -35,8 +36,8 @@ it('works', () => {
   [principalRemainingRect, principalPaidRect, interestPaidRect].forEach(
     rect => {
       expect(rect).toHaveProp({
-        x: '8%',
-        width: '30.666666666666668%',
+        x: '12%',
+        width: '29.333333333333332%',
       });
     },
   );
@@ -56,7 +57,7 @@ it('works', () => {
     parsePercentage(interestPaidRect.prop('height')) +
       parsePercentage(principalPaidRect.prop('height')) +
       parsePercentage(principalRemainingRect.prop('height')),
-  ).toBeCloseTo(94);
+  ).toBeCloseTo(88);
 
   //... and it shows the summary stats...
   expect(app).toIncludeText('monthly repayments of $29');

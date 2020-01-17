@@ -9,9 +9,9 @@ import LoanPeriod from '../../math/LoanPeriod';
 import getGridLineInterval from './getGridLineInterval';
 import { Coords, constrainCoords } from '../../math/Coords';
 
-const graphWidthPx = 1000;
-const graphHeightPx = 500;
-const graphGutterWidthPx = 80;
+const graphWidthPx = 500;
+const graphHeightPx = 250;
+const graphGutterWidthPx = 60;
 const graphGutterHeightPx = 30;
 const graphGutterWidthPc = (graphGutterWidthPx / graphWidthPx) * 100;
 const graphGutterHeightPc = (graphGutterHeightPx / graphHeightPx) * 100;
@@ -56,6 +56,9 @@ const RepaymentsGraph: FC<Props> = ({ years }) => {
   const columnXPc = (index: number) =>
     index * columnWidthPc + graphGutterWidthPc;
 
+  const columnLabelXPc = (index: number) =>
+    Math.min(columnXPc(index) + columnWidthPc / 2, 98);
+
   return (
     <svg
       style={{ gridArea: 'graph' }}
@@ -69,19 +72,22 @@ const RepaymentsGraph: FC<Props> = ({ years }) => {
       <rect width={graphWidthPx} height={graphHeightPx} fill="none" />
       {years.map((yearData, index) => (
         <React.Fragment key={index}>
-          <text
-            className="anchor-middle"
-            x={`${columnXPc(index) + columnWidthPc / 2}%`}
-            y={graphHeightPx - graphGutterHeightPx + baseFontSizePx + 5}
-          >
-            {index + 1}
-          </text>
+          {(index === 0 || (index + 1) % 5 === 0) && (
+            <text
+              className="anchor-middle"
+              x={`${columnLabelXPc(index)}%`}
+              y={graphHeightPx - graphGutterHeightPx + baseFontSizePx + 5}
+            >
+              {index + 1}
+            </text>
+          )}
           <RepaymentColumn
             graphMaxValue={graphMaxValue}
             graphBodyHeightPc={graphBodyHeightPc}
             yearData={yearData}
             width={`${columnWidthPc}%`}
             x={`${columnXPc(index)}%`}
+            showBackground={Math.floor(index / 5) % 2 !== 0}
             onMouseEnter={() => setHoveredYear(index)}
           />
         </React.Fragment>
