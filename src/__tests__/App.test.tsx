@@ -60,9 +60,9 @@ it('works', () => {
   ).toBeCloseTo(88);
 
   //... and it shows the summary stats...
-  expect(app).toIncludeText('monthly repayments of $29');
-  expect(app).toIncludeText('your total interest bill will be $56');
-  expect(app).toIncludeText('or 6% of the amount you borrowed');
+  expect(app).toIncludeText('Repayments:$29');
+  expect(app).toIncludeText('Total interest:$56');
+  expect(app).toIncludeText('Interest margin:6%');
 
   // ... but no HoverBox yet.
   expect(app.find('HoverBox')).not.toExist();
@@ -71,9 +71,9 @@ it('works', () => {
   normalInputs.at(2).simulate(...change(5));
 
   // ... then the summary stats get updated.
-  expect(app).toIncludeText('monthly repayments of $18');
-  expect(app).toIncludeText('your total interest bill will be $94');
-  expect(app).toIncludeText('or 9% of the amount you borrowed');
+  expect(app).toIncludeText('Repayments:$18');
+  expect(app).toIncludeText('Total interest:$94');
+  expect(app).toIncludeText('Interest margin:9%');
 
   // Now if we hover over the second column of the graph, ...
   rects = app.find('rect');

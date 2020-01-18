@@ -30,7 +30,7 @@ const ScenarioInputs: FC<Props> = ({ baseScenario, scenario, setValue }) => (
       />
     </label>
     <label>
-      Extra offset per month: $
+      Add offset / m: $
       <LoanAmountInput
         value={scenario.monthlyOffsetIncrement || 0}
         onChange={setValue(ScenarioKey.monthlyOffsetIncrement)}

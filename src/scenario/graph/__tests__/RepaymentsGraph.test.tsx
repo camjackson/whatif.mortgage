@@ -99,7 +99,7 @@ describe('RepaymentsGraph', () => {
     });
     graph.update();
 
-    expect(graph.find(HoverBox)).toHaveProp({ coords: { x: 249, y: 1 } });
+    expect(graph.find(HoverBox)).toHaveProp({ coords: { x: 299, y: 1 } });
   });
 
   it('hides the hover box when the mouse leaves the chart', () => {

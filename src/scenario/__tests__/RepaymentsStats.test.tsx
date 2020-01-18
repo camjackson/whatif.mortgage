@@ -14,11 +14,9 @@ describe('RepaymentsStats', () => {
       <RepaymentsStats monthlyRepayments={20} stats={stats} />,
     );
 
-    expect(repaymentsStats).toIncludeText('monthly repayments of $20');
-    expect(repaymentsStats).toIncludeText(
-      'your total interest bill will be $100',
-    );
-    expect(repaymentsStats).toIncludeText('or 8% of the amount you borrowed');
+    expect(repaymentsStats).toIncludeText('Repayments:$20');
+    expect(repaymentsStats).toIncludeText('Total interest:$100');
+    expect(repaymentsStats).toIncludeText('Interest margin:8%');
   });
 
   describe('early exit stat', () => {
@@ -40,14 +38,14 @@ describe('RepaymentsStats', () => {
 
     it('shows the stat correctly for different month amounts', () => {
       const testCases = [
-        { months: 1, text: 'exit the loan 1 month early' },
-        { months: 2, text: 'exit the loan 2 months early' },
-        { months: 12, text: 'exit the loan 1 year early' },
-        { months: 13, text: 'exit the loan 1 year and 1 month early' },
-        { months: 18, text: 'exit the loan 1 year and 6 months early' },
-        { months: 24, text: 'exit the loan 2 years' },
-        { months: 25, text: 'exit the loan 2 years and 1 month early' },
-        { months: 28, text: 'exit the loan 2 years and 4 months early' },
+        { months: 1, text: 'Early exit:1m' },
+        { months: 2, text: 'Early exit:2m' },
+        { months: 12, text: 'Early exit:1y' },
+        { months: 13, text: 'Early exit:1y, 1m' },
+        { months: 18, text: 'Early exit:1y, 6m' },
+        { months: 24, text: 'Early exit:2y' },
+        { months: 25, text: 'Early exit:2y, 1m' },
+        { months: 28, text: 'Early exit:2y, 4m' },
       ];
 
       testCases.forEach(testCase => {

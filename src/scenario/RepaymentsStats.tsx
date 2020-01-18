@@ -12,35 +12,45 @@ const formatMonths = (months: number) => {
   const wholeYears = (months - leftOverMonths) / 12;
 
   const formattedQuantities = [
-    formatAmount(wholeYears, 'year'),
-    formatAmount(leftOverMonths, 'month'),
+    formatAmount(wholeYears, 'y'),
+    formatAmount(leftOverMonths, 'm'),
   ].filter(s => s !== '');
 
-  return formattedQuantities.join(' and ');
+  return formattedQuantities.join(', ');
 };
 const formatAmount = (qty: number, unit: string) => {
-  return qty === 0 ? '' : qty === 1 ? `1 ${unit}` : `${qty} ${unit}s`;
+  return qty === 0 ? '' : `${qty}${unit}`;
 };
 
+const Th: FC = props => <th className="font-hairline text-right" {...props} />;
+const Td: FC = props => <td className="font-normal text-left" {...props} />;
+
 const RepaymentsStats: FC<Props> = ({ monthlyRepayments, stats }) => (
-  <p style={{ gridArea: 'stats' }} className="leading-tight p-2">
-    With monthly repayments of{' '}
-    <strong>{formatCurrency(monthlyRepayments)}</strong>, <br /> your total
-    interest bill will be{' '}
-    <strong>{formatCurrency(stats.totalInterestPaid)}</strong>
-    ,
-    <br /> or <strong>
-      {formatInteger(stats.interestToPrincipalRatio)}%
-    </strong>{' '}
-    of the amount you borrowed.
-    {stats.monthsFinishedEarly !== 0 && (
-      <>
-        <br />
-        You'll exit the loan{' '}
-        <strong>{formatMonths(stats.monthsFinishedEarly)} early</strong>!
-      </>
-    )}
-  </p>
+  <>
+    <table style={{ gridArea: 'stats' }}>
+      <tbody>
+        <tr>
+          <Th>Repayments:</Th>
+          <Td>{formatCurrency(monthlyRepayments)} / m</Td>
+        </tr>
+        <tr>
+          <Th>Total interest:</Th>
+          <Td>{formatCurrency(stats.totalInterestPaid)}</Td>
+        </tr>
+        <tr>
+          <Th>Interest margin:</Th>
+          <Td>{formatInteger(stats.interestToPrincipalRatio)}%</Td>
+        </tr>
+        {stats.monthsFinishedEarly !== 0 && (
+          <tr>
+            <Th>Early exit:</Th>
+            <Td>{formatMonths(stats.monthsFinishedEarly)}</Td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+    <p className="leading-tight p-2"></p>
+  </>
 );
 
 export default RepaymentsStats;
