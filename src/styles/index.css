@@ -5,6 +5,14 @@
 
 @tailwind utilities;
 
+.panel {
+  @apply h-80 my-2 mx-2 border-2 border-gray-300;
+}
+
+.h-80 {
+  height: 20rem;
+}
+
 /* Grid-related utils */
 .grid {
   display: grid;

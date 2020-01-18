@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
+import AddScenarioButton from './AddScenarioButton';
 import ScenarioPanel from './scenario/ScenarioPanel';
 import StateStorage, { State } from './StateStorage';
 import { ScenarioKey } from './models';
@@ -45,13 +46,8 @@ const App = () => {
             setValue={setScenarioValue(index)}
           />
         ))}
+        <AddScenarioButton addScenario={addScenario} />
       </main>
-      <button
-        className="block mx-auto my-4 px-8 py-4 border border-blue-700 rounded-sm text-xl"
-        onClick={addScenario}
-      >
-        What if...
-      </button>
     </>
   );
 };
