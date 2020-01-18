@@ -18,6 +18,10 @@
   display: grid;
 }
 
+.cols-auto-auto {
+  grid-template-columns: auto auto;
+}
+
 .cols-50-50 {
   grid-template-columns: 50% 50%;
 }
@@ -28,6 +32,10 @@
 
 .justify-items-center {
   justify-items: center;
+}
+
+.justify-self-end {
+  justify-self: end;
 }
 
 /* SVG-related utils */

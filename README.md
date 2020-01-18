@@ -23,12 +23,7 @@ Mortgage scenario calculator and comparer.
 ## Pure visual
 
 - Better colours
-- Borders between scenarios?
-- General text alignment
-- Show scenario inputs and outputs as tables?
 - Stop stuff jumping around when numbers change
-- Can I fit two scenarios side by side?
-- Better zero state, faded outline with plus
 
 ## Tech
 

@@ -8,11 +8,14 @@ type Props = {
   setValue: (key: ScenarioKey) => (event) => void;
 };
 
+const Label = props => <label className="justify-self-end mr-2" {...props} />;
+
 const ScenarioInputs: FC<Props> = ({ baseScenario, scenario, setValue }) => (
-  <form noValidate style={{ gridArea: 'form' }} className="flex flex-col">
-    <label>
-      New interest rate:{' '}
+  <form noValidate style={{ gridArea: 'form' }} className="grid cols-auto-auto">
+    <Label htmlFor="thingy">Interest rate: </Label>
+    <span>
       <InterestRateInput
+        id="thingy"
         value={
           scenario.annualInterestRate !== undefined
             ? scenario.annualInterestRate
@@ -21,21 +24,25 @@ const ScenarioInputs: FC<Props> = ({ baseScenario, scenario, setValue }) => (
         onChange={setValue(ScenarioKey.annualInterestRate)}
       />
       %
-    </label>
-    <label>
-      Constant offset: $
+    </span>
+    <Label htmlFor="thingy">Initial offset:</Label>
+    <span>
+      $
       <LoanAmountInput
+        id="thingy"
         value={scenario.constantOffsetAmount || 0}
         onChange={setValue(ScenarioKey.constantOffsetAmount)}
       />
-    </label>
-    <label>
-      Add offset / m: $
+    </span>
+    <Label htmlFor="thingy">Offset / m:</Label>
+    <span>
+      $
       <LoanAmountInput
+        id="thingy"
         value={scenario.monthlyOffsetIncrement || 0}
         onChange={setValue(ScenarioKey.monthlyOffsetIncrement)}
       />
-    </label>
+    </span>
   </form>
 );
 

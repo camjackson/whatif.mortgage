@@ -26,7 +26,7 @@ export const InterestRateInput = ({ style = {}, ...props }) => (
     min="0.01"
     max="99"
     step="0.01"
-    style={{ width: '4ch', textAlign: 'right', ...style }}
+    style={{ width: '5ch', textAlign: 'right', ...style }}
     {...props}
   />
 );
