@@ -13,9 +13,6 @@ Mortgage scenario calculator and comparer.
 
 ## Minor features
 
-- Click on column to lock the hover target
-  - Highlight selected column
-  - Keep hover box when mouse leaves the graph
 - Commas in numeric inputs
 
 ## Pure visual

@@ -25,7 +25,9 @@ type Props = {
   x: string; // Percentage
   width: string; // Percentage
   showBackground: boolean;
+  isFocussed: boolean;
   onMouseEnter: (e) => any;
+  onClick: (e) => void;
 };
 
 const RepaymentColumn: FC<Props> = ({
@@ -35,7 +37,9 @@ const RepaymentColumn: FC<Props> = ({
   x,
   width,
   showBackground,
+  isFocussed,
   onMouseEnter,
+  onClick,
 }) => {
   const endingPrincipalHeightPc =
     (yearData.endingPrincipal / graphMaxValue) * graphBodyHeightPc;
@@ -51,6 +55,18 @@ const RepaymentColumn: FC<Props> = ({
 
   const wholeColumnHeightPc =
     endingPrincipalHeightPc + principalPaidHeightPc + interestPaidHeightPc;
+
+  const fillColours = isFocussed
+    ? {
+        endingPrincipal: 'text-pink-500',
+        principalPaid: 'text-purple-500',
+        interestPaid: 'text-green-500',
+      }
+    : {
+        endingPrincipal: 'text-pink-300',
+        principalPaid: 'text-purple-300',
+        interestPaid: 'text-green-300',
+      };
 
   const commonProps = {
     x,
@@ -70,19 +86,22 @@ const RepaymentColumn: FC<Props> = ({
       )}
       <rect
         {...commonProps}
-        className="fill-current text-pink-300"
+        className={`fill-current cursor-pointer ${fillColours.endingPrincipal}`}
+        onClick={onClick}
         y={`${endingPrincipalYPc}%`}
         height={`${endingPrincipalHeightPc}%`}
       />
       <rect
         {...commonProps}
-        className="fill-current text-purple-300"
+        className={`fill-current cursor-pointer ${fillColours.principalPaid}`}
+        onClick={onClick}
         y={`${principalPaidYPc}%`}
         height={`${principalPaidHeightPc}%`}
       />
       <rect
         {...commonProps}
-        className="fill-current text-green-300"
+        className={`fill-current cursor-pointer ${fillColours.interestPaid}`}
+        onClick={onClick}
         y={`${interestPaidYPc}%`}
         height={`${interestPaidHeightPc}%`}
       />

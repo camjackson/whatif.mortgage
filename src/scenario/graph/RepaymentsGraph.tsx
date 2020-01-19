@@ -1,4 +1,4 @@
-import React, { useState, useRef, FC } from 'react';
+import React, { useState, FC } from 'react';
 import RepaymentColumn from './RepaymentColumn';
 import GridLines from './GridLines';
 import HoverBox from './HoverBox';
@@ -23,6 +23,13 @@ type Props = {
 
 const RepaymentsGraph: FC<Props> = ({ years }) => {
   const [hoveredYear, setHoveredYear] = useState(null);
+  const [focussedYear, setFocussedYear] = useState(null);
+
+  const handleYearClicked = (index: number) => {
+    setFocussedYear(focussedYear === index ? null : index);
+  };
+  const hoveredOrFocussedYear =
+    hoveredYear !== null ? hoveredYear : focussedYear;
 
   // In the first year, the interest pushes the column higher than the initial principal
   const graphMaxValue = years[0].getTotal();
@@ -60,8 +67,10 @@ const RepaymentsGraph: FC<Props> = ({ years }) => {
             yearData={yearData}
             width={`${columnWidthPc}%`}
             x={`${columnXPc(index)}%`}
+            isFocussed={focussedYear === index}
             showBackground={Math.floor(index / 5) % 2 !== 0}
             onMouseEnter={() => setHoveredYear(index)}
+            onClick={() => handleYearClicked(index)}
           />
         </React.Fragment>
       ))}
@@ -72,13 +81,14 @@ const RepaymentsGraph: FC<Props> = ({ years }) => {
         graphBodyHeightPc={graphBodyHeightPc}
         graphBodyWidthPc={graphBodyWidthPc}
       />
-      {hoveredYear !== null && hoveredYear < years.length && (
-        <HoverBox
-          graphWidthPx={graphWidthPx}
-          yearData={years[hoveredYear]}
-          yearNumber={hoveredYear + 1}
-        />
-      )}
+      {hoveredOrFocussedYear !== null &&
+        hoveredOrFocussedYear < years.length && (
+          <HoverBox
+            graphWidthPx={graphWidthPx}
+            yearData={years[hoveredOrFocussedYear]}
+            yearNumber={hoveredOrFocussedYear + 1}
+          />
+        )}
     </svg>
   );
 };
