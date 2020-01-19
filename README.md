@@ -23,6 +23,7 @@ Mortgage scenario calculator and comparer.
 
 - Better colours
 - Stop stuff jumping around when numbers change
+- Fix hoverbox to the top-right?
 
 ## Tech
 

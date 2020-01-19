@@ -3,7 +3,9 @@ import ScenarioHeader from './ScenarioHeader';
 import ScenarioInputs from './ScenarioInputs';
 import RepaymentsGraph from './graph/RepaymentsGraph';
 import RepaymentsStats from './RepaymentsStats';
-import calculateLoanPeriods from '../math/calculateLoanPeriods';
+import calculateLoanPeriods, {
+  SummaryStats,
+} from '../math/calculateLoanPeriods';
 import realCalculateRepayment from '../math/calculateRepayment';
 import { BaseScenario, Scenario, ScenarioKey } from '../models';
 
@@ -18,6 +20,8 @@ const gridAreas = {
 type Props = {
   index: number;
   baseScenario: BaseScenario;
+  baseScenarioMonthlyRepayments: number;
+  baseScenarioStats: SummaryStats;
   scenario: Scenario;
   setValue: (key: ScenarioKey) => (event) => void;
   removeScenario: (index: number) => void;
@@ -27,6 +31,8 @@ type Props = {
 const ScenarioPanel: FC<Props> = ({
   index,
   baseScenario,
+  baseScenarioMonthlyRepayments,
+  baseScenarioStats,
   scenario,
   setValue,
   removeScenario,
@@ -48,7 +54,7 @@ const ScenarioPanel: FC<Props> = ({
   return (
     <section
       style={gridAreas}
-      className="panel py-1 px-3 grid cols-30-70 items-center justify-items-center text-xl font-hairline"
+      className="panel py-1 px-3 grid cols-35-65 items-center justify-items-center text-xl font-hairline"
     >
       <ScenarioHeader index={index} removeScenario={removeScenario} />
       {index === 0 ? (
@@ -62,7 +68,12 @@ const ScenarioPanel: FC<Props> = ({
           setValue={setValue}
         />
       )}
-      <RepaymentsStats monthlyRepayments={monthlyRepayments} stats={stats} />
+      <RepaymentsStats
+        monthlyRepayments={monthlyRepayments}
+        stats={stats}
+        baseScenarioMonthlyRepayments={baseScenarioMonthlyRepayments}
+        baseScenarioStats={baseScenarioStats}
+      />
       <RepaymentsGraph years={years} />
     </section>
   );

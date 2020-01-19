@@ -13,7 +13,7 @@ const currencyOpts = {
 };
 
 export const formatCurrency = (number: number): string => {
-  if (number < 100000) {
+  if (number > -10000 && number < 10000) {
     return toLocaleString(number);
   }
   return `${toLocaleString(number / 1000)}k`;

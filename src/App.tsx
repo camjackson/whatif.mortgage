@@ -4,6 +4,8 @@ import AddScenarioButton from './AddScenarioButton';
 import ScenarioPanel from './scenario/ScenarioPanel';
 import StateStorage, { State } from './StateStorage';
 import { ScenarioKey } from './models';
+import calculateLoanPeriods from './math/calculateLoanPeriods';
+import calculateRepayment from './math/calculateRepayment';
 
 const stateStorage = new StateStorage(window.localStorage);
 const initialState: State = stateStorage.getFromStorage();
@@ -35,6 +37,16 @@ const App = () => {
 
   useEffect(() => stateStorage.persistToStorage(state), [state]);
 
+  const baseScenarioMonthlyRepayments = calculateRepayment(
+    state.baseScenario.loanAmount,
+    state.baseScenario.annualInterestRate / 100 / 12,
+    state.baseScenario.loanLengthInYears * 12,
+  );
+  const { stats: baseScenarioStats } = calculateLoanPeriods(
+    state.baseScenario,
+    baseScenarioMonthlyRepayments,
+  );
+
   return (
     <>
       <Header
@@ -47,6 +59,8 @@ const App = () => {
             key={index}
             index={index}
             baseScenario={state.baseScenario}
+            baseScenarioMonthlyRepayments={baseScenarioMonthlyRepayments}
+            baseScenarioStats={baseScenarioStats}
             scenario={scenario}
             setValue={setScenarioValue(index)}
             removeScenario={removeScenario}

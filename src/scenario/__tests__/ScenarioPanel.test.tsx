@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import ScenarioPanel from '../ScenarioPanel';
+import { SummaryStats } from '../../math/calculateLoanPeriods';
 
 describe('ScenarioPanel', () => {
   const baseScenario = {
@@ -8,15 +9,25 @@ describe('ScenarioPanel', () => {
     annualInterestRate: 4.8,
     loanLengthInYears: 3,
   };
+  const baseScenarioStats: SummaryStats = {
+    totalInterestPaid: 0,
+    totalAmountPaid: 0,
+    interestToPrincipalRatio: 0,
+    monthsFinishedEarly: 0,
+  };
+
   it('calculates some stuff and passes it down', () => {
     const calculateRepayment = jest.fn(() => 27.78);
     const panel = mount(
       <ScenarioPanel
-        hideInputs
+        index={0}
         baseScenario={baseScenario}
+        baseScenarioMonthlyRepayments={0}
+        baseScenarioStats={baseScenarioStats}
         scenario={{}}
         setValue={() => () => {}}
         calculateRepayment={calculateRepayment}
+        removeScenario={() => {}}
       />,
     );
 
@@ -33,11 +44,14 @@ describe('ScenarioPanel', () => {
     const calculateRepayment = jest.fn(() => 20);
     const panel = mount(
       <ScenarioPanel
-        hideInputs
+        index={0}
         baseScenario={baseScenario}
+        baseScenarioMonthlyRepayments={0}
+        baseScenarioStats={baseScenarioStats}
         scenario={{ annualInterestRate: 2.4 }}
         setValue={() => () => {}}
         calculateRepayment={calculateRepayment}
+        removeScenario={() => {}}
       />,
     );
 

@@ -4,30 +4,45 @@ import RepaymentsStats from '../RepaymentsStats';
 import { SummaryStats } from '../math/calculateLoanPeriods';
 
 describe('RepaymentsStats', () => {
+  const stats: SummaryStats = {
+    totalInterestPaid: 100,
+    totalAmountPaid: 200,
+    interestToPrincipalRatio: 8,
+  };
+  const baseScenarioStats: SummaryStats = {
+    totalInterestPaid: 120,
+    totalAmountPaid: 220,
+    interestToPrincipalRatio: 10,
+  };
   it('formats the stats data', () => {
-    const stats: SummaryStats = {
-      totalInterestPaid: 100,
-      totalAmountPaid: 200,
-      interestToPrincipalRatio: 8,
-    };
     const repaymentsStats = mount(
-      <RepaymentsStats monthlyRepayments={20} stats={stats} />,
+      <RepaymentsStats
+        monthlyRepayments={20}
+        stats={stats}
+        baseScenarioMonthlyRepayments={25}
+        baseScenarioStats={baseScenarioStats}
+      />,
     );
 
-    expect(repaymentsStats).toIncludeText('Repayments:$20');
-    expect(repaymentsStats).toIncludeText('Total interest:$100');
-    expect(repaymentsStats).toIncludeText('Interest margin:8%');
+    expect(repaymentsStats).toIncludeText('Repayments:$20($-5)');
+    expect(repaymentsStats).toIncludeText('Total interest:$100($-20)');
+    expect(repaymentsStats).toIncludeText('Margin:8%(-2%)');
   });
 
   describe('early exit stat', () => {
     const renderWithMonthsEarly = monthsFinishedEarly => {
-      const stats: SummaryStats = {
-        totalInterestPaid: 100,
-        totalAmountPaid: 200,
-        interestToPrincipalRatio: 8,
+      const statsWithEarlyFinish: SummaryStats = {
+        ...stats,
         monthsFinishedEarly,
       };
-      return mount(<RepaymentsStats monthlyRepayments={20} stats={stats} />);
+      return mount(
+        <RepaymentsStats
+          monthlyRepayments={20}
+          stats={statsWithEarlyFinish}
+          baseScenarioMonthlyRepayments={25}
+          baseScenarioStats={baseScenarioStats}
+        />,
+      );
     };
 
     it('hides the stat when the loan was not exited early', () => {

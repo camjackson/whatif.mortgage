@@ -5,6 +5,8 @@ import { SummaryStats } from '../math/calculateLoanPeriods';
 type Props = {
   monthlyRepayments: number;
   stats: SummaryStats;
+  baseScenarioMonthlyRepayments: number;
+  baseScenarioStats: SummaryStats;
 };
 
 const formatMonths = (months: number) => {
@@ -22,29 +24,62 @@ const formatAmount = (qty: number, unit: string) => {
   return qty === 0 ? '' : `${qty}${unit}`;
 };
 
-const Th: FC = props => <th className="font-hairline text-right" {...props} />;
-const Td: FC = props => <td className="font-normal text-left" {...props} />;
+type TdProps = {
+  className?: string;
+};
 
-const RepaymentsStats: FC<Props> = ({ monthlyRepayments, stats }) => (
+const Th: FC = props => <th className="font-hairline text-right" {...props} />;
+const Td: FC<TdProps> = ({ className, ...props }) => (
+  <td className={`font-normal text-left ${className}`} {...props} />
+);
+
+const RepaymentsStats: FC<Props> = ({
+  monthlyRepayments,
+  stats,
+  baseScenarioMonthlyRepayments,
+  baseScenarioStats,
+}) => (
   <>
     <table style={{ gridArea: 'stats' }}>
       <tbody>
         <tr>
           <Th>Repayments:</Th>
-          <Td>{formatCurrency(monthlyRepayments)} / m</Td>
+          <Td>{formatCurrency(monthlyRepayments)}</Td>
+          <Td>
+            ({formatCurrency(monthlyRepayments - baseScenarioMonthlyRepayments)}
+            )
+          </Td>
         </tr>
         <tr>
           <Th>Total interest:</Th>
           <Td>{formatCurrency(stats.totalInterestPaid)}</Td>
+          <Td>
+            (
+            {formatCurrency(
+              stats.totalInterestPaid - baseScenarioStats.totalInterestPaid,
+            )}
+            )
+          </Td>
         </tr>
         <tr>
-          <Th>Interest margin:</Th>
+          <Th>Margin:</Th>
           <Td>{formatInteger(stats.interestToPrincipalRatio)}%</Td>
+          <Td>
+            (
+            {formatInteger(
+              stats.interestToPrincipalRatio -
+                baseScenarioStats.interestToPrincipalRatio,
+            )}
+            %)
+          </Td>
         </tr>
         {stats.monthsFinishedEarly !== 0 && (
           <tr>
             <Th>Early exit:</Th>
-            <Td>{formatMonths(stats.monthsFinishedEarly)}</Td>
+            <Td />
+            <Td className="text-green-500">
+              {formatMonths(stats.monthsFinishedEarly)}
+            </Td>
           </tr>
         )}
       </tbody>

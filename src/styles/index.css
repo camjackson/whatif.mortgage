@@ -26,8 +26,8 @@
   grid-template-columns: 50% 50%;
 }
 
-.cols-30-70 {
-  grid-template-columns: 30% 70%;
+.cols-35-65 {
+  grid-template-columns: 35% 65%;
 }
 
 .justify-items-center {

@@ -20,6 +20,12 @@ describe('formatCurrency', () => {
     expect(formatCurrency(123789)).toEqual('$124k');
     expect(formatCurrency(1234456)).toEqual('$1,234k');
     expect(formatCurrency(1234567)).toEqual('$1,235k');
+
+    expect(formatCurrency(-123000)).toEqual('$-123k');
+    expect(formatCurrency(-123456)).toEqual('$-123k');
+    expect(formatCurrency(-123789)).toEqual('$-124k');
+    expect(formatCurrency(-1234456)).toEqual('$-1,234k');
+    expect(formatCurrency(-1234567)).toEqual('$-1,235k');
   });
 });
 
