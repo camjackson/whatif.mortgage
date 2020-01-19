@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
 import { formatCurrency } from '../../formatting';
 import LoanPeriod from '../../math/LoanPeriod';
-import { Coords } from '../../math/Coords';
 
 export const boxWidth = 200;
 export const boxHeight = 95;
 const lineHeight = 20;
 
 type Props = {
-  coords: Coords;
+  graphWidthPx: number;
   yearData: LoanPeriod;
   yearNumber: number;
 };
@@ -17,16 +16,18 @@ const Text = ({ color = '', ...props }) => (
   <text className={`baseline-hanging fill-current ${color}`} {...props} />
 );
 
-const HoverBox: FC<Props> = ({ coords, yearData, yearNumber }) => {
-  const textX = coords.x + 10;
-  const textY = coords.y + 8;
+const HoverBox: FC<Props> = ({ graphWidthPx, yearData, yearNumber }) => {
+  const boxX = graphWidthPx - boxWidth - 1;
+  const boxY = 1;
+  const textX = boxX + 10;
+  const textY = boxY + 8;
 
   return (
     <>
       <rect
         className="text-black stroke-current fill-white"
-        x={coords.x}
-        y={coords.y}
+        x={boxX}
+        y={boxY}
         width={boxWidth}
         height={boxHeight}
       />

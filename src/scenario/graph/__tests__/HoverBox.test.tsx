@@ -3,7 +3,6 @@ import HoverBox from '../HoverBox';
 
 describe('HoverBox', () => {
   const renderHoverBox = () => {
-    const coords = { x: 23, y: 47 };
     const yearData = {
       interestPaid: 123,
       principalPaid: 456,
@@ -11,7 +10,7 @@ describe('HoverBox', () => {
     };
     return mount(
       <svg>
-        <HoverBox coords={coords} yearData={yearData} yearNumber={13} />
+        <HoverBox graphWidthPx={500} yearData={yearData} yearNumber={13} />
       </svg>,
     );
   };
@@ -20,8 +19,8 @@ describe('HoverBox', () => {
     const hoverBox = renderHoverBox();
 
     const rect = hoverBox.find('rect');
-    expect(rect).toHaveProp('x', 23);
-    expect(rect).toHaveProp('y', 47);
+    expect(rect).toHaveProp('x', 299);
+    expect(rect).toHaveProp('y', 1);
   });
 
   it('positions the text at offsets from the box', () => {
@@ -29,14 +28,14 @@ describe('HoverBox', () => {
     const texts = hoverBox.find('text');
 
     expect(texts).toHaveLength(4);
-    expect(texts.at(0)).toHaveProp('x', 33);
-    expect(texts.at(0)).toHaveProp('y', 55);
-    expect(texts.at(1)).toHaveProp('x', 33);
-    expect(texts.at(1)).toHaveProp('y', 75);
-    expect(texts.at(2)).toHaveProp('x', 33);
-    expect(texts.at(2)).toHaveProp('y', 95);
-    expect(texts.at(3)).toHaveProp('x', 33);
-    expect(texts.at(3)).toHaveProp('y', 115);
+    expect(texts.at(0)).toHaveProp('x', 309);
+    expect(texts.at(0)).toHaveProp('y', 9);
+    expect(texts.at(1)).toHaveProp('x', 309);
+    expect(texts.at(1)).toHaveProp('y', 29);
+    expect(texts.at(2)).toHaveProp('x', 309);
+    expect(texts.at(2)).toHaveProp('y', 49);
+    expect(texts.at(3)).toHaveProp('x', 309);
+    expect(texts.at(3)).toHaveProp('y', 69);
   });
 
   it('shows the interest paid, principal paid, and ending principal', () => {

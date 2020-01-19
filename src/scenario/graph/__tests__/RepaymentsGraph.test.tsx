@@ -14,21 +14,11 @@ describe('RepaymentsGraph', () => {
     new LoanPeriod(5, 220, 0),
   ];
   let graph;
-  let getBoundingClientRect;
   const svgX = 456;
   const svgY = 134;
 
   beforeEach(() => {
     graph = mount(<RepaymentsGraph years={years} loanAmount={1000} />);
-    getBoundingClientRect = Element.prototype.getBoundingClientRect;
-    Element.prototype.getBoundingClientRect = () => ({
-      x: svgX,
-      y: svgY,
-    });
-  });
-
-  afterEach(() => {
-    Element.prototype.getBoundingClientRect = getBoundingClientRect;
   });
 
   it('renders a column for each year', () => {
@@ -53,11 +43,8 @@ describe('RepaymentsGraph', () => {
     expect(graph.find(HoverBox)).not.toExist();
   });
 
-  it('renders a hover box for the current year at an offset from the current mouse coords', () => {
-    const event = { clientX: svgX + 200, clientY: svgY + 100 };
-
+  it('renders a hover box for the current year', () => {
     act(() => {
-      graph.find('svg').simulate('mouseMove', event);
       graph
         .find(RepaymentColumn)
         .at(3)
@@ -66,40 +53,9 @@ describe('RepaymentsGraph', () => {
     graph.update();
 
     expect(graph.find(HoverBox)).toHaveProp({
-      coords: { x: 220, y: 80 },
       yearData: years[3],
       yearNumber: 4,
     });
-  });
-
-  it('constrains the hover box so it does not overlap the axes', () => {
-    const event = { clientX: svgX + 5, clientY: svgY + 490 };
-
-    act(() => {
-      graph.find('svg').simulate('mouseMove', event);
-      graph
-        .find(RepaymentColumn)
-        .at(3)
-        .prop('onMouseEnter')();
-    });
-    graph.update();
-
-    expect(graph.find(HoverBox)).toHaveProp({ coords: { x: 60, y: 125 } });
-  });
-
-  it('constrains the hover box so it does not go off the top-right corner', () => {
-    const event = { clientX: svgX + 950, clientY: svgY + 10 };
-
-    act(() => {
-      graph.find('svg').simulate('mouseMove', event);
-      graph
-        .find(RepaymentColumn)
-        .at(3)
-        .prop('onMouseEnter')();
-    });
-    graph.update();
-
-    expect(graph.find(HoverBox)).toHaveProp({ coords: { x: 299, y: 1 } });
   });
 
   it('hides the hover box when the mouse leaves the chart', () => {
