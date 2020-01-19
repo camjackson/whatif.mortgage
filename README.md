@@ -8,8 +8,6 @@ Mortgage scenario calculator and comparer.
 
 - Sharing of scenarios via special URL
 - Increased monthly repayments
-- Summarise difference of scenario
-  - Interest saved (absolute and per cent)
 - Collections of scenarios
 
 ## Minor features
