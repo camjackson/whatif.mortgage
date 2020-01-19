@@ -11,7 +11,7 @@ import { BaseScenario, Scenario, ScenarioKey } from '../models';
 
 const gridAreas = {
   gridTemplateAreas: `
-    'header header'
+    'form header'
     'form graph'
     'stats graph'
   `,
@@ -60,9 +60,7 @@ const ScenarioPanel: FC<Props> = ({
     >
       <ScenarioHeader index={index} removeScenario={removeScenario} />
       {index === 0 ? (
-        <div style={{ gridArea: 'form' }} className="align-self-end">
-          (Base scenario)
-        </div>
+        <div style={{ gridArea: 'form' }}>(Base scenario)</div>
       ) : (
         <ScenarioInputs
           index={index}
