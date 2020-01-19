@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 type Props = {
-  addScenario: any;
+  addScenario: () => void;
 };
 
 const plusPath = `
@@ -23,7 +23,7 @@ const AddScenarioButton: FC<Props> = ({ addScenario }) => (
       className="m-auto stroke-current text-green-500"
     >
       <path d={plusPath} />
-      <circle cx="12" cy="12" r="10" className="stroke-current fill-none" />
+      <circle cx="12" cy="12" r="10" className="fill-none" />
     </svg>
   </button>
 );

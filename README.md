@@ -11,7 +11,6 @@ Mortgage scenario calculator and comparer.
 - Summarise difference of scenario
   - Interest saved (absolute and per cent)
 - Collections of scenarios
-- Remove a scenario
 
 ## Minor features
 

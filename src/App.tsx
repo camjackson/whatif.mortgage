@@ -27,6 +27,11 @@ const App = () => {
   };
   const addScenario = () =>
     setState({ ...state, scenarios: [...state.scenarios, {}] });
+  const removeScenario = index =>
+    setState({
+      ...state,
+      scenarios: state.scenarios.filter((_, i) => i !== index),
+    });
 
   useEffect(() => stateStorage.persistToStorage(state), [state]);
 
@@ -36,14 +41,15 @@ const App = () => {
         baseScenario={state.baseScenario}
         setValue={setBaseScenarioValue}
       />
-      <main className="grid cols-50-50">
+      <main className="grid cols-50-50 py-2 px-4">
         {state.scenarios.map((scenario, index) => (
           <ScenarioPanel
             key={index}
-            hideInputs={index === 0}
+            index={index}
             baseScenario={state.baseScenario}
             scenario={scenario}
             setValue={setScenarioValue(index)}
+            removeScenario={removeScenario}
           />
         ))}
         <AddScenarioButton addScenario={addScenario} />

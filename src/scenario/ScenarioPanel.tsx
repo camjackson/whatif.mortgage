@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import ScenarioHeader from './ScenarioHeader';
 import ScenarioInputs from './ScenarioInputs';
 import RepaymentsGraph from './graph/RepaymentsGraph';
 import RepaymentsStats from './RepaymentsStats';
@@ -8,24 +9,27 @@ import { BaseScenario, Scenario, ScenarioKey } from '../models';
 
 const gridAreas = {
   gridTemplateAreas: `
+    'header header'
     'form graph'
     'stats graph'
   `,
 };
 
 type Props = {
-  hideInputs: boolean;
+  index: number;
   baseScenario: BaseScenario;
   scenario: Scenario;
   setValue: (key: ScenarioKey) => (event) => void;
+  removeScenario: (index: number) => void;
   calculateRepayment?: (p: number, r: number, n: number) => number;
 };
 
 const ScenarioPanel: FC<Props> = ({
-  hideInputs,
+  index,
   baseScenario,
   scenario,
   setValue,
+  removeScenario,
   calculateRepayment = realCalculateRepayment,
 }) => {
   const appliedScenario: Scenario = { ...baseScenario, ...scenario };
@@ -44,10 +48,13 @@ const ScenarioPanel: FC<Props> = ({
   return (
     <section
       style={gridAreas}
-      className="panel py-3 px-6 grid cols-40-60 items-center justify-items-center text-xl font-hairline"
+      className="panel py-1 px-3 grid cols-30-70 items-center justify-items-center text-xl font-hairline"
     >
-      {hideInputs ? (
-        <div style={{ gridArea: 'form' }} />
+      <ScenarioHeader index={index} removeScenario={removeScenario} />
+      {index === 0 ? (
+        <div style={{ gridArea: 'form' }} className="align-self-end">
+          (Base scenario)
+        </div>
       ) : (
         <ScenarioInputs
           baseScenario={baseScenario}
