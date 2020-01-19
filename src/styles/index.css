@@ -5,12 +5,20 @@
 
 @tailwind utilities;
 
+/* Components */
+
 .panel {
   @apply h-80 my-2 mx-2 border-2 border-gray-300;
 }
 
+/* Gaps in the utils */
+
 .h-80 {
   height: 20rem;
+}
+
+.border-b-1 {
+  border-bottom-width: 1px;
 }
 
 /* Grid-related utils */

@@ -41,11 +41,13 @@ const ScenarioPanel: FC<Props> = ({
   const appliedScenario: Scenario = { ...baseScenario, ...scenario };
   const { loanAmount, annualInterestRate, loanLengthInYears } = appliedScenario;
 
-  const monthlyRepayments: number = calculateRepayment(
-    loanAmount,
-    annualInterestRate / 100 / 12,
-    loanLengthInYears * 12,
-  );
+  const monthlyRepayments: number =
+    appliedScenario.monthlyRepayment ||
+    calculateRepayment(
+      loanAmount,
+      annualInterestRate / 100 / 12,
+      loanLengthInYears * 12,
+    );
 
   const { years, stats } = calculateLoanPeriods(
     appliedScenario,
@@ -63,6 +65,7 @@ const ScenarioPanel: FC<Props> = ({
         </div>
       ) : (
         <ScenarioInputs
+          index={index}
           baseScenario={baseScenario}
           scenario={scenario}
           setValue={setValue}

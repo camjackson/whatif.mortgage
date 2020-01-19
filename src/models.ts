@@ -10,6 +10,7 @@ export type Scenario = {
   loanLengthInYears?: number;
   constantOffsetAmount?: number;
   monthlyOffsetIncrement?: number;
+  monthlyRepayment?: number;
 };
 
 export enum ScenarioKey {
@@ -18,4 +19,5 @@ export enum ScenarioKey {
   loanLengthInYears = 'loanLengthInYears',
   constantOffsetAmount = 'constantOffsetAmount',
   monthlyOffsetIncrement = 'monthlyOffsetIncrement',
+  monthlyRepayment = 'monthlyRepayment',
 }
