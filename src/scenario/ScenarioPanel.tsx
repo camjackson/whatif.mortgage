@@ -75,7 +75,11 @@ const ScenarioPanel: FC<Props> = ({
         baseScenarioMonthlyRepayments={baseScenarioMonthlyRepayments}
         baseScenarioStats={baseScenarioStats}
       />
-      <RepaymentsGraph years={years} />
+      <RepaymentsGraph
+        years={years}
+        initialOffsetAmount={appliedScenario.constantOffsetAmount}
+        monthlyOffsetIncrement={appliedScenario.monthlyOffsetIncrement}
+      />
     </section>
   );
 };

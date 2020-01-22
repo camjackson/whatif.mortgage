@@ -2,21 +2,28 @@ import React, { FC } from 'react';
 import { formatCurrency } from '../../formatting';
 import LoanPeriod from '../../math/LoanPeriod';
 
-export const boxWidth = 200;
-export const boxHeight = 95;
+const boxWidth = 200;
 const lineHeight = 20;
 
 type Props = {
   graphWidthPx: number;
   yearData: LoanPeriod;
   yearNumber: number;
+  shouldGraphOffset: boolean;
 };
 
 const Text = ({ color = '', ...props }) => (
   <text className={`baseline-hanging fill-current ${color}`} {...props} />
 );
 
-const HoverBox: FC<Props> = ({ graphWidthPx, yearData, yearNumber }) => {
+const HoverBox: FC<Props> = ({
+  graphWidthPx,
+  yearData,
+  yearNumber,
+  shouldGraphOffset,
+}) => {
+  const boxHeight = shouldGraphOffset ? 115 : 95;
+
   const boxX = graphWidthPx - boxWidth - 1;
   const boxY = 1;
   const textX = boxX + 10;
@@ -43,6 +50,11 @@ const HoverBox: FC<Props> = ({ graphWidthPx, yearData, yearNumber }) => {
       <Text color="text-pink-600" x={textX} y={textY + lineHeight * 3}>
         Principal remaining: {formatCurrency(yearData.endingPrincipal)}
       </Text>
+      {shouldGraphOffset && (
+        <Text color="text-blue-700" x={textX} y={textY + lineHeight * 4}>
+          Saved offset: {formatCurrency(yearData.totalSavedOffset)}
+        </Text>
+      )}
     </>
   );
 };

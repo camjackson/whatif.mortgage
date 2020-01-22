@@ -15,6 +15,7 @@ describe('calculateLoanPeriods', () => {
       expect(months[0].interestPaid).toEqual(0);
       expect(months[0].principalPaid).toEqual(0);
       expect(months[0].endingPrincipal).toEqual(1000);
+      expect(months[0].totalSavedOffset).toEqual(0);
     });
 
     it('has all the other months after that', () => {
@@ -23,10 +24,12 @@ describe('calculateLoanPeriods', () => {
       expect(months[1].interestPaid).toEqual(3);
       expect(months[1].principalPaid).toBeCloseTo(26.2048);
       expect(months[1].endingPrincipal).toBeCloseTo(973.7952);
+      expect(months[1].totalSavedOffset).toEqual(0);
 
       expect(months[2].interestPaid).toBeCloseTo(2.9214);
       expect(months[2].principalPaid).toBeCloseTo(26.2834);
       expect(months[2].endingPrincipal).toBeCloseTo(947.5118);
+      expect(months[2].totalSavedOffset).toEqual(0);
     });
   });
 
@@ -37,6 +40,7 @@ describe('calculateLoanPeriods', () => {
       expect(years[0].interestPaid).toBeCloseTo(30.7592);
       expect(years[0].principalPaid).toBeCloseTo(319.6984);
       expect(years[0].endingPrincipal).toBeCloseTo(680.3016);
+      expect(years[0].totalSavedOffset).toEqual(0);
     });
   });
 
@@ -61,13 +65,17 @@ describe('calculateLoanPeriods', () => {
     it('reduces interest paid and increases principal paid in each month', () => {
       expect(months).toHaveLength(37);
 
+      expect(months[0].totalSavedOffset).toEqual(100);
+
       expect(months[1].interestPaid).toBeCloseTo(2.7);
       expect(months[1].principalPaid).toBeCloseTo(27.3);
       expect(months[1].endingPrincipal).toBeCloseTo(972.7);
+      expect(months[1].totalSavedOffset).toEqual(100);
 
       expect(months[2].interestPaid).toBeCloseTo(2.6181);
       expect(months[2].principalPaid).toBeCloseTo(27.3819);
       expect(months[2].endingPrincipal).toBeCloseTo(945.3181);
+      expect(months[2].totalSavedOffset).toEqual(100);
     });
 
     it('counts the number of months early the loan was finished', () => {
@@ -88,17 +96,22 @@ describe('calculateLoanPeriods', () => {
     it('reduces interest paid and increases principal paid in each month', () => {
       expect(months).toHaveLength(37);
 
-      expect(months[1].interestPaid).toEqual(2.7);
-      expect(months[1].principalPaid).toEqual(27.3);
-      expect(months[1].endingPrincipal).toEqual(972.7);
+      expect(months[0].totalSavedOffset).toEqual(100);
 
-      expect(months[2].interestPaid).toEqual(2.4681);
-      expect(months[2].principalPaid).toEqual(27.5319);
-      expect(months[2].endingPrincipal).toBeCloseTo(945.1681);
+      expect(months[1].interestPaid).toEqual(2.55);
+      expect(months[1].principalPaid).toEqual(27.45);
+      expect(months[1].endingPrincipal).toEqual(972.55);
+      expect(months[1].totalSavedOffset).toEqual(150);
 
-      expect(months[3].interestPaid).toBeCloseTo(2.2355);
-      expect(months[3].principalPaid).toBeCloseTo(27.7645);
-      expect(months[3].endingPrincipal).toBeCloseTo(917.4036);
+      expect(months[2].interestPaid).toEqual(2.31765);
+      expect(months[2].principalPaid).toEqual(27.68235);
+      expect(months[2].endingPrincipal).toBeCloseTo(944.86765);
+      expect(months[2].totalSavedOffset).toEqual(200);
+
+      expect(months[3].interestPaid).toBeCloseTo(2.08460295);
+      expect(months[3].principalPaid).toBeCloseTo(27.91539705);
+      expect(months[3].endingPrincipal).toBeCloseTo(916.95225295);
+      expect(months[3].totalSavedOffset).toEqual(250);
     });
   });
 });

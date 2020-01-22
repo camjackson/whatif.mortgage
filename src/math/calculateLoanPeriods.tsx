@@ -37,17 +37,17 @@ const calculateLoanPeriods = (
   };
 
   // Month 0 is just the initial state
-  months.push(new LoanPeriod(0, 0, loanAmount));
+  months.push(new LoanPeriod(0, 0, loanAmount, constantOffsetAmount));
 
   // Month 1 tells us how much we owe after the first month's payment
   for (let i = 1; i <= numberOfMonths; i++) {
+    cumulativeOffset += monthlyOffsetIncrement;
     const month = months[i - 1].createNextLoanPeriod(
       monthlyInterestRate,
       monthlyRepayments,
       cumulativeOffset,
     );
     months.push(month);
-    cumulativeOffset += monthlyOffsetIncrement;
     stats.totalInterestPaid += month.interestPaid;
     stats.totalAmountPaid += month.interestPaid + month.principalPaid;
   }

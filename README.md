@@ -8,17 +8,12 @@ Mortgage scenario calculator and comparer.
 
 - Sharing of scenarios via special URL
 - Collections of scenarios
-- Graph the offset savings so you can see when it surpasses the principal
 - Nicer UI where you add/remove overrides rather than showing them all
+  - Monthly repayments 0
 
 ## Minor features
 
 - Commas in numeric inputs
-
-## Pure visual
-
-- Better colours
-- Stop stuff jumping around when numbers change
 
 ## Tech
 

@@ -3,6 +3,7 @@ export default class LoanPeriod {
     public interestPaid: number,
     public principalPaid: number,
     public endingPrincipal: number,
+    public totalSavedOffset: number,
   ) {}
 
   private static calculate(
@@ -16,7 +17,12 @@ export default class LoanPeriod {
     const principalPaid = Math.min(repayment - interestPaid, startingPrincipal);
     const endingPrincipal = startingPrincipal - principalPaid;
 
-    return new LoanPeriod(interestPaid, principalPaid, endingPrincipal);
+    return new LoanPeriod(
+      interestPaid,
+      principalPaid,
+      endingPrincipal,
+      offsetAmount,
+    );
   }
 
   createNextLoanPeriod(
@@ -42,7 +48,8 @@ export default class LoanPeriod {
         sum.interestPaid + period.interestPaid,
         sum.principalPaid + period.principalPaid,
         period.endingPrincipal,
+        period.totalSavedOffset,
       );
-    }, new LoanPeriod(0, 0, 0));
+    }, new LoanPeriod(0, 0, 0, undefined));
   }
 }

@@ -1,5 +1,6 @@
 import React, { useState, FC } from 'react';
 import RepaymentColumn from './RepaymentColumn';
+import OffsetTrendLineSegment from './OffsetTrendLineSegment';
 import GridLines from './GridLines';
 import HoverBox from './HoverBox';
 import LoanPeriod from '../../math/LoanPeriod';
@@ -19,9 +20,15 @@ const baseFontSizePx = 16;
 
 type Props = {
   years: LoanPeriod[];
+  initialOffsetAmount: number;
+  monthlyOffsetIncrement: number;
 };
 
-const RepaymentsGraph: FC<Props> = ({ years }) => {
+const RepaymentsGraph: FC<Props> = ({
+  years,
+  initialOffsetAmount,
+  monthlyOffsetIncrement,
+}) => {
   const [hoveredYear, setHoveredYear] = useState(null);
   const [focussedYear, setFocussedYear] = useState(null);
 
@@ -40,6 +47,8 @@ const RepaymentsGraph: FC<Props> = ({ years }) => {
 
   const columnLabelXPc = (index: number) =>
     Math.min(columnXPc(index) + columnWidthPc / 2, 98);
+
+  const shouldGraphOffset = !!monthlyOffsetIncrement;
 
   return (
     <svg
@@ -72,6 +81,20 @@ const RepaymentsGraph: FC<Props> = ({ years }) => {
             onMouseEnter={() => setHoveredYear(index)}
             onClick={() => handleYearClicked(index)}
           />
+          {shouldGraphOffset && (
+            <OffsetTrendLineSegment
+              x1={`${columnXPc(index)}%`}
+              x2={`${columnXPc(index + 1)}%`}
+              previousOffset={
+                index === 0
+                  ? initialOffsetAmount
+                  : years[index - 1].totalSavedOffset
+              }
+              nextOffset={yearData.totalSavedOffset}
+              graphMaxValue={graphMaxValue}
+              graphBodyHeightPc={graphBodyHeightPc}
+            />
+          )}
         </React.Fragment>
       ))}
       <GridLines
@@ -87,6 +110,7 @@ const RepaymentsGraph: FC<Props> = ({ years }) => {
             graphWidthPx={graphWidthPx}
             yearData={years[hoveredOrFocussedYear]}
             yearNumber={hoveredOrFocussedYear + 1}
+            shouldGraphOffset={shouldGraphOffset}
           />
         )}
     </svg>
