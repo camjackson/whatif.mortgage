@@ -1,67 +1,78 @@
 import React, { FC } from 'react';
-import { BaseScenario, Scenario, ScenarioKey } from '../models';
+import { Scenario, ScenarioKey } from '../models';
+import ScenarioFieldSelector, {
+  selectableFieldLabels,
+  selectableFieldKeys,
+} from './ScenarioFieldSelector';
 import { LoanAmountInput, InterestRateInput } from '../form/Inputs';
+import CrossInCircle from '../icons/CrossInCircle';
+
+const InterestRateInputWithPercentSign = (props: any) => (
+  <span>
+    <InterestRateInput {...props} />%
+  </span>
+);
+const LoanAmountInputWithDollarSign = (props: any) => (
+  <span>
+    $<LoanAmountInput {...props} />
+  </span>
+);
+
+const inputComponentMap = {
+  [ScenarioKey.annualInterestRate]: InterestRateInputWithPercentSign,
+  [ScenarioKey.constantOffsetAmount]: LoanAmountInputWithDollarSign,
+  [ScenarioKey.monthlyOffsetIncrement]: LoanAmountInputWithDollarSign,
+  [ScenarioKey.monthlyRepayment]: LoanAmountInputWithDollarSign,
+};
 
 type Props = {
   index: number;
-  baseScenario: BaseScenario;
   scenario: Scenario;
-  setValue: (key: ScenarioKey) => (event) => void;
+  addFieldToScenario: (key: ScenarioKey) => void;
+  removeFieldFromScenario: (key: ScenarioKey) => void;
+  setValue: (key: ScenarioKey) => (event: any) => void;
 };
 
-const Label = props => <label className="justify-self-end mr-2" {...props} />;
+const Label = (props: any) => (
+  <label className="justify-self-end mr-2" {...props} />
+);
 
 const ScenarioInputs: FC<Props> = ({
   index,
-  baseScenario,
   scenario,
+  addFieldToScenario,
+  removeFieldFromScenario,
   setValue,
 }) => (
-  <form
-    noValidate
-    style={{ gridArea: 'form' }}
-    className="grid cols-auto-auto border-b-1 border-gray-600 pb-3"
-  >
-    <Label htmlFor={`annualInterestRate-${index}`}>Interest rate: </Label>
-    <span>
-      <InterestRateInput
-        id={`annualInterestRate-${index}`}
-        value={
-          scenario.annualInterestRate !== undefined
-            ? scenario.annualInterestRate
-            : baseScenario.annualInterestRate
-        }
-        onChange={setValue(ScenarioKey.annualInterestRate)}
-      />
-      %
-    </span>
-    <Label htmlFor={`constantOffsetAmount-${index}`}>Initial offset:</Label>
-    <span>
-      $
-      <LoanAmountInput
-        id={`constantOffsetAmount-${index}`}
-        value={scenario.constantOffsetAmount || 0}
-        onChange={setValue(ScenarioKey.constantOffsetAmount)}
-      />
-    </span>
-    <Label htmlFor={`monthlyOffsetIncrement-${index}`}>Offset / m:</Label>
-    <span>
-      $
-      <LoanAmountInput
-        id={`monthlyOffsetIncrement-${index}`}
-        value={scenario.monthlyOffsetIncrement || 0}
-        onChange={setValue(ScenarioKey.monthlyOffsetIncrement)}
-      />
-    </span>
-    <Label htmlFor={`monthlyRepayment-${index}`}>Monthly repayment:</Label>
-    <span>
-      $
-      <LoanAmountInput
-        id={`monthlyRepayment-${index}`}
-        value={scenario.monthlyRepayment || 0}
-        onChange={setValue(ScenarioKey.monthlyRepayment)}
-      />
-    </span>
+  <form noValidate style={{ gridArea: 'form' }} className="grid cols-auto-3">
+    {selectableFieldKeys.map(fieldKey => {
+      if (scenario[fieldKey] === undefined) {
+        return null;
+      }
+      const InputComponent = inputComponentMap[fieldKey];
+      const id = `${fieldKey}-${index}`;
+      return (
+        <React.Fragment key={fieldKey}>
+          <Label htmlFor={id}>{selectableFieldLabels[fieldKey]}:</Label>
+          <InputComponent
+            id={id}
+            value={scenario[fieldKey]}
+            onChange={setValue(fieldKey)}
+          />
+          <button
+            onClick={() => removeFieldFromScenario(fieldKey)}
+            className="text-red-600"
+            title="Remove"
+          >
+            <CrossInCircle />
+          </button>
+        </React.Fragment>
+      );
+    })}
+    <ScenarioFieldSelector
+      scenario={scenario}
+      addFieldToScenario={addFieldToScenario}
+    />
   </form>
 );
 

@@ -24,6 +24,8 @@ type Props = {
   baseScenarioStats: SummaryStats;
   scenario: Scenario;
   setValue: (key: ScenarioKey) => (event) => void;
+  addFieldToScenario: (key: ScenarioKey) => void;
+  removeFieldFromScenario: (key: ScenarioKey) => void;
   removeScenario: (index: number) => void;
   calculateRepayment?: (p: number, r: number, n: number) => number;
 };
@@ -35,6 +37,8 @@ const ScenarioPanel: FC<Props> = ({
   baseScenarioStats,
   scenario,
   setValue,
+  addFieldToScenario,
+  removeFieldFromScenario,
   removeScenario,
   calculateRepayment = realCalculateRepayment,
 }) => {
@@ -64,8 +68,9 @@ const ScenarioPanel: FC<Props> = ({
       ) : (
         <ScenarioInputs
           index={index}
-          baseScenario={baseScenario}
           scenario={scenario}
+          addFieldToScenario={addFieldToScenario}
+          removeFieldFromScenario={removeFieldFromScenario}
           setValue={setValue}
         />
       )}

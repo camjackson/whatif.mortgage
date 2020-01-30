@@ -21,13 +21,17 @@
   border-bottom-width: 1px;
 }
 
+.border-t-1 {
+  border-top-width: 1px;
+}
+
 /* Grid-related utils */
 .grid {
   display: grid;
 }
 
-.cols-auto-auto {
-  grid-template-columns: auto auto;
+.cols-auto-3 {
+  grid-template-columns: auto auto auto;
 }
 
 .cols-50-50 {

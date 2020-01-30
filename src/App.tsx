@@ -10,6 +10,11 @@ import calculateRepayment from './math/calculateRepayment';
 const stateStorage = new StateStorage(window.localStorage);
 const initialState: State = stateStorage.getFromStorage();
 
+const stripKey = (obj: any, key: string) => {
+  const { [key]: _, ...rest } = obj;
+  return rest;
+};
+
 type StateHook = [State, (newValue: State) => void];
 
 const App = () => {
@@ -47,6 +52,25 @@ const App = () => {
     baseScenarioMonthlyRepayments,
   );
 
+  const newFieldInitialValues = {
+    [ScenarioKey.annualInterestRate]: state.baseScenario.annualInterestRate,
+    [ScenarioKey.constantOffsetAmount]: 0,
+    [ScenarioKey.monthlyOffsetIncrement]: 0,
+    [ScenarioKey.monthlyRepayment]: baseScenarioMonthlyRepayments,
+  };
+  const addFieldToScenario = (index: number) => (fieldKey: ScenarioKey) => {
+    const initialValue = newFieldInitialValues[fieldKey];
+    setScenarioValue(index)(fieldKey)({ target: { value: `${initialValue}` } });
+  };
+  const removeFieldFromScenario = (index: number) => (
+    fieldKey: ScenarioKey,
+  ) => {
+    const newScenarios = state.scenarios.map((scenario, i) =>
+      index === i ? stripKey(scenario, fieldKey) : scenario,
+    );
+    setState({ ...state, scenarios: newScenarios });
+  };
+
   return (
     <>
       <Header
@@ -63,6 +87,8 @@ const App = () => {
             baseScenarioStats={baseScenarioStats}
             scenario={scenario}
             setValue={setScenarioValue(index)}
+            addFieldToScenario={addFieldToScenario(index)}
+            removeFieldFromScenario={removeFieldFromScenario(index)}
             removeScenario={removeScenario}
           />
         ))}

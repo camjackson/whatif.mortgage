@@ -51,46 +51,43 @@ const RepaymentsStats: FC<Props> = ({
     stats.interestToPrincipalRatio - baseScenarioStats.interestToPrincipalRatio;
 
   return (
-    <>
-      <table style={{ gridArea: 'stats' }}>
-        <tbody>
+    <table style={{ gridArea: 'stats' }} className="border-t-1 border-gray-600">
+      <tbody>
+        <tr>
+          <Th>Repayments:</Th>
+          <Td>{formatCurrency(monthlyRepayments)}</Td>
+          <Td className={getColourClassName(repaymentChange)}>
+            ({plusOrNot(repaymentChange)}
+            {formatCurrency(repaymentChange)})
+          </Td>
+        </tr>
+        <tr>
+          <Th>Total interest:</Th>
+          <Td>{formatCurrency(stats.totalInterestPaid)}</Td>
+          <Td className={getColourClassName(interestChange)}>
+            ({plusOrNot(interestChange)}
+            {formatCurrency(interestChange)})
+          </Td>
+        </tr>
+        <tr>
+          <Th>Margin:</Th>
+          <Td>{formatInteger(stats.interestToPrincipalRatio)}%</Td>
+          <Td className={getColourClassName(marginChange)}>
+            ({plusOrNot(marginChange)}
+            {formatInteger(marginChange)}%)
+          </Td>
+        </tr>
+        {stats.monthsFinishedEarly !== 0 && (
           <tr>
-            <Th>Repayments:</Th>
-            <Td>{formatCurrency(monthlyRepayments)}</Td>
-            <Td className={getColourClassName(repaymentChange)}>
-              ({plusOrNot(repaymentChange)}
-              {formatCurrency(repaymentChange)})
+            <Th>Early exit:</Th>
+            <Td />
+            <Td className="text-green-500">
+              {formatMonths(stats.monthsFinishedEarly)}
             </Td>
           </tr>
-          <tr>
-            <Th>Total interest:</Th>
-            <Td>{formatCurrency(stats.totalInterestPaid)}</Td>
-            <Td className={getColourClassName(interestChange)}>
-              ({plusOrNot(interestChange)}
-              {formatCurrency(interestChange)})
-            </Td>
-          </tr>
-          <tr>
-            <Th>Margin:</Th>
-            <Td>{formatInteger(stats.interestToPrincipalRatio)}%</Td>
-            <Td className={getColourClassName(marginChange)}>
-              ({plusOrNot(marginChange)}
-              {formatInteger(marginChange)}%)
-            </Td>
-          </tr>
-          {stats.monthsFinishedEarly !== 0 && (
-            <tr>
-              <Th>Early exit:</Th>
-              <Td />
-              <Td className="text-green-500">
-                {formatMonths(stats.monthsFinishedEarly)}
-              </Td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-      <p className="leading-tight p-2"></p>
-    </>
+        )}
+      </tbody>
+    </table>
   );
 };
 
