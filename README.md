@@ -8,8 +8,6 @@ Mortgage scenario calculator and comparer.
 
 - Sharing of scenarios via special URL
 - Collections of scenarios
-- Better spacing of inputs, stats, etc
-- Offset line bug (starting at max, not min)
 - Override more fields:
   - Loan amount
   - Loan length

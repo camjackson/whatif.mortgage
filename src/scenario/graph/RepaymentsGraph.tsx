@@ -87,7 +87,7 @@ const RepaymentsGraph: FC<Props> = ({
               x2={`${columnXPc(index + 1)}%`}
               previousOffset={
                 index === 0
-                  ? initialOffsetAmount
+                  ? initialOffsetAmount || 0
                   : years[index - 1].totalSavedOffset
               }
               nextOffset={yearData.totalSavedOffset}
