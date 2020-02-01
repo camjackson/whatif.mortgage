@@ -42,7 +42,7 @@ const ScenarioInputs: FC<Props> = ({
   setValue,
 }) => (
   <form noValidate style={{ gridArea: 'form' }}>
-    <table>
+    <table className="w-full">
       <tbody>
         {selectableFieldKeys.map(fieldKey => {
           if (scenario[fieldKey] === undefined) {
