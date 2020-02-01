@@ -60,7 +60,7 @@ const ScenarioPanel: FC<Props> = ({
   return (
     <section
       style={gridAreas}
-      className="panel py-1 px-3 grid cols-35-65 items-center justify-items-center text-xl font-hairline"
+      className="panel py-1 px-3 grid cols-35-65 items-center justify-items-center text-l font-hairline"
     >
       <ScenarioHeader index={index} removeScenario={removeScenario} />
       {index === 0 ? (

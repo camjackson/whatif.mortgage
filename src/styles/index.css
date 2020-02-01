@@ -8,13 +8,17 @@
 /* Components */
 
 .panel {
-  @apply h-80 my-2 mx-2 border-2 border-gray-300;
+  @apply h-80 my-2 mx-2 border-1 border-gray-300 shadow-lg;
 }
 
 /* Gaps in the utils */
 
 .h-80 {
   height: 20rem;
+}
+
+.border-1 {
+  border-width: 1px;
 }
 
 .border-b-1 {
@@ -30,10 +34,6 @@
   display: grid;
 }
 
-.cols-auto-3 {
-  grid-template-columns: auto auto auto;
-}
-
 .cols-50-50 {
   grid-template-columns: 50% 50%;
 }
@@ -44,10 +44,6 @@
 
 .justify-items-center {
   justify-items: center;
-}
-
-.justify-self-end {
-  justify-self: end;
 }
 
 .justify-self-stretch {

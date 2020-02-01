@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { formatCurrency, formatInteger } from '../formatting';
 import { SummaryStats } from '../math/calculateLoanPeriods';
+import { Th, Td } from './Table';
 
 type Props = {
   monthlyRepayments: number;
@@ -24,15 +25,6 @@ const formatAmount = (qty: number, unit: string) => {
   return qty === 0 ? '' : `${qty}${unit}`;
 };
 
-type TdProps = {
-  className?: string;
-};
-
-const Th: FC = props => <th className="font-hairline text-right" {...props} />;
-const Td: FC<TdProps> = ({ className, ...props }) => (
-  <td className={`font-normal text-left ${className}`} {...props} />
-);
-
 const getColourClassName = (value: number): string =>
   value < 0 ? 'text-green-500' : value > 0 ? 'text-red-500' : 'text-blue-500';
 
@@ -51,7 +43,7 @@ const RepaymentsStats: FC<Props> = ({
     stats.interestToPrincipalRatio - baseScenarioStats.interestToPrincipalRatio;
 
   return (
-    <table style={{ gridArea: 'stats' }} className="border-t-1 border-gray-600">
+    <table style={{ gridArea: 'stats' }} className="border-1 border-gray-600">
       <tbody>
         <tr>
           <Th>Repayments:</Th>

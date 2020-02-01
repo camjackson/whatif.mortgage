@@ -5,7 +5,7 @@ export const selectableFieldLabels = {
   [ScenarioKey.annualInterestRate]: 'Interest rate',
   [ScenarioKey.constantOffsetAmount]: 'Initial offset',
   [ScenarioKey.monthlyOffsetIncrement]: 'Offset / m',
-  [ScenarioKey.monthlyRepayment]: 'Monthly repayment',
+  [ScenarioKey.monthlyRepayment]: 'Repayments',
 };
 export const selectableFieldKeys: ScenarioKey[] = Object.keys(
   selectableFieldLabels,

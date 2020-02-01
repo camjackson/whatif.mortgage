@@ -53,7 +53,7 @@ const RepaymentsGraph: FC<Props> = ({
   return (
     <svg
       style={{ gridArea: 'graph' }}
-      className="text-base shadow-lg"
+      className="text-base"
       width={graphWidthPx}
       height={graphHeightPx}
       onMouseLeave={() => setHoveredYear(null)}

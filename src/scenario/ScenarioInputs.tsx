@@ -4,6 +4,7 @@ import ScenarioFieldSelector, {
   selectableFieldLabels,
   selectableFieldKeys,
 } from './ScenarioFieldSelector';
+import { Th, Td } from './Table';
 import { LoanAmountInput, InterestRateInput } from '../form/Inputs';
 import CrossInCircle from '../icons/CrossInCircle';
 
@@ -33,10 +34,6 @@ type Props = {
   setValue: (key: ScenarioKey) => (event: any) => void;
 };
 
-const Label = (props: any) => (
-  <label className="justify-self-end mr-2" {...props} />
-);
-
 const ScenarioInputs: FC<Props> = ({
   index,
   scenario,
@@ -44,35 +41,50 @@ const ScenarioInputs: FC<Props> = ({
   removeFieldFromScenario,
   setValue,
 }) => (
-  <form noValidate style={{ gridArea: 'form' }} className="grid cols-auto-3">
-    {selectableFieldKeys.map(fieldKey => {
-      if (scenario[fieldKey] === undefined) {
-        return null;
-      }
-      const InputComponent = inputComponentMap[fieldKey];
-      const id = `${fieldKey}-${index}`;
-      return (
-        <React.Fragment key={fieldKey}>
-          <Label htmlFor={id}>{selectableFieldLabels[fieldKey]}:</Label>
-          <InputComponent
-            id={id}
-            value={scenario[fieldKey]}
-            onChange={setValue(fieldKey)}
-          />
-          <button
-            onClick={() => removeFieldFromScenario(fieldKey)}
-            className="text-red-600"
-            title="Remove"
-          >
-            <CrossInCircle />
-          </button>
-        </React.Fragment>
-      );
-    })}
-    <ScenarioFieldSelector
-      scenario={scenario}
-      addFieldToScenario={addFieldToScenario}
-    />
+  <form noValidate style={{ gridArea: 'form' }}>
+    <table>
+      <tbody>
+        {selectableFieldKeys.map(fieldKey => {
+          if (scenario[fieldKey] === undefined) {
+            return null;
+          }
+          const InputComponent = inputComponentMap[fieldKey];
+          const id = `${fieldKey}-${index}`;
+
+          return (
+            <tr key={fieldKey}>
+              <Th>
+                <label htmlFor={id}>{selectableFieldLabels[fieldKey]}:</label>
+              </Th>
+              <Td className="text-center">
+                <InputComponent
+                  id={id}
+                  value={scenario[fieldKey]}
+                  onChange={setValue(fieldKey)}
+                />
+              </Td>
+              <Td>
+                <button
+                  onClick={() => removeFieldFromScenario(fieldKey)}
+                  className="text-red-600 align-middle"
+                  title="Remove"
+                >
+                  <CrossInCircle />
+                </button>
+              </Td>
+            </tr>
+          );
+        })}
+        <tr>
+          <Td colSpan={3} className="text-center">
+            <ScenarioFieldSelector
+              scenario={scenario}
+              addFieldToScenario={addFieldToScenario}
+            />
+          </Td>
+        </tr>
+      </tbody>
+    </table>
   </form>
 );
 
