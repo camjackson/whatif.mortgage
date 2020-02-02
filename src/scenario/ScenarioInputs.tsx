@@ -63,7 +63,7 @@ const ScenarioInputs: FC<Props> = ({
                   onChange={setValue(fieldKey)}
                 />
               </Td>
-              <Td>
+              <Td className="text-center">
                 <button
                   onClick={() => removeFieldFromScenario(fieldKey)}
                   className="text-red-600 align-middle"
