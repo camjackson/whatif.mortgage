@@ -34,7 +34,7 @@ const App = () => {
   };
   const addScenario = () =>
     setState({ ...state, scenarios: [...state.scenarios, {}] });
-  const removeScenario = index =>
+  const removeScenario = (index: number) =>
     setState({
       ...state,
       scenarios: state.scenarios.filter((_, i) => i !== index),

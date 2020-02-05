@@ -6,7 +6,6 @@ type Props = {
   maxValue: number;
   graphGutterWidthPx: number;
   graphBodyHeightPc: number;
-  graphBodyWidthPc: number;
 };
 
 const GridLines: FC<Props> = ({
@@ -14,7 +13,6 @@ const GridLines: FC<Props> = ({
   maxValue,
   graphGutterWidthPx,
   graphBodyHeightPc,
-  graphBodyWidthPc,
 }) => {
   const lineHeights = [];
   const lineIntervalPc = (interval / maxValue) * graphBodyHeightPc;
@@ -28,17 +26,12 @@ const GridLines: FC<Props> = ({
     <>
       {lineHeights.map((lineHeight, i) => (
         <React.Fragment key={lineHeight}>
-          <text
-            textAnchor="end"
-            dominantBaseline="middle"
-            y={`${lineHeight}%`}
-            x={graphGutterWidthPx - 5}
-          >
+          <text dominantBaseline="middle" x={0} y={`${lineHeight}%`}>
             {formatCurrency((i + 1) * interval)}
           </text>
           <line
             stroke="black"
-            x1={`${100 - graphBodyWidthPc}%`}
+            x1={graphGutterWidthPx}
             x2={`${100}%`}
             y1={`${lineHeight}%`}
             y2={`${lineHeight}%`}

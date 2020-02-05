@@ -11,6 +11,9 @@ Mortgage scenario calculator and comparer.
 - Override more fields:
   - Loan amount
   - Loan length
+- Responsiveness
+  - Single column on narrow screens
+  - Graph dynamic width?
 
 ## Minor features
 

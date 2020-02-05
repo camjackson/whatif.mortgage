@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { useState, useLayoutEffect, useRef, FC } from 'react';
 import RepaymentColumn from './RepaymentColumn';
 import OffsetTrendLineSegment from './OffsetTrendLineSegment';
 import GridLines from './GridLines';
@@ -6,17 +6,24 @@ import HoverBox from './HoverBox';
 import LoanPeriod from '../../math/LoanPeriod';
 import getGridLineInterval from './getGridLineInterval';
 
-const graphWidthPx = 500;
-const graphHeightPx = 250;
-const graphGutterWidthPx = 60;
-const graphGutterHeightPx = 30;
-const graphGutterWidthPc = (graphGutterWidthPx / graphWidthPx) * 100;
-const graphGutterHeightPc = (graphGutterHeightPx / graphHeightPx) * 100;
-// The percentage of the total graph excluding the gutters
-const graphBodyWidthPc = 100 - graphGutterWidthPc;
-const graphBodyHeightPc = 100 - graphGutterHeightPc;
+const getGraphLayoutMeasurements = (graphWidthPx: number) => {
+  const graphHeightPx = 250;
 
-const baseFontSizePx = 16;
+  const graphGutterWidthPx = 50;
+  const graphGutterHeightPx = 30;
+  const graphGutterWidthPc = (graphGutterWidthPx / graphWidthPx) * 100;
+  const graphGutterHeightPc = (graphGutterHeightPx / graphHeightPx) * 100;
+
+  return {
+    graphHeightPx,
+    graphGutterHeightPx,
+    graphGutterWidthPx,
+    graphGutterWidthPc,
+    graphBodyWidthPc: 100 - graphGutterWidthPc,
+    graphBodyHeightPc: 100 - graphGutterHeightPc,
+    baseFontSizePx: 16,
+  };
+};
 
 type Props = {
   years: LoanPeriod[];
@@ -31,12 +38,33 @@ const RepaymentsGraph: FC<Props> = ({
 }) => {
   const [hoveredYear, setHoveredYear] = useState(null);
   const [focussedYear, setFocussedYear] = useState(null);
+  const [graphWidthPx, setGraphWidthPx] = useState(1);
+  const svgRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const onResize = () => {
+      setGraphWidthPx(svgRef.current.getBoundingClientRect().width);
+    };
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [svgRef]);
 
   const handleYearClicked = (index: number) => {
     setFocussedYear(focussedYear === index ? null : index);
   };
   const hoveredOrFocussedYear =
     hoveredYear !== null ? hoveredYear : focussedYear;
+
+  const {
+    graphHeightPx,
+    graphGutterHeightPx,
+    graphGutterWidthPx,
+    graphGutterWidthPc,
+    graphBodyWidthPc,
+    graphBodyHeightPc,
+    baseFontSizePx,
+  } = getGraphLayoutMeasurements(graphWidthPx);
 
   // In the first year, the interest pushes the column higher than the initial principal
   const graphMaxValue = years[0].getTotal();
@@ -45,16 +73,19 @@ const RepaymentsGraph: FC<Props> = ({
   const columnXPc = (index: number) =>
     index * columnWidthPc + graphGutterWidthPc;
 
-  const columnLabelXPc = (index: number) =>
-    Math.min(columnXPc(index) + columnWidthPc / 2, 98);
+  const columnLabelXPx = (index: number) =>
+    Math.min(
+      ((columnXPc(index) + columnWidthPc / 2) / 100) * graphWidthPx,
+      graphWidthPx - 12,
+    );
 
   const shouldGraphOffset = !!monthlyOffsetIncrement;
 
   return (
     <svg
       style={{ gridArea: 'graph' }}
+      ref={svgRef}
       className="text-base"
-      width={graphWidthPx}
       height={graphHeightPx}
       onMouseLeave={() => setHoveredYear(null)}
     >
@@ -64,7 +95,7 @@ const RepaymentsGraph: FC<Props> = ({
           {(index === 0 || (index + 1) % 5 === 0) && (
             <text
               className="anchor-middle"
-              x={`${columnLabelXPc(index)}%`}
+              x={columnLabelXPx(index)}
               y={graphHeightPx - graphGutterHeightPx + baseFontSizePx + 5}
             >
               {index + 1}
@@ -102,7 +133,6 @@ const RepaymentsGraph: FC<Props> = ({
         maxValue={graphMaxValue}
         graphGutterWidthPx={graphGutterWidthPx}
         graphBodyHeightPc={graphBodyHeightPc}
-        graphBodyWidthPc={graphBodyWidthPc}
       />
       {hoveredOrFocussedYear !== null &&
         hoveredOrFocussedYear < years.length && (
