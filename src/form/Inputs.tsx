@@ -35,7 +35,7 @@ export const YearsInput = ({ style = {}, ...props }) => (
     min="1"
     max="99"
     step="1"
-    style={{ width: '2.5ch', ...style }}
+    style={{ width: '3ch', ...style }}
     {...props}
   />
 );
