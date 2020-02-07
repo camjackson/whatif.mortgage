@@ -1,4 +1,5 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import GridLines from '../GridLines';
 
 describe('GridLines', () => {
@@ -13,7 +14,6 @@ describe('GridLines', () => {
           maxValue={500000}
           graphGutterWidthPx={50}
           graphBodyHeightPc={90}
-          graphBodyWidthPc={95}
         />
       </svg>,
     );
@@ -36,7 +36,7 @@ describe('GridLines', () => {
   it('renders the lines across the width of the graph', () => {
     lines.forEach(line => {
       expect(line).toHaveProp({
-        x1: '5%',
+        x1: 50,
         x2: '100%',
       });
     });
