@@ -41,7 +41,7 @@ const ScenarioInputs: FC<Props> = ({
   removeFieldFromScenario,
   setValue,
 }) => (
-  <form noValidate style={{ gridArea: 'form' }}>
+  <form noValidate style={{ gridArea: 'form' }} className="my-2 lg:mr-2">
     <table className="w-full">
       <tbody>
         {selectableFieldKeys.map(fieldKey => {

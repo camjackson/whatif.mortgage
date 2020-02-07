@@ -9,14 +9,6 @@ import calculateLoanPeriods, {
 import realCalculateRepayment from '../math/calculateRepayment';
 import { BaseScenario, Scenario, ScenarioKey } from '../models';
 
-const gridAreas = {
-  gridTemplateAreas: `
-    'form header'
-    'form graph'
-    'stats graph'
-  `,
-};
-
 type Props = {
   index: number;
   baseScenario: BaseScenario;
@@ -58,13 +50,12 @@ const ScenarioPanel: FC<Props> = ({
     monthlyRepayments,
   );
   return (
-    <section
-      style={gridAreas}
-      className="panel py-1 px-3 grid cols-35-65 items-center justify-items-stretch text-l font-hairline"
-    >
+    <section className="panel py-2 px-2 grid panel-narrow lg:panel-medium 2xl:panel-wide text-l font-hairline">
       <ScenarioHeader index={index} removeScenario={removeScenario} />
       {index === 0 ? (
-        <div style={{ gridArea: 'form' }}>(Base scenario)</div>
+        <div style={{ gridArea: 'form' }} className="text-center italic">
+          (Base scenario)
+        </div>
       ) : (
         <ScenarioInputs
           index={index}

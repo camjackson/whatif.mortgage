@@ -7,7 +7,7 @@ type Props = {
 
 const AddScenarioButton: FC<Props> = ({ addScenario }) => (
   <button
-    className="block panel rounded-sm text-xl text-green-500"
+    className="block panel rounded-sm text-xl text-green-500 min-h-80"
     onClick={addScenario}
     title="Add scenario"
   >

@@ -13,7 +13,7 @@ const ScenarioHeader: FC<Props> = ({ index, removeScenario }) => (
   >
     {index !== 0 && (
       <button
-        className="text-red-600 font-hairline underline text-base"
+        className="mr-2 text-red-600 font-hairline underline text-base"
         onClick={() => removeScenario(index)}
         title="Remove"
       >

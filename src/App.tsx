@@ -77,7 +77,7 @@ const App = () => {
         baseScenario={state.baseScenario}
         setValue={setBaseScenarioValue}
       />
-      <main className="grid cols-50-50 py-2 px-4">
+      <main className="grid py-2 cols-100 sm:cols-50-50">
         {state.scenarios.map((scenario, index) => (
           <ScenarioPanel
             key={index}

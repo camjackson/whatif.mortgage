@@ -43,7 +43,10 @@ const RepaymentsStats: FC<Props> = ({
     stats.interestToPrincipalRatio - baseScenarioStats.interestToPrincipalRatio;
 
   return (
-    <table style={{ gridArea: 'stats' }} className="border-1 border-gray-600">
+    <table
+      style={{ gridArea: 'stats' }}
+      className="my-2 w-full border-1 border-gray-600"
+    >
       <tbody>
         <tr>
           <Th>Repayments:</Th>
