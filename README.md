@@ -7,6 +7,7 @@ Mortgage scenario calculator and comparer.
 ## Major features
 
 - Sharing of scenarios via special URL
+- Reset button
 - Collections of scenarios
 - Override more fields:
   - Loan amount
@@ -15,7 +16,6 @@ Mortgage scenario calculator and comparer.
 ## Minor features
 
 - Commas in numeric inputs
-- Button states (hover, active)
 
 ## Tech
 

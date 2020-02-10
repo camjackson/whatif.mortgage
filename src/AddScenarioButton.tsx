@@ -7,11 +7,11 @@ type Props = {
 
 const AddScenarioButton: FC<Props> = ({ addScenario }) => (
   <button
-    className="block panel rounded-sm text-xl text-green-500 min-h-80"
+    className="block panel rounded-sm min-h-80 text-green-500"
     onClick={addScenario}
     title="Add scenario"
   >
-    <PlusInCircle />
+    <PlusInCircle hoverColorClassName="group-hover:text-green-200" />
   </button>
 );
 

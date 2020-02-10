@@ -89,6 +89,10 @@
   text-anchor: middle;
 }
 
+.stroke-none {
+  stroke: none;
+}
+
 .fill-none {
   fill: none;
 }

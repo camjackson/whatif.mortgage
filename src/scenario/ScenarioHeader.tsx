@@ -17,7 +17,7 @@ const ScenarioHeader: FC<Props> = ({ index, removeScenario }) => (
         onClick={() => removeScenario(index)}
         title="Remove"
       >
-        <CrossInSquare />
+        <CrossInSquare hoverColorClassName="hover:text-red-200" />
       </button>
     )}
   </div>
