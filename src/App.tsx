@@ -57,6 +57,8 @@ const App = () => {
     [ScenarioKey.constantOffsetAmount]: 0,
     [ScenarioKey.monthlyOffsetIncrement]: 0,
     [ScenarioKey.monthlyRepayment]: baseScenarioMonthlyRepayments,
+    [ScenarioKey.loanAmount]: state.baseScenario.loanAmount,
+    [ScenarioKey.loanLengthInYears]: state.baseScenario.loanLengthInYears,
   };
   const addFieldToScenario = (index: number) => (fieldKey: ScenarioKey) => {
     const initialValue = newFieldInitialValues[fieldKey];

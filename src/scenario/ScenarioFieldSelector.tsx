@@ -2,10 +2,12 @@ import React, { FC } from 'react';
 import { Scenario, ScenarioKey } from '../models';
 
 export const selectableFieldLabels = {
+  [ScenarioKey.loanAmount]: 'Loan amount',
   [ScenarioKey.annualInterestRate]: 'Interest rate',
+  [ScenarioKey.loanLengthInYears]: 'Loan length',
+  [ScenarioKey.monthlyRepayment]: 'Repayments',
   [ScenarioKey.constantOffsetAmount]: 'Initial offset',
   [ScenarioKey.monthlyOffsetIncrement]: 'Offset / m',
-  [ScenarioKey.monthlyRepayment]: 'Repayments',
 };
 export const selectableFieldKeys: ScenarioKey[] = Object.keys(
   selectableFieldLabels,

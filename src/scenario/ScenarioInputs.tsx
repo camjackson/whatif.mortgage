@@ -5,7 +5,7 @@ import ScenarioFieldSelector, {
   selectableFieldKeys,
 } from './ScenarioFieldSelector';
 import { Th, Td } from './Table';
-import { LoanAmountInput, InterestRateInput } from '../form/Inputs';
+import { LoanAmountInput, InterestRateInput, YearsInput } from '../form/Inputs';
 import CrossInCircle from '../icons/CrossInCircle';
 
 const InterestRateInputWithPercentSign = (props: any) => (
@@ -18,12 +18,19 @@ const LoanAmountInputWithDollarSign = (props: any) => (
     $<LoanAmountInput {...props} />
   </span>
 );
+const LoanLengthInputWithYears = (props: any) => (
+  <span>
+    <YearsInput {...props} /> years
+  </span>
+);
 
 const inputComponentMap = {
   [ScenarioKey.annualInterestRate]: InterestRateInputWithPercentSign,
   [ScenarioKey.constantOffsetAmount]: LoanAmountInputWithDollarSign,
   [ScenarioKey.monthlyOffsetIncrement]: LoanAmountInputWithDollarSign,
   [ScenarioKey.monthlyRepayment]: LoanAmountInputWithDollarSign,
+  [ScenarioKey.loanAmount]: LoanAmountInputWithDollarSign,
+  [ScenarioKey.loanLengthInYears]: LoanLengthInputWithYears,
 };
 
 type Props = {

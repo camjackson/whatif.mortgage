@@ -9,13 +9,11 @@ Mortgage scenario calculator and comparer.
 - Sharing of scenarios via special URL
 - Reset button
 - Collections of scenarios
-- Override more fields:
-  - Loan amount
-  - Loan length
 
 ## Minor features
 
 - Commas in numeric inputs
+- Measure the y-axis label for dynamic gutter size
 
 ## Tech
 
