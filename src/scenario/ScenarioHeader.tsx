@@ -9,7 +9,7 @@ type Props = {
 const ScenarioHeader: FC<Props> = ({ index, removeScenario }) => (
   <div
     style={{ gridArea: 'header' }}
-    className="justify-self-stretch flex justify-end"
+    className="justify-self-stretch flex justify-end 2xl:mb-2"
   >
     {index !== 0 && (
       <button
