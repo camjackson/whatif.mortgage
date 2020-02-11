@@ -15,7 +15,7 @@ beforeEach(() => {
     getBoundingRectCallCount++;
 
     // Order is inside-out, so it's grid line label, then svg element
-    const elementWidths = [50, 500];
+    const elementWidths = [45, 500];
 
     return {
       width: elementWidths[getBoundingRectCallCount],
