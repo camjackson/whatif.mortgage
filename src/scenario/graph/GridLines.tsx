@@ -1,19 +1,19 @@
-import React, { FC } from 'react';
+import React, { FC, useRef, useLayoutEffect } from 'react';
 import { formatCurrency } from '../../formatting';
+import getGridLineInterval from './getGridLineInterval';
 
 type Props = {
-  interval: number;
   maxValue: number;
   graphGutterWidthPx: number;
   graphBodyHeightPc: number;
+  setGraphGutterWidthPx: (widthPx: number) => void;
 };
 
-const GridLines: FC<Props> = ({
-  interval,
-  maxValue,
-  graphGutterWidthPx,
-  graphBodyHeightPc,
-}) => {
+const getLineHeights = (
+  interval: number,
+  maxValue: number,
+  graphBodyHeightPc: number,
+): number[] => {
   const lineHeights = [];
   const lineIntervalPc = (interval / maxValue) * graphBodyHeightPc;
   let nextLineHeight = graphBodyHeightPc - lineIntervalPc;
@@ -22,11 +22,32 @@ const GridLines: FC<Props> = ({
     lineHeights.push(nextLineHeight);
     nextLineHeight -= lineIntervalPc;
   }
+  return lineHeights;
+};
+
+const GridLines: FC<Props> = ({
+  maxValue,
+  graphGutterWidthPx,
+  graphBodyHeightPc,
+  setGraphGutterWidthPx,
+}) => {
+  const yAxisLabelRef = useRef(null);
+  useLayoutEffect(() => {
+    setGraphGutterWidthPx(yAxisLabelRef.current.getBoundingClientRect().width);
+  }, [yAxisLabelRef]);
+  const interval = getGridLineInterval(maxValue);
+  const lineHeights = getLineHeights(interval, maxValue, graphBodyHeightPc);
+
   return (
     <>
       {lineHeights.map((lineHeight, i) => (
         <React.Fragment key={lineHeight}>
-          <text dominantBaseline="middle" x={0} y={`${lineHeight}%`}>
+          <text
+            ref={i === lineHeights.length - 1 ? yAxisLabelRef : undefined}
+            dominantBaseline="middle"
+            x={0}
+            y={`${lineHeight}%`}
+          >
             {formatCurrency((i + 1) * interval)}
           </text>
           <line

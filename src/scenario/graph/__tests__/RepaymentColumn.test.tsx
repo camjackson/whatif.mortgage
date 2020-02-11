@@ -1,24 +1,25 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import RepaymentColumn from '../RepaymentColumn';
+import LoanPeriod from '../../../math/LoanPeriod';
 
 describe('RepaymentColumn', () => {
   let rects;
 
   beforeEach(() => {
-    const yearData = {
-      interestPaid: 100,
-      principalPaid: 80,
-      endingPrincipal: 240,
-    };
+    const yearData = new LoanPeriod(100, 80, 240, 0);
     const column = mount(
       <svg>
         <RepaymentColumn
-          graphMaxValue="1000"
+          graphMaxValue={1000}
           graphBodyHeightPc={50}
           yearData={yearData}
           x="35%"
           width="5%"
+          showBackground={false}
+          isFocussed={false}
           onMouseEnter={() => {}}
+          onClick={() => {}}
         />
       </svg>,
     );

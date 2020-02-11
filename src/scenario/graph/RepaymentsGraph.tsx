@@ -4,12 +4,13 @@ import OffsetTrendLineSegment from './OffsetTrendLineSegment';
 import GridLines from './GridLines';
 import HoverBox from './HoverBox';
 import LoanPeriod from '../../math/LoanPeriod';
-import getGridLineInterval from './getGridLineInterval';
 
-const getGraphLayoutMeasurements = (graphWidthPx: number) => {
+const getGraphLayoutMeasurements = (
+  graphWidthPx: number,
+  graphGutterWidthPx: number,
+) => {
   const graphHeightPx = 250;
 
-  const graphGutterWidthPx = 50;
   const graphGutterHeightPx = 30;
   const graphGutterWidthPc = (graphGutterWidthPx / graphWidthPx) * 100;
   const graphGutterHeightPc = (graphGutterHeightPx / graphHeightPx) * 100;
@@ -39,6 +40,7 @@ const RepaymentsGraph: FC<Props> = ({
   const [hoveredYear, setHoveredYear] = useState(null);
   const [focussedYear, setFocussedYear] = useState(null);
   const [graphWidthPx, setGraphWidthPx] = useState(1);
+  const [graphGutterWidthPx, setGraphGutterWidthPx] = useState(1);
   const svgRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -59,12 +61,11 @@ const RepaymentsGraph: FC<Props> = ({
   const {
     graphHeightPx,
     graphGutterHeightPx,
-    graphGutterWidthPx,
     graphGutterWidthPc,
     graphBodyWidthPc,
     graphBodyHeightPc,
     baseFontSizePx,
-  } = getGraphLayoutMeasurements(graphWidthPx);
+  } = getGraphLayoutMeasurements(graphWidthPx, graphGutterWidthPx);
 
   // In the first year, the interest pushes the column higher than the initial principal
   const graphMaxValue = years[0].getTotal();
@@ -129,10 +130,10 @@ const RepaymentsGraph: FC<Props> = ({
         </React.Fragment>
       ))}
       <GridLines
-        interval={getGridLineInterval(graphMaxValue)}
         maxValue={graphMaxValue}
         graphGutterWidthPx={graphGutterWidthPx}
         graphBodyHeightPc={graphBodyHeightPc}
+        setGraphGutterWidthPx={setGraphGutterWidthPx}
       />
       {hoveredOrFocussedYear !== null &&
         hoveredOrFocussedYear < years.length && (

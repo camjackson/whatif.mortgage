@@ -1,4 +1,5 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import HoverBox from '../HoverBox';
 
 describe('HoverBox', () => {
@@ -10,7 +11,12 @@ describe('HoverBox', () => {
     };
     return mount(
       <svg>
-        <HoverBox graphWidthPx={500} yearData={yearData} yearNumber={13} />
+        <HoverBox
+          graphWidthPx={500}
+          yearData={yearData}
+          yearNumber={13}
+          shouldGraphOffset={false}
+        />
       </svg>,
     );
   };

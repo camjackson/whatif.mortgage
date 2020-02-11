@@ -10,10 +10,10 @@ describe('GridLines', () => {
     const gridLines = mount(
       <svg>
         <GridLines
-          interval={100000}
           maxValue={500000}
           graphGutterWidthPx={50}
           graphBodyHeightPc={90}
+          setGraphGutterWidthPx={() => {}}
         />
       </svg>,
     );
