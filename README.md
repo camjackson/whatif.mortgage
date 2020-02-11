@@ -13,7 +13,7 @@ Mortgage scenario calculator and comparer.
 ## Minor features
 
 - Commas in numeric inputs
-- Measure the y-axis label for dynamic gutter size
+- Better currency formatting (don't show USD)
 
 ## Tech
 
