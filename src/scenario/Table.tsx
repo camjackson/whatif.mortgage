@@ -5,7 +5,7 @@ type Props = {
   colSpan?: number;
 };
 
-const cell = 'border-1 py-1 px-2';
+const cell = 'border py-1 px-2';
 
 export const Th: FC<Props> = ({ className = '', ...props }) => (
   <th className={`${cell} text-right font-hairline ${className}`} {...props} />

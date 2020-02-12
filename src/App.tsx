@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header';
+import Header from './header/Header';
 import AddScenarioButton from './AddScenarioButton';
 import ScenarioPanel from './scenario/ScenarioPanel';
 import StateStorage, { State } from './StateStorage';

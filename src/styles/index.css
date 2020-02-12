@@ -8,25 +8,11 @@
 /* Components */
 
 .panel {
-  @apply my-2 mx-2 border-1 border-gray-300 shadow-lg;
+  @apply my-2 mx-2 border border-gray-300 shadow-lg;
 }
-
-/* Gaps in the utils */
 
 .min-h-80 {
   min-height: 20rem;
-}
-
-.border-1 {
-  border-width: 1px;
-}
-
-.border-b-1 {
-  border-bottom-width: 1px;
-}
-
-.border-t-1 {
-  border-top-width: 1px;
 }
 
 /* Grid-related utils */

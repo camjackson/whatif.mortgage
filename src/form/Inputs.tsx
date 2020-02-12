@@ -2,7 +2,7 @@ import React from 'react';
 
 const NumberInput = props => (
   <input
-    className="border-b-1 border-gray-700 bg-transparent"
+    className="border-b border-gray-700 bg-transparent"
     type="number"
     {...props}
   />

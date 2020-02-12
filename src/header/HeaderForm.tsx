@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { BaseScenario, ScenarioKey } from './models';
-import { LoanAmountInput, InterestRateInput, YearsInput } from './form/Inputs';
+import { BaseScenario, ScenarioKey } from '../models';
+import { LoanAmountInput, InterestRateInput, YearsInput } from '../form/Inputs';
 
 type Props = {
   baseScenario: BaseScenario;
@@ -10,11 +10,11 @@ type Props = {
 const narrowClasses = 'flex-col text-xl';
 const wideClasses = 'md:flex-row md:text-3xl';
 
-const Header: FC<Props> = ({ baseScenario, setValue }) => (
-  <header className="shadow-md fixed w-full h-20 top-0 bg-gray-100">
+const HeaderForm: FC<Props> = ({ baseScenario, setValue }) => {
+  return (
     <form
       noValidate
-      className={`h-full flex items-center justify-center font-thin ${narrowClasses} ${wideClasses}`}
+      className={`h-full flex items-center justify-center flex-1 font-thin ${narrowClasses} ${wideClasses}`}
     >
       <span className="md:mr-2">
         I will borrow $
@@ -38,7 +38,6 @@ const Header: FC<Props> = ({ baseScenario, setValue }) => (
         years
       </span>
     </form>
-  </header>
-);
-
-export default Header;
+  );
+};
+export default HeaderForm;

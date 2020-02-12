@@ -36,7 +36,7 @@ const GridLines: FC<Props> = ({
     setGraphGutterWidthPx(
       yAxisLabelRef.current.getBoundingClientRect().width + 5,
     );
-  }, [yAxisLabelRef]);
+  }, [yAxisLabelRef, setGraphGutterWidthPx]);
   const interval = getGridLineInterval(maxValue);
   const lineHeights = getLineHeights(interval, maxValue, graphBodyHeightPc);
 

@@ -45,7 +45,7 @@ const RepaymentsStats: FC<Props> = ({
   return (
     <table
       style={{ gridArea: 'stats' }}
-      className="my-2 w-full border-1 border-gray-600"
+      className="my-2 w-full border-gray-600"
     >
       <tbody>
         <tr>
