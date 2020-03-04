@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import Hamburger from '../icons/Hamburger';
 
 const dropDownCoords = {
@@ -7,15 +7,21 @@ const dropDownCoords = {
 };
 
 const Li = (props: any) => (
-  <li
-    className="px-3 py-2 border-t-0 border-gray-300 hover:bg-gray-200"
-    {...props}
-  />
+  <li className="px-3 py-2 border-t-0 border-gray-300" {...props} />
 );
 
-const HeaderMenu = () => {
-  const [showMenu, setShowMenu] = useState(true);
+type Props = {
+  reset: () => void;
+};
+
+const HeaderMenu: FC<Props> = ({ reset }) => {
+  const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu(!showMenu);
+
+  const resetAndClose = () => {
+    reset();
+    toggleMenu();
+  };
 
   return (
     <>
@@ -31,10 +37,17 @@ const HeaderMenu = () => {
           style={dropDownCoords}
           className="fixed pt-12 shadow-2xl bg-white text-left"
         >
-          <Li>Import...</Li>
-          <Li>Export...</Li>
-          <Li>Set currency...</Li>
-          <Li>Clear all...</Li>
+          {false && <Li>Import...</Li>}
+          {false && <Li>Export...</Li>}
+          {false && <Li>Set currency...</Li>}
+          <Li>
+            <button
+              className="bg-white hover:bg-red-100 border rounded-sm border-red-600 text-red-600 px-3 py-2"
+              onClick={resetAndClose}
+            >
+              Reset (clear everything!)...
+            </button>
+          </Li>
         </ul>
       )}
     </>

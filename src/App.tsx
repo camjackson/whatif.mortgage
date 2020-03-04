@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './header/Header';
 import AddScenarioButton from './AddScenarioButton';
 import ScenarioPanel from './scenario/ScenarioPanel';
-import StateStorage, { State } from './StateStorage';
+import StateStorage, { defaultState, State } from './StateStorage';
 import { ScenarioKey } from './models';
 import calculateLoanPeriods from './math/calculateLoanPeriods';
 import calculateRepayment from './math/calculateRepayment';
@@ -19,6 +19,8 @@ type StateHook = [State, (newValue: State) => void];
 
 const App = () => {
   const [state, setState]: StateHook = useState(initialState);
+
+  const reset = () => setState(defaultState);
 
   const setBaseScenarioValue = (key: ScenarioKey) => event => {
     const value = parseFloat(event.target.value);
@@ -78,6 +80,7 @@ const App = () => {
       <Header
         baseScenario={state.baseScenario}
         setValue={setBaseScenarioValue}
+        reset={reset}
       />
       <main className="grid py-2 cols-100 sm:cols-50-50">
         {state.scenarios.map((scenario, index) => (
