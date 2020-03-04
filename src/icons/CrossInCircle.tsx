@@ -1,6 +1,6 @@
 import React from 'react';
 
-const crossInCirclePath = `
+const crossPath = `
   M7 7 L17 17
   M17 7 L7 17
 `;
@@ -13,7 +13,7 @@ const CrossInCircle = () => (
     height="24"
     className="stroke-current"
   >
-    <path d={crossInCirclePath} className="fill-none" />
+    <path d={crossPath} className="fill-none" />
     <circle cx="12" cy="12" r="10" className="fill-none" />
   </svg>
 );

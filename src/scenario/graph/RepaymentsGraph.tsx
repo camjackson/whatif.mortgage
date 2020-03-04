@@ -84,6 +84,7 @@ const RepaymentsGraph: FC<Props> = ({
 
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
       style={{ gridArea: 'graph' }}
       ref={svgRef}
       className="text-base"

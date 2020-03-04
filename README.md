@@ -8,7 +8,6 @@ Mortgage scenario calculator and comparer.
 
 - Sharing of scenarios via special URL
 - Reset button
-- Collections of scenarios
 
 ## Minor features
 

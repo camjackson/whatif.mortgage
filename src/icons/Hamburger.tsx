@@ -1,6 +1,6 @@
 import React, { FC, CSSProperties } from 'react';
 
-const crossInCirclePath = `
+const burgerPath = `
   M6 8 L18 8
   M6 12 L18 12
   M6 16 L18 16
@@ -24,7 +24,7 @@ const Hamburger: FC<Props> = ({ className = '' }) => (
     className={`stroke-current ${className}`}
     style={svgStyles}
   >
-    <path d={crossInCirclePath} className="fill-none" />
+    <path d={burgerPath} className="fill-none" />
   </svg>
 );
 

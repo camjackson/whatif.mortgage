@@ -6,7 +6,7 @@ const dropDownCoords = {
   right: 0,
 };
 
-const Li = props => (
+const Li = (props: any) => (
   <li
     className="px-3 py-2 border-t-0 border-gray-300 hover:bg-gray-200"
     {...props}
