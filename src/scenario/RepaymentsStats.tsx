@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { formatCurrency, formatInteger } from '../formatting';
+import { formatInteger } from '../formatting';
 import { SummaryStats } from '../math/calculateLoanPeriods';
 import { Th, Td } from './Table';
 
@@ -8,6 +8,7 @@ type Props = {
   stats: SummaryStats;
   baseScenarioMonthlyRepayments: number;
   baseScenarioStats: SummaryStats;
+  formatCurrency: (amount: number) => string;
 };
 
 const formatMonths = (months: number) => {
@@ -35,6 +36,7 @@ const RepaymentsStats: FC<Props> = ({
   stats,
   baseScenarioMonthlyRepayments,
   baseScenarioStats,
+  formatCurrency,
 }) => {
   const repaymentChange = monthlyRepayments - baseScenarioMonthlyRepayments;
   const interestChange =

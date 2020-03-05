@@ -7,16 +7,26 @@ const dropDownCoords = {
 };
 
 const Li = (props: any) => (
-  <li className="px-3 py-2 border-t-0 border-gray-300" {...props} />
+  <li className="px-3 py-2 border-t border-gray-300" {...props} />
 );
 
 type Props = {
+  currencySymbol: string;
+  setCurrencySymbol: (currencySymbol: string) => void;
   reset: () => void;
 };
 
-const HeaderMenu: FC<Props> = ({ reset }) => {
+const HeaderMenu: FC<Props> = ({
+  currencySymbol,
+  setCurrencySymbol,
+  reset,
+}) => {
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu(!showMenu);
+
+  const onChangeCurrency = (e: any) => {
+    setCurrencySymbol(e.target.value);
+  };
 
   const resetAndClose = () => {
     reset();
@@ -39,7 +49,17 @@ const HeaderMenu: FC<Props> = ({ reset }) => {
         >
           {false && <Li>Import...</Li>}
           {false && <Li>Export...</Li>}
-          {false && <Li>Set currency...</Li>}
+          <Li>
+            <label>
+              Set currency:
+              <input
+                type="text"
+                className="border-b border-black ml-3 w-6 text-center text-gray-900"
+                value={currencySymbol}
+                onChange={onChangeCurrency}
+              />
+            </label>
+          </Li>
           <Li>
             <button
               className="bg-white hover:bg-red-100 border rounded-sm border-red-600 text-red-600 px-3 py-2"

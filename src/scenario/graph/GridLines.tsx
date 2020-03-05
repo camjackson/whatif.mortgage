@@ -1,5 +1,4 @@
 import React, { FC, useRef, useLayoutEffect } from 'react';
-import { formatCurrency } from '../../formatting';
 import getGridLineInterval from './getGridLineInterval';
 
 type Props = {
@@ -7,6 +6,7 @@ type Props = {
   graphGutterWidthPx: number;
   graphBodyHeightPc: number;
   setGraphGutterWidthPx: (widthPx: number) => void;
+  formatCurrency: (amount: number) => string;
 };
 
 const getLineHeights = (
@@ -30,6 +30,7 @@ const GridLines: FC<Props> = ({
   graphGutterWidthPx,
   graphBodyHeightPc,
   setGraphGutterWidthPx,
+  formatCurrency,
 }) => {
   const yAxisLabelRef = useRef(null);
   useLayoutEffect(() => {

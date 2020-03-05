@@ -1,18 +1,21 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import RepaymentsStats from '../RepaymentsStats';
-import { SummaryStats } from '../math/calculateLoanPeriods';
+import { SummaryStats } from '../../math/calculateLoanPeriods';
+import { formatCurrency } from '../../formatting';
 
 describe('RepaymentsStats', () => {
   const stats: SummaryStats = {
     totalInterestPaid: 100,
     totalAmountPaid: 200,
     interestToPrincipalRatio: 8,
+    monthsFinishedEarly: 0,
   };
   const baseScenarioStats: SummaryStats = {
     totalInterestPaid: 120,
     totalAmountPaid: 220,
     interestToPrincipalRatio: 10,
+    monthsFinishedEarly: 0,
   };
   it('formats the stats data', () => {
     const repaymentsStats = mount(
@@ -21,6 +24,7 @@ describe('RepaymentsStats', () => {
         stats={stats}
         baseScenarioMonthlyRepayments={25}
         baseScenarioStats={baseScenarioStats}
+        formatCurrency={formatCurrency('$')}
       />,
     );
 
@@ -30,7 +34,7 @@ describe('RepaymentsStats', () => {
   });
 
   describe('early exit stat', () => {
-    const renderWithMonthsEarly = monthsFinishedEarly => {
+    const renderWithMonthsEarly = (monthsFinishedEarly: number) => {
       const statsWithEarlyFinish: SummaryStats = {
         ...stats,
         monthsFinishedEarly,
@@ -41,6 +45,7 @@ describe('RepaymentsStats', () => {
           stats={statsWithEarlyFinish}
           baseScenarioMonthlyRepayments={25}
           baseScenarioStats={baseScenarioStats}
+          formatCurrency={formatCurrency('$')}
         />,
       );
     };

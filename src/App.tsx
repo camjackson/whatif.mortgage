@@ -6,6 +6,7 @@ import StateStorage, { defaultState, State } from './StateStorage';
 import { ScenarioKey } from './models';
 import calculateLoanPeriods from './math/calculateLoanPeriods';
 import calculateRepayment from './math/calculateRepayment';
+import { formatCurrency } from './formatting';
 
 const stateStorage = new StateStorage(window.localStorage);
 const initialState: State = stateStorage.getFromStorage();
@@ -21,6 +22,9 @@ const App = () => {
   const [state, setState]: StateHook = useState(initialState);
 
   const reset = () => setState(defaultState);
+
+  const setCurrencySymbol = (currencySymbol: string) =>
+    setState({ ...state, currencySymbol });
 
   const setBaseScenarioValue = (key: ScenarioKey) => event => {
     const value = parseFloat(event.target.value);
@@ -80,6 +84,8 @@ const App = () => {
       <Header
         baseScenario={state.baseScenario}
         setValue={setBaseScenarioValue}
+        currencySymbol={state.currencySymbol}
+        setCurrencySymbol={setCurrencySymbol}
         reset={reset}
       />
       <main className="grid py-2 cols-100 sm:cols-50-50">
@@ -95,6 +101,7 @@ const App = () => {
             addFieldToScenario={addFieldToScenario(index)}
             removeFieldFromScenario={removeFieldFromScenario(index)}
             removeScenario={removeScenario}
+            formatCurrency={formatCurrency(state.currencySymbol)}
           />
         ))}
         <AddScenarioButton addScenario={addScenario} />

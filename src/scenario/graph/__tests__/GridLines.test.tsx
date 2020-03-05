@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import GridLines from '../GridLines';
+import { formatCurrency } from '../../../formatting';
 
 describe('GridLines', () => {
   let lines;
@@ -14,6 +15,7 @@ describe('GridLines', () => {
           graphGutterWidthPx={50}
           graphBodyHeightPc={90}
           setGraphGutterWidthPx={() => {}}
+          formatCurrency={formatCurrency('$')}
         />
       </svg>,
     );

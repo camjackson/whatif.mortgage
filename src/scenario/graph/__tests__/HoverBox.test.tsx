@@ -1,14 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import LoanPeriod from '../../../math/LoanPeriod';
 import HoverBox from '../HoverBox';
+import { formatCurrency } from '../../../formatting';
 
 describe('HoverBox', () => {
   const renderHoverBox = () => {
-    const yearData = {
-      interestPaid: 123,
-      principalPaid: 456,
-      endingPrincipal: 654321,
-    };
+    const yearData = new LoanPeriod(123, 456, 654321, 0);
     return mount(
       <svg>
         <HoverBox
@@ -16,6 +14,7 @@ describe('HoverBox', () => {
           yearData={yearData}
           yearNumber={13}
           shouldGraphOffset={false}
+          formatCurrency={formatCurrency('$')}
         />
       </svg>,
     );

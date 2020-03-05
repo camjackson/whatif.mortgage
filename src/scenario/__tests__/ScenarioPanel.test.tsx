@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import ScenarioPanel from '../ScenarioPanel';
 import { SummaryStats } from '../../math/calculateLoanPeriods';
+import { formatCurrency } from '../../formatting';
 
 describe('ScenarioPanel', () => {
   const baseScenario = {
@@ -28,6 +29,9 @@ describe('ScenarioPanel', () => {
         setValue={() => () => {}}
         calculateRepayment={calculateRepayment}
         removeScenario={() => {}}
+        addFieldToScenario={() => {}}
+        removeFieldFromScenario={() => {}}
+        formatCurrency={formatCurrency('$')}
       />,
     );
 
@@ -52,6 +56,9 @@ describe('ScenarioPanel', () => {
         setValue={() => () => {}}
         calculateRepayment={calculateRepayment}
         removeScenario={() => {}}
+        addFieldToScenario={() => {}}
+        removeFieldFromScenario={() => {}}
+        formatCurrency={formatCurrency('$')}
       />,
     );
 

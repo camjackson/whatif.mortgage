@@ -19,6 +19,7 @@ type Props = {
   addFieldToScenario: (key: ScenarioKey) => void;
   removeFieldFromScenario: (key: ScenarioKey) => void;
   removeScenario: (index: number) => void;
+  formatCurrency: (amount: number) => string;
   calculateRepayment?: (p: number, r: number, n: number) => number;
 };
 
@@ -32,6 +33,7 @@ const ScenarioPanel: FC<Props> = ({
   addFieldToScenario,
   removeFieldFromScenario,
   removeScenario,
+  formatCurrency,
   calculateRepayment = realCalculateRepayment,
 }) => {
   const appliedScenario: Scenario = { ...baseScenario, ...scenario };
@@ -70,11 +72,13 @@ const ScenarioPanel: FC<Props> = ({
         stats={stats}
         baseScenarioMonthlyRepayments={baseScenarioMonthlyRepayments}
         baseScenarioStats={baseScenarioStats}
+        formatCurrency={formatCurrency}
       />
       <RepaymentsGraph
         years={years}
         initialOffsetAmount={appliedScenario.constantOffsetAmount}
         monthlyOffsetIncrement={appliedScenario.monthlyOffsetIncrement}
+        formatCurrency={formatCurrency}
       />
     </section>
   );

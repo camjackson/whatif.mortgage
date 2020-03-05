@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { formatCurrency } from '../../formatting';
 import LoanPeriod from '../../math/LoanPeriod';
 
 const boxWidth = 200;
@@ -10,6 +9,7 @@ type Props = {
   yearData: LoanPeriod;
   yearNumber: number;
   shouldGraphOffset: boolean;
+  formatCurrency: (amount: number) => string;
 };
 
 const Text = ({ color = '', ...props }) => (
@@ -21,6 +21,7 @@ const HoverBox: FC<Props> = ({
   yearData,
   yearNumber,
   shouldGraphOffset,
+  formatCurrency,
 }) => {
   const boxHeight = shouldGraphOffset ? 115 : 95;
 

@@ -1,13 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { boundingRectX, boundingRectY } from '../../../setupTests';
 import RepaymentsGraph from '../RepaymentsGraph';
 import RepaymentColumn from '../RepaymentColumn';
 import HoverBox from '../HoverBox';
 import LoanPeriod from '../../../math/LoanPeriod';
-
-const rectProps = {};
+import { formatCurrency } from '../../../formatting';
 
 describe('RepaymentsGraph', () => {
   const years: LoanPeriod[] = [
@@ -25,6 +23,7 @@ describe('RepaymentsGraph', () => {
         years={years}
         initialOffsetAmount={0}
         monthlyOffsetIncrement={0}
+        formatCurrency={formatCurrency('$')}
       />,
     );
   });
@@ -68,8 +67,8 @@ describe('RepaymentsGraph', () => {
 
   it('hides the hover box when the mouse leaves the chart', () => {
     const moveEvent = {
-      clientX: boundingRectX + 50,
-      clientY: boundingRectY + 50,
+      clientX: 50,
+      clientY: 50,
     };
     act(() => {
       graph.find('svg').simulate('mouseMove', moveEvent);

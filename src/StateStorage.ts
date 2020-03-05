@@ -3,16 +3,18 @@ import { BaseScenario, Scenario } from './models';
 export type State = {
   baseScenario: BaseScenario;
   scenarios: Scenario[];
+  currencySymbol: string;
 };
 
 const STORAGE_KEY = 'persistedState';
-export const defaultState = {
+export const defaultState: State = {
   baseScenario: {
     loanAmount: 500000,
     annualInterestRate: 4.99,
     loanLengthInYears: 30,
   },
   scenarios: [{}],
+  currencySymbol: '$',
 };
 
 export default class StateStorage {
@@ -32,9 +34,10 @@ export default class StateStorage {
     this.storage.setItem(STORAGE_KEY, JSON.stringify(state));
   }
 
-  private stateLooksOk = ({ baseScenario, scenarios }) =>
+  private stateLooksOk = ({ baseScenario, scenarios, currencySymbol }) =>
     baseScenario.loanAmount &&
     baseScenario.annualInterestRate &&
     baseScenario.loanLengthInYears &&
-    Array.isArray(scenarios);
+    Array.isArray(scenarios) &&
+    typeof currencySymbol === 'string';
 }

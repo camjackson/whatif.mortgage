@@ -2,8 +2,9 @@ import StateStorage, { defaultState } from '../StateStorage';
 import { BaseScenario, Scenario } from '../models';
 
 describe('StateStorage', () => {
-  const createMockStorage = persistedState => ({
-    getItem: key => (key === 'persistedState' ? persistedState : null),
+  const createMockStorage = (persistedState: string) => ({
+    getItem: (key: string) =>
+      key === 'persistedState' ? persistedState : null,
     setItem: jest.fn(),
   });
 
@@ -14,7 +15,7 @@ describe('StateStorage', () => {
       const scenariosJson =
         '[{"annualInterestRate":2},{"annualInterestRate":4}]';
       const storage = createMockStorage(
-        `{"baseScenario":${baseScenarioJson},"scenarios":${scenariosJson}}`,
+        `{"baseScenario":${baseScenarioJson},"scenarios":${scenariosJson},"currencySymbol":"$"}`,
       );
       const stateStorage = new StateStorage(storage);
 
@@ -25,6 +26,7 @@ describe('StateStorage', () => {
           loanLengthInYears: 5,
         },
         scenarios: [{ annualInterestRate: 2 }, { annualInterestRate: 4 }],
+        currencySymbol: '$',
       });
     });
 

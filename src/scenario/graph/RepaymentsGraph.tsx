@@ -30,12 +30,14 @@ type Props = {
   years: LoanPeriod[];
   initialOffsetAmount: number;
   monthlyOffsetIncrement: number;
+  formatCurrency: (amount: number) => string;
 };
 
 const RepaymentsGraph: FC<Props> = ({
   years,
   initialOffsetAmount,
   monthlyOffsetIncrement,
+  formatCurrency,
 }) => {
   const [hoveredYear, setHoveredYear] = useState(null);
   const [focussedYear, setFocussedYear] = useState(null);
@@ -135,6 +137,7 @@ const RepaymentsGraph: FC<Props> = ({
         graphGutterWidthPx={graphGutterWidthPx}
         graphBodyHeightPc={graphBodyHeightPc}
         setGraphGutterWidthPx={setGraphGutterWidthPx}
+        formatCurrency={formatCurrency}
       />
       {hoveredOrFocussedYear !== null &&
         hoveredOrFocussedYear < years.length && (
@@ -143,6 +146,7 @@ const RepaymentsGraph: FC<Props> = ({
             yearData={years[hoveredOrFocussedYear]}
             yearNumber={hoveredOrFocussedYear + 1}
             shouldGraphOffset={shouldGraphOffset}
+            formatCurrency={formatCurrency}
           />
         )}
     </svg>
