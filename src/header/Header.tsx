@@ -6,6 +6,8 @@ import HeaderMenu from './HeaderMenu';
 type Props = {
   baseScenario: BaseScenario;
   setValue: (key: ScenarioKey) => (event) => void;
+  importFromString: (importString: string) => void;
+  exportString: string;
   currencySymbol: string;
   setCurrencySymbol: (currencySymbol: string) => void;
   reset: () => void;
@@ -14,6 +16,8 @@ type Props = {
 const Header: FC<Props> = ({
   baseScenario,
   setValue,
+  importFromString,
+  exportString,
   currencySymbol,
   setCurrencySymbol,
   reset,
@@ -26,6 +30,8 @@ const Header: FC<Props> = ({
     />
     <HeaderMenu
       reset={reset}
+      importFromString={importFromString}
+      exportString={exportString}
       currencySymbol={currencySymbol}
       setCurrencySymbol={setCurrencySymbol}
     />

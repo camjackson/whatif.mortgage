@@ -11,18 +11,36 @@ const Li = (props: any) => (
 );
 
 type Props = {
+  importFromString: (importString: string) => void;
+  exportString: string;
   currencySymbol: string;
   setCurrencySymbol: (currencySymbol: string) => void;
   reset: () => void;
 };
 
 const HeaderMenu: FC<Props> = ({
+  importFromString,
+  exportString,
   currencySymbol,
   setCurrencySymbol,
   reset,
 }) => {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true); //TODO: false
   const toggleMenu = () => setShowMenu(!showMenu);
+
+  const [importString, setImportString] = useState('');
+  const importButtonClick = () => {
+    try {
+      importFromString(importString);
+      toggleMenu();
+    } catch (e) {
+      alert(
+        `Import failed.
+
+You can export your data by copying the export text above.`,
+      );
+    }
+  };
 
   const onChangeCurrency = (e: any) => {
     setCurrencySymbol(e.target.value);
@@ -47,8 +65,32 @@ const HeaderMenu: FC<Props> = ({
           style={dropDownCoords}
           className="fixed pt-12 shadow-2xl bg-white text-left"
         >
-          {false && <Li>Import...</Li>}
-          {false && <Li>Export...</Li>}
+          <Li>
+            <button
+              className="border border-green-700 px-2 py-1 hover:bg-green-200 text-green-700"
+              onClick={importButtonClick}
+            >
+              Import
+            </button>
+            <input
+              type="text"
+              id="inputText"
+              className="border-b border-black ml-3 text-gray-900 text-ellipsis"
+              value={importString}
+              onChange={e => setImportString(e.target.value)}
+            />
+          </Li>
+          <Li>
+            <label>
+              Export text:
+              <input
+                type="text"
+                readOnly
+                className="border-b border-black ml-3 text-gray-900 text-ellipsis"
+                value={exportString}
+              />
+            </label>
+          </Li>
           <Li>
             <label>
               Set currency:
@@ -62,7 +104,7 @@ const HeaderMenu: FC<Props> = ({
           </Li>
           <Li>
             <button
-              className="bg-white hover:bg-red-100 border rounded-sm border-red-600 text-red-600 px-3 py-2"
+              className="bg-white hover:bg-red-200 border rounded-sm border-red-600 text-red-600 px-3 py-2"
               onClick={resetAndClose}
             >
               Reset (clear everything!)...

@@ -34,7 +34,7 @@ export default class StateStorage {
     this.storage.setItem(STORAGE_KEY, JSON.stringify(state));
   }
 
-  private stateLooksOk = ({ baseScenario, scenarios, currencySymbol }) =>
+  public stateLooksOk = ({ baseScenario, scenarios, currencySymbol }) =>
     baseScenario.loanAmount &&
     baseScenario.annualInterestRate &&
     baseScenario.loanLengthInYears &&

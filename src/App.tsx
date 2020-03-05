@@ -21,6 +21,14 @@ type StateHook = [State, (newValue: State) => void];
 const App = () => {
   const [state, setState]: StateHook = useState(initialState);
 
+  const importFromString = (importString: string) => {
+    const parsed = JSON.parse(importString);
+    if (stateStorage.stateLooksOk(parsed)) {
+      setState(parsed);
+    } else {
+      throw new Error('Could not import');
+    }
+  };
   const reset = () => setState(defaultState);
 
   const setCurrencySymbol = (currencySymbol: string) =>
@@ -84,6 +92,8 @@ const App = () => {
       <Header
         baseScenario={state.baseScenario}
         setValue={setBaseScenarioValue}
+        importFromString={importFromString}
+        exportString={JSON.stringify(state)}
         currencySymbol={state.currencySymbol}
         setCurrencySymbol={setCurrencySymbol}
         reset={reset}
