@@ -25,7 +25,7 @@ const HeaderMenu: FC<Props> = ({
   setCurrencySymbol,
   reset,
 }) => {
-  const [showMenu, setShowMenu] = useState(true); //TODO: false
+  const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu(!showMenu);
 
   const [importString, setImportString] = useState('');
